@@ -1,4 +1,4 @@
-!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="si">
 <head>
   <meta charset="UTF-8">
@@ -196,8 +196,8 @@
          
           <div class="shell shell-1" id="shell-1" ondragover="allowDrop(event)" ondrop="dropElectron(1)" onclick="clickAddElectron(1)"></div>
           <div class="shell shell-2" id="shell-2" ondragover="allowDrop(event)" ondrop="dropElectron(2)" onclick="clickAddElectron(2)"></div>
-          <div class="shell shell-3" id="shell-3-box" ondragover="allowDrop(event)" ondrop="dropElectron(3)" onclick="clickAddElectron(3)"></div>
-          <div class="shell shell-4" id="shell-4-box" ondragover="allowDrop(event)" ondrop="dropElectron(4)" onclick="clickAddElectron(4)"></div>
+          <div class="shell shell-3" id="shell-3" ondragover="allowDrop(event)" ondrop="dropElectron(3)" onclick="clickAddElectron(3)"></div>
+          <div class="shell shell-4" id="shell-4" ondragover="allowDrop(event)" ondrop="dropElectron(4)" onclick="clickAddElectron(4)"></div>
         </div>
 
         <div class="electron-box">
@@ -270,7 +270,6 @@
       { name: 'කැල්සියම් (Ca)', sym: 'Ca', config: [2, 8, 8, 2] }
     ];
 
-    // Level 3 Data - K (පොටෑසියම්) ඇතුළත් කරන ලදී
     const l3Elements = [
       { sym: 'Li', type: 'metals' },
       { sym: 'Mg', type: 'metals' },
@@ -472,8 +471,8 @@
       document.getElementById('l2-nucleus').innerText = q.sym;
       document.getElementById('instruction-l2').innerText = "⚡ Electron මත touch කර ඇදගෙන විත් වළලු පුරවන්න!";
 
-      document.getElementById('shell-3-box').style.display = q.config.length >= 3 ? 'flex' : 'none';
-      document.getElementById('shell-4-box').style.display = q.config.length >= 4 ? 'flex' : 'none';
+      document.getElementById('shell-3').style.display = q.config.length >= 3 ? 'flex' : 'none';
+      document.getElementById('shell-4').style.display = q.config.length >= 4 ? 'flex' : 'none';
 
       updateShellUI();
       startTimer(2);
