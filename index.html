@@ -200,52 +200,48 @@
   </div>
 
   <script>
-    const elementsData = [
-      { sym: 'H', x: 5, y: 30 }, { sym: 'He', x: 10, y: 90 },
-      { sym: 'Li', x: 15, y: 15 }, { sym: 'Be', x: 20, y: 35 },
-      { sym: 'B', x: 25, y: 30 }, { sym: 'C', x: 30, y: 45 },
-      { sym: 'N', x: 35, y: 55 }, { sym: 'O', x: 40, y: 50 },
-      { sym: 'F', x: 45, y: 70 }, { sym: 'Ne', x: 50, y: 85 },
-      { sym: 'Na', x: 55, y: 12 }, { sym: 'Mg', x: 60, y: 30 },
-      { sym: 'Al', x: 65, y: 25 }, { sym: 'Si', x: 70, y: 40 },
-      { sym: 'P', x: 75, y: 50 }, { sym: 'S', x: 80, y: 45 },
-      { sym: 'Cl', x: 85, y: 65 }, { sym: 'Ar', x: 90, y: 80 },
-      { sym: 'K', x: 95, y: 10 }, { sym: 'Ca', x: 98, y: 25 }
-    ];
+  function handleLogin() {
+      const usernameInput = document.getElementById('username');
+      const passwordInput = document.getElementById('password');
+     
+      if (!usernameInput || !passwordInput) return;
 
-    const l2Questions = [
-      { name: 'මැග්නීසියම් (Mg)', sym: 'Mg', config: [2, 8, 2] },
-      { name: 'ඔක්සිජන් (O)', sym: 'O', config: [2, 6] },
-      { name: 'කැල්සියම් (Ca)', sym: 'Ca', config: [2, 8, 8, 2] }
-    ];
+      const name = usernameInput.value.trim();
+      const pass = passwordInput.value;
 
-    let currentUser = null;
-    let selectedElement = null;
-    let gameTimer = null;
-    let timeLeft = 150;
-    let maxTime = 150;
-    let placedCount = 0;
-
-    let l2SubIndex = 0;
-    let currentShellState = [0, 0, 0, 0, 0];
-    let isElectronPicked = false;
-
-    window.onload = function() {
-      const urlParams = new URLSearchParams(window.location.search);
-      if (urlParams.get('src') === 'app') {
-        document.getElementById('vip-badge').classList.remove('hidden');
+      if(!name || !pass) {
+        alert('దయவுකරලා නම සහ මුරපදය ඇතුළත් කරන්න!');
+        return;
       }
 
-      const activeName = localStorage.getItem('ssg_active_session');
-      if (activeName) {
-        const data = JSON.parse(localStorage.getItem('ssg_user_' + activeName));
-        if (data) {
-          currentUser = data;
-          if (!currentUser.progress.easy) currentUser.progress.easy = { 1: null, 2: null };
-          showDashboard();
+      let storedData;
+      try {
+        storedData = JSON.parse(localStorage.getItem('ssg_user_' + name));
+      } catch(e) {
+        storedData = null;
+      }
+
+      if (storedData) {
+        if (storedData.password !== pass) {
+          alert('වැරදි Password එකක්!');
+          return;
         }
+      } else {
+        storedData = {
+          name: name,
+          password: pass,
+          progress: { easy: { 1: null, 2: null } }
+        };
+        localStorage.setItem('ssg_user_' + name, JSON.stringify(storedData));
       }
-    };
+
+      currentUser = storedData;
+      localStorage.setItem('ssg_active_session', name);
+      showDashboard();
+    }
+
+ 
+
 
     function handleLogin() {
       const name = document.getElementById('username').value.trim();
