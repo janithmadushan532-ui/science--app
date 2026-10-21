@@ -51,24 +51,35 @@
 
     /* Level 2 Shell Arena */
     .shells-wrapper { display: flex; flex-direction: column; align-items: center; justify-content: center; margin: 10px 0; }
-    .atomic-system { position: relative; width: 280px; height: 280px; display: flex; justify-content: center; align-items: center; }
+    .atomic-system { position: relative; width: 320px; height: 320px; display: flex; justify-content: center; align-items: center; }
     .nucleus { width: 45px; height: 45px; background: var(--neon-pink); border-radius: 50%; display: flex; justify-content: center; align-items: center; font-weight: bold; color: #fff; box-shadow: 0 0 15px var(--neon-pink); z-index: 10; font-size: 18px; }
    
     .shell { position: absolute; border: 2px solid var(--neon-cyan); border-radius: 50%; display: flex; justify-content: center; align-items: center; cursor: pointer; transition: 0.2s; }
     .shell:hover { border-color: var(--neon-yellow); background: rgba(0, 243, 255, 0.05); }
    
     .shell-1 { width: 90px; height: 90px; z-index: 4; }
-    .shell-2 { width: 145px; height: 145px; z-index: 3; }
-    .shell-3 { width: 200px; height: 200px; z-index: 2; }
-    .shell-4 { width: 255px; height: 255px; z-index: 1; }
+    .shell-2 { width: 150px; height: 150px; z-index: 3; }
+    .shell-3 { width: 210px; height: 210px; z-index: 2; }
+    .shell-4 { width: 270px; height: 270px; z-index: 1; }
 
-    /* Electron Dots inside shells */
-    .electron-dot { position: absolute; width: 10px; height: 10px; background: var(--neon-yellow); border-radius: 50%; box-shadow: 0 0 8px var(--neon-yellow); transform: translate(-50%, -50%); }
+    .electron-dot { position: absolute; width: 10px; height: 10px; background: var(--neon-yellow); border-radius: 50%; box-shadow: 0 0 8px var(--neon-yellow); z-index: 5; }
 
-    /* Electron Box Source */
     .electron-box { display: flex; align-items: center; justify-content: center; gap: 12px; margin-top: 15px; background: #0d111d; padding: 12px 20px; border: 1px dashed var(--neon-cyan); border-radius: 10px; }
     .electron-draggable { width: 35px; height: 35px; background: radial-gradient(circle, var(--neon-cyan), #0077ff); border-radius: 50%; cursor: grab; display: flex; justify-content: center; align-items: center; box-shadow: 0 0 10px var(--neon-cyan); font-size: 16px; font-weight: bold; color: #000; user-select: none; }
     .electron-draggable:active { cursor: grabbing; }
+
+    /* Level 3 Classification Arena */
+    .classification-arena { display: flex; flex-direction: column; gap: 15px; margin-top: 10px; }
+    .target-box-pool { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; background: #121826; padding: 12px; border: 1px dashed var(--neon-cyan); border-radius: 8px; min-height: 55px; }
+    .class-item { padding: 8px 14px; background: #1f2942; border: 1px solid var(--neon-cyan); border-radius: 4px; cursor: pointer; font-weight: bold; }
+    .class-item.selected { background: var(--neon-pink); box-shadow: 0 0 10px var(--neon-pink); }
+   
+    .bins-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+    .bin-card { background: #101420; border: 2px solid var(--neon-pink); border-radius: 8px; padding: 10px; min-height: 140px; display: flex; flex-direction: column; align-items: center; cursor: pointer; transition: 0.2s; }
+    .bin-card:hover { background: rgba(255, 0, 85, 0.05); }
+    .bin-card h4 { color: var(--neon-yellow); margin-bottom: 8px; font-size: 14px; text-align: center; }
+    .bin-items { display: flex; flex-wrap: wrap; gap: 6px; justify-content: center; width: 100%; }
+    .placed-chip { padding: 4px 8px; background: var(--neon-cyan); color: #000; font-weight: bold; border-radius: 4px; font-size: 13px; }
 
     .hidden { display: none !important; }
   </style>
@@ -112,6 +123,10 @@
             <span>Level 2: ඉලෙක්ට්‍රොනික වින්‍යාසය</span>
             <span id="badge-easy-2">🔓</span>
           </button>
+          <button class="level-btn" onclick="startLevel('easy', 3)">
+            <span>Level 3: ලෝහ, අලෝහ හා ලොහාලෝහ</span>
+            <span id="badge-easy-3">🔓</span>
+          </button>
         </div>
 
         <div class="chain-card">
@@ -136,7 +151,7 @@
         <div id="chart-content" style="margin-top: 10px;"></div>
       </div>
       <br>
-      <button class="btn" style="background: #333;" onclick="logout()">Logout</button>
+      <button class="btn" style="background: #333;" onclick="logout()">Logout / අලුත් ගිණුමකට යන්න</button>
     </div>
 
     <!-- 3. LEVEL 1 GAME -->
@@ -172,7 +187,7 @@
       </div>
 
       <div id="instruction-l2" class="instruction-banner">
-        👉 Electron Box එකෙන් තිතක් Drag කර හෝ Touch කර අදාළ වළල්ල මත තබන්න!
+        ⚡ අකුණු ලකුණ touch කර electron ගෙන නිවැරදිව ඉලෙක්ට්‍රෝන පුරවන්න!
       </div>
 
       <div class="shells-wrapper">
@@ -192,6 +207,44 @@
         </div>
 
         <button class="btn" style="background: #444; width: auto; margin-top: 10px;" onclick="resetL2Current()">නැවත මුල සිට පටන් ගන්න 🔄</button>
+      </div>
+    </div>
+
+    <!-- 5. LEVEL 3 GAME (CLASSIFICATION: METALS, NON-METALS, METALLOIDS) -->
+    <div id="game-screen-l3" class="hidden">
+      <div style="display: flex; justify-content: space-between; align-items: center;">
+        <h3 style="color: var(--neon-green);">Level 3: ලෝහ, අලෝහ හා ලොහාලෝහ</h3>
+        <button class="btn" style="width: auto; padding: 5px 15px; margin: 0;" onclick="quitGame()">Exit</button>
+      </div>
+
+      <div class="timer-container"><div id="timer-bar-l3" class="timer-bar"></div></div>
+      <div class="badge-status">
+        කාලය: <span id="time-display-l3">02:00</span> | Badge එක: <span id="badge-display-l3">💎 Diamond</span>
+      </div>
+
+      <div class="instruction-banner">
+        👉 පහළ මූලද්‍රව්‍යයක් Touch කර, අදාළ භාජනය (Bin) මත ඔබා වර්ග කරන්න!
+      </div>
+
+      <div class="classification-arena">
+        <div class="target-box-pool" id="l3-pool">
+          <!-- Elements dynamically loaded -->
+        </div>
+
+        <div class="bins-grid">
+          <div class="bin-card" onclick="selectBin('metals')">
+            <h4 style="color: var(--neon-cyan);">🔵 ලෝහ (Metals)</h4>
+            <div class="bin-items" id="bin-metals"></div>
+          </div>
+          <div class="bin-card" onclick="selectBin('nonmetals')">
+            <h4 style="color: var(--neon-pink);">🔴 අලෝහ (Non-metals)</h4>
+            <div class="bin-items" id="bin-nonmetals"></div>
+          </div>
+          <div class="bin-card" onclick="selectBin('metalloids')">
+            <h4 style="color: var(--neon-yellow);">🟡 ලොහාලෝහ (Metalloids)</h4>
+            <div class="bin-items" id="bin-metalloids"></div>
+          </div>
+        </div>
       </div>
     </div>
 
@@ -217,6 +270,19 @@
       { name: 'කැල්සියම් (Ca)', sym: 'Ca', config: [2, 8, 8, 2] }
     ];
 
+    // Level 3 Data
+    const l3Elements = [
+      { sym: 'Li', type: 'metals' },
+      { sym: 'Mg', type: 'metals' },
+      { sym: 'K', type: 'metals' },
+      { sym: 'C', type: 'nonmetals' },
+      { sym: 'O', type: 'nonmetals' },
+      { sym: 'N', type: 'nonmetals' },
+      { sym: 'F', type: 'nonmetals' },
+      { sym: 'B', type: 'metalloids' },
+      { sym: 'Si', type: 'metalloids' }
+    ];
+
     let currentUser = null;
     let selectedElement = null;
     let gameTimer = null;
@@ -228,25 +294,16 @@
     let currentShellState = [0, 0, 0, 0, 0];
     let isElectronPicked = false;
 
+    let l3ActiveElement = null;
+    let l3RemainingItems = [];
+    let l3UserBins = { metals: [], nonmetals: [], metalloids: [] };
+
     window.onload = function() {
       const urlParams = new URLSearchParams(window.location.search);
       if (urlParams.get('src') === 'app') {
         document.getElementById('vip-badge').classList.remove('hidden');
       }
-
-      const activeName = localStorage.getItem('ssg_active_session');
-      if (activeName) {
-        try {
-          const data = JSON.parse(localStorage.getItem('ssg_user_' + activeName));
-          if (data) {
-            currentUser = data;
-            if (!currentUser.progress) currentUser.progress = { easy: { 1: null, 2: null } };
-            showDashboard();
-          }
-        } catch(e) {
-          localStorage.removeItem('ssg_active_session');
-        }
-      }
+      localStorage.removeItem('ssg_active_session');
     };
 
     function handleLogin() {
@@ -279,7 +336,7 @@
         storedData = {
           name: name,
           password: pass,
-          progress: { easy: { 1: null, 2: null } }
+          progress: { easy: { 1: null, 2: null, 3: null } }
         };
         localStorage.setItem('ssg_user_' + name, JSON.stringify(storedData));
       }
@@ -293,18 +350,22 @@
       document.getElementById('auth-screen').classList.add('hidden');
       document.getElementById('game-screen-l1').classList.add('hidden');
       document.getElementById('game-screen-l2').classList.add('hidden');
+      document.getElementById('game-screen-l3').classList.add('hidden');
       document.getElementById('dashboard-screen').classList.remove('hidden');
       document.getElementById('player-display-name').innerText = currentUser.name;
 
-      if(!currentUser.progress) currentUser.progress = { easy: { 1: null, 2: null } };
+      if(!currentUser.progress) currentUser.progress = { easy: { 1: null, 2: null, 3: null } };
+      if(!currentUser.progress.easy) currentUser.progress.easy = { 1: null, 2: null, 3: null };
      
       document.getElementById('badge-easy-1').innerText = currentUser.progress.easy[1] || '🔓';
       document.getElementById('badge-easy-2').innerText = currentUser.progress.easy[2] || '🔓';
+      document.getElementById('badge-easy-3').innerText = currentUser.progress.easy[3] || '🔓';
 
       const chartBox = document.getElementById('chart-content');
       chartBox.innerHTML = `
         <div class="chart-row"><span>Easy Level 1 (අයණිකරණ ශක්තිය)</span> <span><b>${currentUser.progress.easy[1] || 'නැත ❌'}</b></span></div>
         <div class="chart-row"><span>Easy Level 2 (ඉලෙක්ට්‍රොනික වින්‍යාසය)</span> <span><b>${currentUser.progress.easy[2] || 'නැත ❌'}</b></span></div>
+        <div class="chart-row"><span>Easy Level 3 (ලෝහ, අලෝහ හා ලොහාලෝහ)</span> <span><b>${currentUser.progress.easy[3] || 'නැත ❌'}</b></span></div>
       `;
     }
 
@@ -323,6 +384,10 @@
         document.getElementById('game-screen-l2').classList.remove('hidden');
         l2SubIndex = 0;
         initL2SubLevel();
+      } else if (chain === 'easy' && level === 3) {
+        document.getElementById('dashboard-screen').classList.add('hidden');
+        document.getElementById('game-screen-l3').classList.remove('hidden');
+        initL3Game();
       }
     }
 
@@ -405,7 +470,7 @@
       const q = l2Questions[l2SubIndex];
       document.getElementById('l2-title').innerText = `Level 2 (${l2SubIndex+1}/3): ${q.name}`;
       document.getElementById('l2-nucleus').innerText = q.sym;
-      document.getElementById('instruction-l2').innerText = "👉 Electron Box එකෙන් තිතක් Drag කර හෝ Touch කර අදාළ වළල්ල මත තබන්න!";
+      document.getElementById('instruction-l2').innerText = "⚡ අකුණු ලකුණ touch කර electron ගෙන නිවැරදිව ඉලෙක්ට්‍රෝන පුරවන්න!";
 
       document.getElementById('shell-3-box').style.display = q.config.length >= 3 ? 'flex' : 'none';
       document.getElementById('shell-4-box').style.display = q.config.length >= 4 ? 'flex' : 'none';
@@ -448,7 +513,7 @@
 
       if (currentShellState[shellNum] < maxAllowed) {
         currentShellState[shellNum]++;
-        document.getElementById('instruction-l2').innerText = `👉 ${shellNum} වන වළල්ලට ඉලෙක්ට්‍රෝනයක් එකතු කළා!`;
+        document.getElementById('instruction-l2').innerText = `👉 ${shellNum} වන වළල්ලට ඉලෙක්ට්‍රෝනයක් එකතු කළා! ⚡`;
         updateShellUI();
         checkL2Progress();
       } else {
@@ -464,12 +529,17 @@
       for (let i = 1; i <= q.config.length; i++) {
         const count = currentShellState[i];
         const shellElem = document.getElementById(`shell-${i}`);
-        const radius = shellElem.offsetWidth / 2;
+       
+        const width = shellElem.offsetWidth;
+        const height = shellElem.offsetHeight;
+        const centerX = width / 2;
+        const centerY = height / 2;
+        const radius = width / 2 - 4;
 
         for (let j = 0; j < count; j++) {
-          const angle = (j / q.config[i-1]) * 2 * Math.PI;
-          const x = radius + radius * Math.cos(angle);
-          const y = radius + radius * Math.sin(angle);
+          const angle = (j / q.config[i-1]) * 2 * Math.PI - Math.PI / 2;
+          const x = centerX + radius * Math.cos(angle) - 5;
+          const y = centerY + radius * Math.sin(angle) - 5;
 
           const dot = document.createElement('div');
           dot.className = 'electron-dot';
@@ -484,7 +554,7 @@
       currentShellState = [0, 0, 0, 0, 0];
       isElectronPicked = false;
       updateShellUI();
-      document.getElementById('instruction-l2').innerText = "👉 නැවත මුල සිට: Box එකෙන් ඉලෙක්ට්‍රෝනයක් Drag කරන්න හෝ Touch කරන්න.";
+      document.getElementById('instruction-l2').innerText = "⚡ අකුණු ලකුණ touch කර electron ගෙන නිවැරදිව ඉලෙක්ට්‍රෝන පුරවන්න!";
     }
 
     function checkL2Progress() {
@@ -520,6 +590,81 @@
       showDashboard();
     }
 
+    /* --- LEVEL 3: CLASSIFICATION LOGIC --- */
+    function initL3Game() {
+      maxTime = 90;
+      timeLeft = 90;
+      l3RemainingItems = [...l3Elements];
+      l3UserBins = { metals: [], nonmetals: [], metalloids: [] };
+      l3ActiveElement = null;
+      renderL3Board();
+      startTimer(3);
+    }
+
+    function renderL3Board() {
+      const pool = document.getElementById('l3-pool');
+      pool.innerHTML = '';
+
+      l3RemainingItems.forEach(item => {
+        const chip = document.createElement('div');
+        chip.className = 'class-item';
+        chip.innerText = item.sym;
+        if (l3ActiveElement === item) chip.classList.add('selected');
+
+        chip.onclick = function() {
+          l3ActiveElement = item;
+          renderL3Board();
+        };
+        pool.appendChild(chip);
+      });
+
+      ['metals', 'nonmetals', 'metalloids'].forEach(binKey => {
+        const binDiv = document.getElementById(`bin-${binKey}`);
+        binDiv.innerHTML = '';
+        l3UserBins[binKey].forEach(sym => {
+          const placed = document.createElement('div');
+          placed.className = 'placed-chip';
+          placed.innerText = sym;
+          binDiv.appendChild(placed);
+        });
+      });
+    }
+
+    function selectBin(binKey) {
+      if (!l3ActiveElement) {
+        alert('කරුණාකර පළමුව ඉහත මූලද්‍රව්‍යයක් තෝරන්න (Touch)!');
+        return;
+      }
+
+      if (l3ActiveElement.type === binKey) {
+        l3UserBins[binKey].push(l3ActiveElement.sym);
+        l3RemainingItems = l3RemainingItems.filter(i => i !== l3ActiveElement);
+        l3ActiveElement = null;
+        renderL3Board();
+
+        if (l3RemainingItems.length === 0) {
+          finishL3Game();
+        }
+      } else {
+        alert('වැරදි භාජනයක්! නැවත උත්සාහ කරන්න.');
+      }
+    }
+
+    function finishL3Game() {
+      clearInterval(gameTimer);
+      const timeSpent = maxTime - timeLeft;
+      let badge = '🥉 Bronze';
+      if (timeSpent <= 30) badge = '💎 Diamond';
+      else if (timeSpent <= 60) badge = '🥇 Gold';
+
+      if (!currentUser.progress.easy) currentUser.progress.easy = {};
+      currentUser.progress.easy[3] = badge;
+      localStorage.setItem('ssg_user_' + currentUser.name, JSON.stringify(currentUser));
+
+      alert(`සුභ පැතුම්! Level 3 සම්පූර්ණ කර ඔබ ${badge} එකක් දිනාගත්තා! 🏆`);
+      showDashboard();
+    }
+
     function startTimer(levelNum) {
       clearInterval(gameTimer);
       updateTimerUI(levelNum);
@@ -544,17 +689,21 @@
 
       const timeSpent = maxTime - timeLeft;
       let badgeText = '🥉 Bronze Badge';
-      if (timeSpent <= 50) badgeText = '💎 Diamond Badge';
-      else if (timeSpent <= 80) badgeText = '🥇 Gold Badge';
+      if (timeSpent <= (levelNum === 3 ? 30 : 50)) badgeText = '💎 Diamond Badge';
+      else if (timeSpent <= (levelNum === 3 ? 60 : 80)) badgeText = '🥇 Gold Badge';
 
       if (levelNum === 1) {
         document.getElementById('time-display-l1').innerText = timeStr;
         document.getElementById('timer-bar-l1').style.width = pct + '%';
         document.getElementById('badge-display-l1').innerText = badgeText;
-      } else {
+      } else if (levelNum === 2) {
         document.getElementById('time-display-l2').innerText = timeStr;
         document.getElementById('timer-bar-l2').style.width = pct + '%';
         document.getElementById('badge-display-l2').innerText = badgeText;
+      } else if (levelNum === 3) {
+        document.getElementById('time-display-l3').innerText = timeStr;
+        document.getElementById('timer-bar-l3').style.width = pct + '%';
+        document.getElementById('badge-display-l3').innerText = badgeText;
       }
     }
 
