@@ -3,1003 +3,202 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Simple Science Gaming</title>
-
+<meta name="theme-color" content="#090d18">
+<title>Simple Science Gaming | Neon Arena</title>
 <style>
-:root{
-  --bg:#0d0f18;
-  --card:#161b29;
-  --cyan:#00f3ff;
-  --pink:#ff0055;
-  --yellow:#ffeb3b;
-  --green:#00ff66;
-  --text:#e0e6ed;
-}
-*{box-sizing:border-box;margin:0;padding:0}
-body{
-  background:var(--bg);
-  color:var(--text);
-  font-family:Arial,sans-serif;
-  min-height:100vh;
-  padding:12px;
-}
-button,input{font:inherit}
-button{cursor:pointer;touch-action:manipulation}
-.container{
-  width:100%;max-width:900px;margin:auto;
-  background:var(--card);
-  border:2px solid var(--cyan);
-  box-shadow:0 0 20px #00f3ff30;
-  border-radius:12px;padding:18px;
-}
-h1,h2,h3{
-  text-align:center;overflow-wrap:anywhere;
-}
-h1{
-  color:var(--cyan);margin-bottom:20px;
-  text-shadow:0 0 10px var(--cyan);
-  font-size:clamp(20px,5vw,30px);
-}
-h2{font-size:clamp(16px,4vw,22px)}
-h3{font-size:clamp(14px,3.5vw,18px)}
-.hidden{display:none!important}
-.auth-box{
-  max-width:400px;margin:auto;
-  display:flex;flex-direction:column;gap:14px;
-}
-.input-group{display:flex;flex-direction:column;gap:6px}
-label{color:var(--cyan);font-weight:bold}
-input{
-  padding:12px;background:#090c15;color:white;
-  border:1px solid var(--cyan);border-radius:6px;
-  width:100%;min-width:0;
-}
-.btn{
-  padding:11px 15px;border:0;border-radius:6px;
-  color:white;font-weight:bold;
-  background:linear-gradient(45deg,var(--cyan),var(--pink));
-  margin-top:8px;width:100%;
-}
-.btn:hover{filter:brightness(1.12)}
-.dashboard-header{
-  display:flex;justify-content:space-between;
-  align-items:center;gap:10px;flex-wrap:wrap;
-  border-bottom:1px solid #2a334d;
-  padding-bottom:14px;margin-bottom:18px;
-}
-.vip-tag{
-  background:var(--yellow);color:black;
-  padding:5px 9px;border-radius:20px;font-size:12px;
-}
-.chains-container{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(min(100%,230px),1fr));
-  gap:14px;margin-bottom:20px;
-}
-.chain-card{
-  background:#0d111d;border:1px solid #2a334d;
-  border-radius:8px;padding:13px;min-width:0;
-}
-.chain-card h3{margin-bottom:12px}
-.level-btn{
-  width:100%;padding:11px 8px;margin:6px 0;
-  background:#1a2238;color:white;
-  border:1px solid var(--cyan);border-radius:5px;
-  display:flex;justify-content:space-between;
-  align-items:center;gap:8px;text-align:left;
-}
-.level-btn span:first-child{overflow-wrap:anywhere}
-.chart-container{
-  background:#0d111d;border:1px solid var(--cyan);
-  border-radius:8px;padding:12px;
-}
-.chart-row{
-  display:flex;justify-content:space-between;
-  gap:10px;padding:10px 0;
-  border-bottom:1px dashed #2a334d;
-}
-.chart-row span{overflow-wrap:anywhere}
-.game-header{
-  display:flex;justify-content:space-between;
-  align-items:center;gap:8px;margin-bottom:10px;
-}
-.exit-btn{
-  background:#444;color:white;border:0;
-  border-radius:5px;padding:8px 12px;flex-shrink:0;
-}
-.timer-container{
-  width:100%;height:16px;background:#101420;
-  border:1px solid var(--cyan);
-  border-radius:10px;overflow:hidden;margin:12px 0;
-}
-.timer-bar{
-  width:100%;height:100%;
-  background:linear-gradient(90deg,var(--green),var(--yellow),var(--pink));
-  transition:width .3s linear;
-}
-.badge-status{
-  text-align:center;color:var(--yellow);
-  font-weight:bold;margin-bottom:10px;font-size:14px;
-}
-.instruction-banner{
-  text-align:center;padding:12px;margin:12px 0;
-  color:var(--cyan);
-  background:#00f3ff12;border:1px dashed var(--cyan);
-  border-radius:6px;line-height:1.6;
-}
-.graph-board{
-  height:260px;position:relative;margin:18px 5px;
-  border-left:2px solid var(--cyan);
-  border-bottom:2px solid var(--cyan);
-  background:#00f3ff05;
-}
-.graph-point{
-  position:absolute;width:32px;height:32px;
-  transform:translate(-50%,50%);
-  border:2px dashed var(--pink);border-radius:50%;
-  display:flex;justify-content:center;align-items:center;
-  font-size:10px;color:#aaa;background:#0d111d;
-  touch-action:manipulation;
-}
-.graph-point.filled{
-  border:2px solid var(--green);
-  background:var(--cyan);color:black;font-weight:bold;
-}
-.elements-pool,.target-box-pool{
-  display:flex;flex-wrap:wrap;gap:8px;
-  justify-content:center;margin-top:10px;
-}
-.elem-chip,.class-item{
-  padding:9px 12px;background:#1f2942;
-  color:white;border:1px solid var(--cyan);
-  border-radius:5px;font-weight:bold;
-  touch-action:manipulation;
-}
-.elem-chip.selected,.class-item.selected{
-  background:var(--pink);box-shadow:0 0 10px var(--pink);
-}
-.shells-wrapper{
-  display:flex;flex-direction:column;
-  align-items:center;margin:10px 0;
-}
-.atomic-system{
-  position:relative;width:min(320px,85vw);
-  height:min(320px,85vw);
-  display:flex;align-items:center;justify-content:center;
-  flex-shrink:0;
-}
-.nucleus{
-  width:44px;height:44px;z-index:10;
-  border-radius:50%;background:var(--pink);
-  display:flex;align-items:center;justify-content:center;
-  color:white;font-weight:bold;font-size:17px;
-  box-shadow:0 0 15px var(--pink);
-}
-.shell{
-  position:absolute;border:2px solid var(--cyan);
-  border-radius:50%;display:flex;
-  align-items:center;justify-content:center;
-  touch-action:manipulation;
-}
-.shell-1{width:28%;height:28%;z-index:4}
-.shell-2{width:47%;height:47%;z-index:3}
-.shell-3{width:66%;height:66%;z-index:2}
-.shell-4{width:85%;height:85%;z-index:1}
-.electron-dot{
-  position:absolute;width:10px;height:10px;
-  background:var(--yellow);border-radius:50%;
-  box-shadow:0 0 7px var(--yellow);
-  pointer-events:none;z-index:5;
-}
-.electron-box{
-  display:flex;align-items:center;justify-content:center;
-  flex-wrap:wrap;gap:12px;margin-top:14px;
-  background:#0d111d;padding:12px;
-  border:1px dashed var(--cyan);border-radius:10px;
-}
-.electron-draggable{
-  width:42px;height:42px;border-radius:50%;
-  background:radial-gradient(circle,var(--cyan),#0077ff);
-  display:flex;align-items:center;justify-content:center;
-  color:black;font-weight:bold;cursor:grab;
-  user-select:none;-webkit-user-select:none;
-  touch-action:manipulation;
-}
-.classification-arena{
-  display:flex;flex-direction:column;gap:14px;
-}
-.target-box-pool{
-  min-height:55px;background:#121826;
-  border:1px dashed var(--cyan);border-radius:8px;padding:12px;
-}
-.bins-grid{
-  display:grid;grid-template-columns:repeat(3,minmax(0,1fr));
-  gap:8px;
-}
-.bin-card{
-  background:#101420;border:2px solid var(--pink);
-  border-radius:8px;padding:9px 5px;min-height:130px;
-  display:flex;flex-direction:column;align-items:center;
-  gap:8px;min-width:0;overflow-wrap:anywhere;
-  touch-action:manipulation;
-}
-.bin-card h4{text-align:center;font-size:12px;color:var(--yellow)}
-.bin-items{
-  display:flex;flex-wrap:wrap;gap:5px;
-  justify-content:center;width:100%;
-}
-.placed-chip{
-  background:var(--cyan);color:black;
-  padding:5px 7px;border-radius:4px;font-weight:bold;
-  font-size:12px;
-}
-@media(max-width:420px){
-  .container{padding:12px}
-  .bins-grid{gap:5px}
-  .bin-card{padding:8px 3px}
-  .bin-card h4{font-size:10px}
-  .chart-row{font-size:13px}
-}
+:root{--bg:#080b14;--panel:#111827;--panel2:#0c1220;--line:#24334b;--cyan:#22f0ff;--pink:#ff3b91;--lime:#8cff6b;--gold:#ffd866;--text:#edf5ff;--muted:#9eabc2;--bad:#ff667a;--shadow:0 0 28px #22f0ff12}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;min-height:100vh;background:radial-gradient(ellipse at 20% 0%,#13233b 0,transparent 40%),radial-gradient(ellipse at 90% 15%,#26112b 0,transparent 30%),var(--bg);color:var(--text);font:15px/1.5 system-ui,-apple-system,Segoe UI,Arial,sans-serif;padding:14px}button,input{font:inherit}button{cursor:pointer;touch-action:manipulation}button:focus-visible,input:focus-visible{outline:2px solid var(--gold);outline-offset:3px}.app{max-width:1050px;margin:auto}.topbar{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin:0 0 16px}.brand{display:flex;align-items:center;gap:10px}.brand-mark{width:43px;height:43px;display:grid;place-items:center;border-radius:13px;background:linear-gradient(135deg,var(--cyan),#5970ff);color:#06101c;font-size:22px;font-weight:1000;box-shadow:0 0 22px #22f0ff30}.brand h1{margin:0;font-size:clamp(18px,4vw,25px);letter-spacing:.04em}.brand p{margin:0;color:var(--muted);font-size:12px}.top-actions{display:flex;gap:8px;flex-wrap:wrap}.pill-btn,.btn,.small-btn{border:1px solid var(--line);border-radius:10px;padding:10px 13px;background:#151e30;color:var(--text);font-weight:750}.pill-btn:hover,.small-btn:hover{border-color:var(--cyan)}.btn{border:0;background:linear-gradient(100deg,#00cfe3,#7b6cff 65%,#ff4c9a);color:#07101c;box-shadow:0 7px 22px #22f0ff18}.btn:hover{filter:brightness(1.1);transform:translateY(-1px)}.btn:disabled{opacity:.45;cursor:not-allowed;transform:none}.panel{background:linear-gradient(160deg,#141d2e,#0d1320);border:1px solid var(--line);border-radius:18px;padding:clamp(14px,3vw,24px);box-shadow:var(--shadow);margin-bottom:16px}.hidden{display:none!important}.eyebrow{color:var(--cyan);font-weight:900;text-transform:uppercase;letter-spacing:.13em;font-size:11px}.muted{color:var(--muted)}h2,h3,p{overflow-wrap:anywhere}h2{font-size:clamp(21px,4vw,29px);line-height:1.2;margin:6px 0 12px}h3{font-size:18px;margin:0 0 10px}.hero{display:grid;grid-template-columns:1.35fr .65fr;gap:18px;align-items:center}.hero h2 span{color:var(--cyan);text-shadow:0 0 18px #22f0ff35}.hero p{color:var(--muted);max-width:650px}.hero-stat{background:#090f1b;border:1px solid #2a3c57;border-radius:15px;padding:16px;text-align:center}.hero-stat strong{display:block;font-size:32px;color:var(--gold)}.hero-stat small{color:var(--muted)}.auth{max-width:470px;margin:25px auto}.field{display:grid;gap:6px;margin:12px 0}.field label{color:#b8faff;font-weight:750}.field input{width:100%;min-width:0;padding:13px;background:#080e19;border:1px solid #30425d;border-radius:10px;color:var(--text)}.full{width:100%;margin-top:8px}.note{font-size:12px;color:var(--muted);line-height:1.6}.stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin:16px 0}.stat{background:#0b1220;border:1px solid var(--line);padding:13px;border-radius:13px;min-width:0}.stat span{display:block;color:var(--muted);font-size:12px}.stat strong{font-size:clamp(18px,3vw,25px);color:var(--cyan)}.section-head{display:flex;align-items:end;justify-content:space-between;gap:10px;flex-wrap:wrap;margin-bottom:13px}.level-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}.level-card{padding:16px;border-radius:14px;background:#0b1220;border:1px solid var(--line);min-width:0;display:flex;flex-direction:column;gap:9px}.level-card .emoji{font-size:28px}.level-card h3{margin:0}.level-card p{margin:0;color:var(--muted);font-size:13px;flex:1}.level-card .meta{font-size:12px;color:var(--gold)}.level-card .btn{width:100%;margin-top:4px}.progress-track{height:7px;border-radius:20px;background:#202a3d;overflow:hidden}.progress-fill{height:100%;width:0;background:linear-gradient(90deg,var(--cyan),var(--pink));transition:width .3s}.game-head{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}.game-head h2{margin:3px 0}.game-metrics{display:flex;gap:8px;flex-wrap:wrap}.metric{background:#0a1120;border:1px solid var(--line);padding:7px 10px;border-radius:9px;font-size:13px}.metric b{color:var(--gold)}.timer{height:8px;background:#253047;border-radius:20px;overflow:hidden;margin:13px 0}.timer div{height:100%;width:100%;background:linear-gradient(90deg,var(--lime),var(--gold),var(--pink));transition:width .4s linear}.instruction{padding:11px 13px;border:1px dashed #2d9da9;background:#22f0ff0a;border-radius:11px;color:#c5fbff;margin:12px 0;line-height:1.6}.game-area{background:#080e19;border:1px solid var(--line);border-radius:14px;padding:14px}.pool{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;margin-top:12px}.chip{padding:9px 12px;border:1px solid #2b5970;border-radius:9px;background:#13243a;color:var(--text);font-weight:800;min-width:45px}.chip.selected{background:#5c2043;border-color:var(--pink);box-shadow:0 0 12px #ff3b9140}.chip.correct{background:#123c35;border-color:var(--lime)}.graph-wrap{padding:5px 6px 0}.graph{position:relative;height:290px;border-left:2px solid var(--cyan);border-bottom:2px solid var(--cyan);margin:20px 8px 32px 35px;background:repeating-linear-gradient(to top,transparent 0,transparent calc(25% - 1px),#24364a calc(25% - 1px),#24364a 25%),repeating-linear-gradient(to right,transparent 0,transparent calc(10% - 1px),#1b2a3c calc(10% - 1px),#1b2a3c 10%)}.axis-y{position:absolute;left:-42px;top:35%;transform:rotate(-90deg);transform-origin:center;font-size:11px;color:var(--muted);white-space:nowrap}.axis-x{position:absolute;bottom:-27px;left:0;right:0;text-align:center;color:var(--muted);font-size:11px}.graph-point{position:absolute;transform:translate(-50%,50%);width:28px;height:28px;border-radius:50%;background:#0a1120;color:#b6c3d8;border:1px dashed var(--pink);font-size:10px;font-weight:800;padding:0}.graph-point.filled{background:var(--lime);border:2px solid white;color:#08120b}.graph-point:disabled{opacity:1}.shells-wrap{display:flex;flex-direction:column;align-items:center;gap:10px}.atom{width:min(340px,78vw);height:min(340px,78vw);position:relative;display:grid;place-items:center}.nucleus{width:47px;height:47px;border-radius:50%;display:grid;place-items:center;background:var(--pink);color:white;font-weight:900;z-index:6;box-shadow:0 0 18px #ff3b9160}.shell{position:absolute;border:2px solid #22f0ffad;border-radius:50%;display:block;z-index:1;cursor:pointer;background:transparent;padding:0}.shell.s1{width:29%;height:29%}.shell.s2{width:48%;height:48%}.shell.s3{width:67%;height:67%}.shell.s4{width:86%;height:86%}.electron-dot{position:absolute;width:10px;height:10px;border-radius:50%;background:var(--gold);box-shadow:0 0 8px var(--gold);pointer-events:none;z-index:4}.electron-source{width:52px;height:52px;border-radius:50%;border:1px solid #22f0ff;background:radial-gradient(circle,#69fbff,#2372cc);color:#07101c;font-weight:1000;font-size:20px;display:grid;place-items:center}.source-row{display:flex;align-items:center;justify-content:center;gap:12px;flex-wrap:wrap;margin-top:6px}.bin-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:9px}.bin{border:1px solid #39455c;border-radius:12px;background:#101827;min-height:125px;padding:10px 5px;text-align:center;cursor:pointer}.bin h4{font-size:clamp(10px,2.4vw,13px);margin:0 0 9px;color:var(--gold)}.bin-items{display:flex;flex-wrap:wrap;justify-content:center;gap:5px}.placed{background:var(--cyan);color:#06101c;padding:4px 6px;border-radius:5px;font-weight:900;font-size:12px}.feedback{min-height:25px;color:var(--gold);text-align:center;margin:10px 0;font-weight:750}.actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}.actions button{flex:1;min-width:130px}.table{width:100%;border-collapse:collapse;font-size:13px}.table th,.table td{text-align:left;padding:10px 8px;border-bottom:1px solid var(--line)}.table th{color:var(--cyan)}.footer{text-align:center;color:#6f7e96;font-size:11px;padding:8px}.toast{position:fixed;left:50%;bottom:18px;transform:translateX(-50%);background:#142238;border:1px solid var(--cyan);padding:12px 16px;border-radius:12px;box-shadow:0 10px 35px #0008;z-index:20;max-width:90vw;text-align:center}.danger{color:var(--bad)}@media(max-width:720px){.hero{grid-template-columns:1fr}.hero-stat{display:flex;align-items:center;justify-content:space-around;gap:12px}.level-grid{grid-template-columns:1fr}.level-card{display:grid;grid-template-columns:42px 1fr;align-items:start}.level-card .emoji{grid-row:span 3}.level-card .btn{grid-column:1/-1}.stats{grid-template-columns:repeat(2,minmax(0,1fr))}.graph{height:250px;margin-left:32px}.panel{border-radius:15px}}@media(max-width:360px){body{padding:8px}.panel{padding:12px}.bin-grid{gap:4px}.bin{padding:8px 2px}.metric{font-size:11px}.graph-point{width:24px;height:24px}}
 </style>
 </head>
 <body>
-<div class="container">
-<h1>SIMPLE SCIENCE GAMING</h1>
+<div class="app">
+<header class="topbar">
+  <div class="brand"><div class="brand-mark">⚛</div><div><h1>SIMPLE SCIENCE GAMING</h1><p>LEARN • PLAY • LEVEL UP</p></div></div>
+  <div class="top-actions"><button class="pill-btn" id="lang-btn" type="button">සිංහල / EN</button><button class="pill-btn hidden" id="logout-btn" type="button">↪ Logout</button></div>
+</header>
 
-<!-- LOGIN -->
-<section id="auth-screen">
-<h2 style="color:var(--pink);margin-bottom:20px">PLAYER LOGIN / REGISTER</h2>
-<div class="auth-box">
-  <div class="input-group">
-    <label for="username">Player Name:</label>
-    <input id="username" autocomplete="username" placeholder="ඔබේ නම ඇතුළත් කරන්න" maxlength="40">
+<section id="auth-screen" class="panel auth">
+  <div class="eyebrow" data-si="PLAYER ACCESS" data-en="PLAYER ACCESS">PLAYER ACCESS</div>
+  <h2 data-si="Science Arena එකට සාදරයෙන් පිළිගනිමු!" data-en="Welcome to the Science Arena!">Science Arena එකට සාදරයෙන් පිළිගනිමු!</h2>
+  <p class="muted" data-si="ඔබේ player නම ඇතුළත් කර ඉගෙනීමේ ගමන අරඹන්න." data-en="Enter a player name and begin your learning journey.">ඔබේ player නම ඇතුළත් කර ඉගෙනීමේ ගමන අරඹන්න.</p>
+  <div class="field"><label for="username" data-si="Player නම" data-en="Player name">Player නම</label><input id="username" maxlength="32" autocomplete="nickname" placeholder="Player name"></div>
+  <button class="btn full" id="login-btn" type="button" data-si="ARENA එකට ඇතුළු වෙන්න →" data-en="ENTER THE ARENA →">ARENA එකට ඇතුළු වෙන්න →</button>
+  <p class="note" style="margin-top:12px" data-si="Demo profile එකක් පමණයි. Progress එක මේ browser/device එකේ save වේ. රහස්‍ය මුරපදයක් ඇතුළත් කරන්න එපා." data-en="Demo profile only. Progress is saved in this browser/device. Do not enter a private password.">Demo profile එකක් පමණයි. Progress එක මේ browser/device එකේ save වේ. රහස්‍ය මුරපදයක් ඇතුළත් කරන්න එපා.</p>
+</section>
+
+<section id="dashboard" class="hidden">
+  <div class="panel hero">
+    <div><div class="eyebrow" data-si="ඔබේ මෙහෙයුම ආරම්භයි" data-en="YOUR MISSION STARTS NOW">ඔබේ මෙහෙයුම ආරම්භයි</div><h2><span id="hello-name">Player</span>, <span data-si="මීළඟ Science Champion ඔබද?" data-en="ready to become a Science Champion?">මීළඟ Science Champion ඔබද?</span></h2><p data-si="ප්‍රශ්න විසඳන්න, XP එකතු කරන්න, badges දිනාගෙන ඔබේ දැනුම වැඩි කරගන්න." data-en="Solve challenges, earn XP, collect badges and build your science skills.">ප්‍රශ්න විසඳන්න, XP එකතු කරන්න, badges දිනාගෙන ඔබේ දැනුම වැඩි කරගන්න.</p></div>
+    <div class="hero-stat"><div><strong id="hero-level">01</strong><small data-si="PLAYER LEVEL" data-en="PLAYER LEVEL">PLAYER LEVEL</small></div><div><strong id="hero-xp">0</strong><small>XP</small></div></div>
   </div>
-  <div class="input-group">
-    <label for="password">Password:</label>
-    <input id="password" type="password" autocomplete="current-password" placeholder="මුරපදය ඇතුළත් කරන්න" maxlength="100">
+  <div class="stats">
+    <div class="stat"><span data-si="මුළු XP" data-en="TOTAL XP">මුළු XP</span><strong id="stat-xp">0</strong></div>
+    <div class="stat"><span data-si="සම්පූර්ණ කළ Levels" data-en="LEVELS CLEARED">සම්පූර්ණ කළ Levels</span><strong id="stat-cleared">0/3</strong></div>
+    <div class="stat"><span data-si="හොඳම Badge" data-en="BEST BADGE">හොඳම Badge</span><strong id="stat-badge">—</strong></div>
+    <div class="stat"><span data-si="නිවැරදි පිළිතුරු" data-en="CORRECT ANSWERS">නිවැරදි පිළිතුරු</span><strong id="stat-correct">0</strong></div>
   </div>
-  <button class="btn" id="login-btn">ENTER GAME ARENA</button>
-</div>
-<p style="font-size:12px;color:#aaa;text-align:center;margin-top:12px">
-මෙය browser එකේ දත්ත save කරන demo login එකකි.
-</p>
+  <div class="panel">
+    <div class="section-head"><div><div class="eyebrow">SELECT YOUR CHALLENGE</div><h2 data-si="Game Levels" data-en="Game Levels">Game Levels</h2></div><span class="muted" id="total-progress-label">0% complete</span></div>
+    <div class="progress-track"><div id="total-progress" class="progress-fill"></div></div>
+    <div class="level-grid" style="margin-top:14px">
+      <article class="level-card"><div class="emoji">📈</div><h3 data-si="Level 1: අයනීකරණ ශක්තිය" data-en="Level 1: Ionization Energy">Level 1: අයනීකරණ ශක්තිය</h3><p data-si="මූලද්‍රව්‍ය 20ක් නිවැරදි graph ස්ථානයට ගෙන යන්න." data-en="Match 20 elements to their correct graph positions.">මූලද්‍රව්‍ය 20ක් නිවැරදි graph ස්ථානයට ගෙන යන්න.</p><div class="meta" id="meta-1">+100 XP • 150 sec</div><button class="btn" onclick="startLevel(1)" data-si="▶ ක්‍රීඩා කරන්න" data-en="▶ PLAY LEVEL">▶ ක්‍රීඩා කරන්න</button><small class="muted" id="result-1">Not played</small></article>
+      <article class="level-card"><div class="emoji">⚛️</div><h3 data-si="Level 2: ඉලෙක්ට්‍රොනික වින්‍යාසය" data-en="Level 2: Electron Configuration">Level 2: ඉලෙක්ට්‍රොනික වින්‍යාසය</h3><p data-si="Electron එකතු කර Mg, O සහ Ca වල shells සම්පූර්ණ කරන්න." data-en="Place electrons to complete shells for Mg, O and Ca.">Electron එකතු කර Mg, O සහ Ca වල shells සම්පූර්ණ කරන්න.</p><div class="meta">+120 XP • 120 sec</div><button class="btn" onclick="startLevel(2)" data-si="▶ ක්‍රීඩා කරන්න" data-en="▶ PLAY LEVEL">▶ ක්‍රීඩා කරන්න</button><small class="muted" id="result-2">Not played</small></article>
+      <article class="level-card"><div class="emoji">🧪</div><h3 data-si="Level 3: මූලද්‍රව්‍ය වර්ගීකරණය" data-en="Level 3: Element Classification">Level 3: මූලද්‍රව්‍ය වර්ගීකරණය</h3><p data-si="ලෝහ, අලෝහ සහ ලෝහාලෝහ නිවැරදිව වෙන් කරන්න." data-en="Sort metals, non-metals and metalloids correctly.">ලෝහ, අලෝහ සහ ලෝහාලෝහ නිවැරදිව වෙන් කරන්න.</p><div class="meta">+100 XP • 90 sec</div><button class="btn" onclick="startLevel(3)" data-si="▶ ක්‍රීඩා කරන්න" data-en="▶ PLAY LEVEL">▶ ක්‍රීඩා කරන්න</button><small class="muted" id="result-3">Not played</small></article>
+    </div>
+  </div>
+  <div class="panel"><div class="section-head"><div><div class="eyebrow">PLAYER RECORD</div><h3 data-si="ඔබේ ප්‍රතිඵල" data-en="Your Results">ඔබේ ප්‍රතිඵල</h3></div></div><div style="overflow-x:auto"><table class="table"><thead><tr><th>Level</th><th data-si="හොඳම Badge" data-en="Best badge">හොඳම Badge</th><th>XP</th><th data-si="තත්ත්වය" data-en="Status">තත්ත්වය</th></tr></thead><tbody id="results-body"></tbody></table></div></div>
 </section>
 
-<!-- DASHBOARD -->
-<section id="dashboard-screen" class="hidden">
-<div class="dashboard-header">
-<h2>ආයුබෝවන්, <span id="player-display-name" style="color:var(--cyan)"></span>! 👋</h2>
-<span id="vip-badge" class="vip-tag hidden">VIP ACCESS</span>
-</div>
-
-<div class="chains-container">
-<div class="chain-card">
-<h3 style="color:var(--green)">EASY CHAIN</h3>
-<button class="level-btn" onclick="startLevel(1)">
-<span>Level 1: අයනීකරණ ශක්තිය</span><span id="badge-easy-1">🔓</span>
-</button>
-<button class="level-btn" onclick="startLevel(2)">
-<span>Level 2: ඉලෙක්ට්‍රොනික වින්‍යාසය</span><span id="badge-easy-2">🔓</span>
-</button>
-<button class="level-btn" onclick="startLevel(3)">
-<span>Level 3: ලෝහ, අලෝහ හා ලෝහාලෝහ</span><span id="badge-easy-3">🔓</span>
-</button>
-</div>
-<div class="chain-card">
-<h3 style="color:var(--yellow)">NORMAL CHAIN</h3>
-<button class="level-btn" disabled><span>Unlocks Soon</span><span>🔒</span></button>
-</div>
-<div class="chain-card">
-<h3 style="color:var(--pink)">HARD CHAIN</h3>
-<button class="level-btn" disabled><span>Unlocks Soon</span><span>🔒</span></button>
-</div>
-</div>
-
-<div class="chart-container">
-<h3>🏆 PERFORMANCE DASHBOARD</h3>
-<div id="chart-content" style="margin-top:10px"></div>
-</div>
-<button class="btn" style="background:#444" onclick="logout()">Logout / අලුත් ගිණුමකට යන්න</button>
+<section id="game-screen" class="panel hidden">
+  <div class="game-head"><div><div class="eyebrow" id="game-eyebrow">LEVEL 1</div><h2 id="game-title">Science Challenge</h2></div><button class="small-btn" id="exit-btn" type="button">✕ <span data-si="පිටවෙන්න" data-en="Exit">පිටවෙන්න</span></button></div>
+  <div class="game-metrics"><div class="metric">⏱ <b id="time-label">02:30</b></div><div class="metric">✨ XP <b id="run-xp">0</b></div><div class="metric">🎯 <b id="run-correct">0</b> <span data-si="නිවැරදි" data-en="correct">නිවැරදි</span></div><div class="metric">🏅 <b id="run-badge">💎 Diamond</b></div></div>
+  <div class="timer"><div id="timer-fill"></div></div>
+  <div id="instruction" class="instruction">Instruction</div>
+  <div id="game-content" class="game-area"></div>
+  <div id="feedback" class="feedback" aria-live="polite"></div>
+  <div class="actions"><button class="small-btn" id="restart-btn" type="button">↻ <span data-si="නැවත අරඹන්න" data-en="Restart">නැවත අරඹන්න</span></button><button class="small-btn" id="back-btn" type="button">⌂ <span data-si="Dashboard" data-en="Dashboard">Dashboard</span></button></div>
 </section>
-
-<!-- LEVEL 1 -->
-<section id="game-screen-l1" class="hidden">
-<div class="game-header">
-<h3 style="color:var(--cyan)">Level 1: අයනීකරණ ශක්තිය</h3>
-<button class="exit-btn" onclick="quitGame()">Exit</button>
+<div class="footer">SIMPLE SCIENCE GAMING • Learn by playing • Demo version</div>
 </div>
-<div class="timer-container"><div id="timer-bar-l1" class="timer-bar"></div></div>
-<div class="badge-status">කාලය: <span id="time-display-l1">02:30</span> | Badge: <span id="badge-display-l1">💎 Diamond</span></div>
-<div id="instruction-l1" class="instruction-banner">පහළින් මූලද්‍රව්‍යයක් තෝරා ප්‍රස්තරයේ එයට අදාළ ලක්ෂ්‍යය ඔබන්න.</div>
-<div class="graph-board" id="graph-board"></div>
-<div class="elements-pool" id="elements-pool"></div>
-</section>
-
-<!-- LEVEL 2 -->
-<section id="game-screen-l2" class="hidden">
-<div class="game-header">
-<h3 style="color:var(--pink)" id="l2-title">Level 2: ඉලෙක්ට්‍රොනික වින්‍යාසය</h3>
-<button class="exit-btn" onclick="quitGame()">Exit</button>
-</div>
-<div class="timer-container"><div id="timer-bar-l2" class="timer-bar"></div></div>
-<div class="badge-status">කාලය: <span id="time-display-l2">02:00</span> | Badge: <span id="badge-display-l2">💎 Diamond</span></div>
-<div id="instruction-l2" class="instruction-banner">
-⚡ Electron එක මත Touch කර ඇදගෙන විත් අදාළ වළල්ලට දමන්න!<br>
-Mobile: Electron එක Touch කර පසුව වළල්ල Touch කරන්න.
-</div>
-<div class="shells-wrapper">
-<div class="atomic-system" id="atomic-system">
-<div class="nucleus" id="l2-nucleus">Mg</div>
-<div class="shell shell-1" id="shell-1" data-shell="1"></div>
-<div class="shell shell-2" id="shell-2" data-shell="2"></div>
-<div class="shell shell-3" id="shell-3" data-shell="3"></div>
-<div class="shell shell-4" id="shell-4" data-shell="4"></div>
-</div>
-<div class="electron-box">
-<span style="color:var(--cyan);font-weight:bold">Electron:</span>
-<div class="electron-draggable" id="electron-source" draggable="true" title="Touch or drag">⚡</div>
-<span style="font-size:12px;color:#aaa">Touch / Drag</span>
-</div>
-<button class="btn" style="background:#444;max-width:250px" onclick="resetL2Current()">නැවත පටන් ගන්න 🔄</button>
-</div>
-</section>
-
-<!-- LEVEL 3 -->
-<section id="game-screen-l3" class="hidden">
-<div class="game-header">
-<h3 style="color:var(--green)">Level 3: මූලද්‍රව්‍ය වර්ගීකරණය</h3>
-<button class="exit-btn" onclick="quitGame()">Exit</button>
-</div>
-<div class="timer-container"><div id="timer-bar-l3" class="timer-bar"></div></div>
-<div class="badge-status">කාලය: <span id="time-display-l3">01:30</span> | Badge: <span id="badge-display-l3">💎 Diamond</span></div>
-<div class="instruction-banner">මූලද්‍රව්‍යයක් Touch කර, අදාළ භාජනය Touch කර වර්ග කරන්න!</div>
-<div class="classification-arena">
-<div class="target-box-pool" id="l3-pool"></div>
-<div class="bins-grid">
-<div class="bin-card" onclick="selectBin('metals')">
-<h4>🔵 ලෝහ (Metals)</h4><div class="bin-items" id="bin-metals"></div>
-</div>
-<div class="bin-card" onclick="selectBin('nonmetals')">
-<h4>🔴 අලෝහ (Non-metals)</h4><div class="bin-items" id="bin-nonmetals"></div>
-</div>
-<div class="bin-card" onclick="selectBin('metalloids')">
-<h4>🟡 ලෝහාලෝහ (Metalloids)</h4><div class="bin-items" id="bin-metalloids"></div>
-</div>
-</div>
-</div>
-</section>
-</div>
-
+<div id="toast" class="toast hidden" role="status"></div>
 <script>
 "use strict";
-
-/* ---------------- DATA ---------------- */
-
-const elementsData = [
-{sym:"H",x:5,y:30},{sym:"He",x:10,y:90},
-{sym:"Li",x:15,y:15},{sym:"Be",x:20,y:35},
-{sym:"B",x:25,y:30},{sym:"C",x:30,y:45},
-{sym:"N",x:35,y:55},{sym:"O",x:40,y:50},
-{sym:"F",x:45,y:70},{sym:"Ne",x:50,y:85},
-{sym:"Na",x:55,y:12},{sym:"Mg",x:60,y:30},
-{sym:"Al",x:65,y:25},{sym:"Si",x:70,y:40},
-{sym:"P",x:75,y:50},{sym:"S",x:80,y:45},
-{sym:"Cl",x:85,y:65},{sym:"Ar",x:90,y:80},
-{sym:"K",x:95,y:10},{sym:"Ca",x:98,y:25}
+const $=id=>document.getElementById(id);
+const LEVELS={
+  1:{si:"අයනීකරණ ශක්තිය",en:"Ionization Energy",duration:150,xp:100},
+  2:{si:"ඉලෙක්ට්‍රොනික වින්‍යාසය",en:"Electron Configuration",duration:120,xp:120},
+  3:{si:"මූලද්‍රව්‍ය වර්ගීකරණය",en:"Element Classification",duration:90,xp:100}
+};
+// First ionization energy, kJ mol−1; values are approximate standard gas-phase values.
+const elements=[
+ {sym:"H",z:1,ie:1312},{sym:"He",z:2,ie:2372},{sym:"Li",z:3,ie:520},{sym:"Be",z:4,ie:900},
+ {sym:"B",z:5,ie:801},{sym:"C",z:6,ie:1087},{sym:"N",z:7,ie:1402},{sym:"O",z:8,ie:1314},
+ {sym:"F",z:9,ie:1681},{sym:"Ne",z:10,ie:2081},{sym:"Na",z:11,ie:496},{sym:"Mg",z:12,ie:738},
+ {sym:"Al",z:13,ie:578},{sym:"Si",z:14,ie:787},{sym:"P",z:15,ie:1012},{sym:"S",z:16,ie:1000},
+ {sym:"Cl",z:17,ie:1251},{sym:"Ar",z:18,ie:1521},{sym:"K",z:19,ie:419},{sym:"Ca",z:20,ie:590}
 ];
-
-const l2Questions = [
-{name:"මැග්නීසියම් (Mg)",sym:"Mg",config:[2,8,2]},
-{name:"ඔක්සිජන් (O)",sym:"O",config:[2,6]},
-{name:"කැල්සියම් (Ca)",sym:"Ca",config:[2,8,8,2]}
+const l2Questions=[
+ {name:"Magnesium (Mg)",sym:"Mg",config:[2,8,2]},
+ {name:"Oxygen (O)",sym:"O",config:[2,6]},
+ {name:"Calcium (Ca)",sym:"Ca",config:[2,8,8,2]}
 ];
-
-const l3Elements = [
-{sym:"Li",type:"metals"},
-{sym:"Mg",type:"metals"},
-{sym:"K",type:"metals"},
-{sym:"Ca",type:"metals"},
-{sym:"Al",type:"metals"},
-{sym:"C",type:"nonmetals"},
-{sym:"O",type:"nonmetals"},
-{sym:"N",type:"nonmetals"},
-{sym:"F",type:"nonmetals"},
-{sym:"Cl",type:"nonmetals"},
-{sym:"B",type:"metalloids"},
-{sym:"Si",type:"metalloids"}
+const l3Elements=[
+ {sym:"Li",type:"metals"},{sym:"Mg",type:"metals"},{sym:"K",type:"metals"},{sym:"Ca",type:"metals"},{sym:"Al",type:"metals"},
+ {sym:"C",type:"nonmetals"},{sym:"O",type:"nonmetals"},{sym:"N",type:"nonmetals"},{sym:"F",type:"nonmetals"},{sym:"Cl",type:"nonmetals"},
+ {sym:"B",type:"metalloids"},{sym:"Si",type:"metalloids"}
 ];
-
-/* ---------------- STATE ---------------- */
-
-let currentUser = null;
-let selectedElement = null;
-let gameTimer = null;
-let timeLeft = 0;
-let maxTime = 0;
-let activeLevel = 0;
-let placedCount = 0;
-
-let l2SubIndex = 0;
-let currentShellState = [0,0,0,0,0];
-let isElectronPicked = false;
-
-let l3ActiveElement = null;
-let l3RemainingItems = [];
-let l3UserBins = {metals:[],nonmetals:[],metalloids:[]};
-
-const $ = id => document.getElementById(id);
-
-function defaultProgress(){
-  return {easy:{"1":null,"2":null,"3":null}};
+const storeKey=name=>"ssg_v2_"+name.trim().toLocaleLowerCase();
+let lang=localStorage.getItem("ssg_lang")||"si",user=null,level=0,timer=null,timeLeft=0,maxTime=0,correct=0,runXP=0,locked=false;
+let l1Order=[],l1Placed=new Set(),l1Selected=null,l2Index=0,l2State=[0,0,0,0,0],electronPicked=false,l3Remaining=[],l3Bins={metals:[],nonmetals:[],metalloids:[]},l3Selected=null;
+function blankProfile(name){return {name,xp:0,correct:0,results:{1:null,2:null,3:null}}}
+function toast(msg){const t=$("toast");t.textContent=msg;t.classList.remove("hidden");clearTimeout(toast.t);toast.t=setTimeout(()=>t.classList.add("hidden"),2300)}
+function text(si,en){return lang==="si"?si:en}
+function applyLanguage(){
+ document.documentElement.lang=lang;$("lang-btn").textContent=lang==="si"?"සිංහල / EN":"EN / සිංහල";
+ document.querySelectorAll("[data-si][data-en]").forEach(el=>el.textContent=lang==="si"?el.dataset.si:el.dataset.en);
+ if(user&& !$("dashboard").classList.contains("hidden"))renderDashboard();
 }
-
-function userKey(name){
-  return "ssg_user_" + name.toLowerCase();
+$("lang-btn").addEventListener("click",()=>{lang=lang==="si"?"en":"si";localStorage.setItem("ssg_lang",lang);applyLanguage();});
+$("login-btn").addEventListener("click",login);
+$("username").addEventListener("keydown",e=>{if(e.key==="Enter")login()});
+$("logout-btn").addEventListener("click",logout);
+$("exit-btn").addEventListener("click",quitGame);
+$("back-btn").addEventListener("click",quitGame);
+$("restart-btn").addEventListener("click",()=>{if(level)startLevel(level)});
+function login(){
+ const name=$("username").value.trim();
+ if(!name){toast(text("මුලින් player නම ඇතුළත් කරන්න.","Please enter a player name first."));$("username").focus();return}
+ let data;try{data=JSON.parse(localStorage.getItem(storeKey(name)))}catch(e){}
+ user=data&&typeof data==="object"?data:blankProfile(name);
+ user.name=name;if(!user.results)user.results={1:null,2:null,3:null};
+ if(!Number.isFinite(user.xp))user.xp=0;if(!Number.isFinite(user.correct))user.correct=0;
+ try{localStorage.setItem(storeKey(name),JSON.stringify(user));localStorage.setItem("ssg_active_v2",name)}catch(e){toast(text("Browser save පහසුකම නැහැ.","Browser storage is unavailable."))}
+ renderDashboard();$("auth-screen").classList.add("hidden");$("dashboard").classList.remove("hidden");$("logout-btn").classList.remove("hidden");
 }
-
-function loadUser(name){
-  try {
-    const data = JSON.parse(localStorage.getItem(userKey(name)));
-    return data && typeof data === "object" ? data : null;
-  } catch(e) {
-    return null;
-  }
+function logout(){stopTimer();user=null;level=0;$("dashboard").classList.add("hidden");$("game-screen").classList.add("hidden");$("auth-screen").classList.remove("hidden");$("logout-btn").classList.add("hidden");}
+function persist(){if(!user)return;try{localStorage.setItem(storeKey(user.name),JSON.stringify(user))}catch(e){toast(text("Progress save කළ නොහැක.","Could not save progress."))}}
+function renderDashboard(){
+ if(!user)return;
+ $("hello-name").textContent=user.name;$("stat-xp").textContent=user.xp;$("hero-xp").textContent=user.xp;
+ $("hero-level").textContent=String(Math.floor(user.xp/100)+1).padStart(2,"0");$("stat-correct").textContent=user.correct;
+ const done=[1,2,3].filter(i=>user.results[i]).length;$("stat-cleared").textContent=done+"/3";
+ const pct=Math.round(done/3*100);$("total-progress").style.width=pct+"%";$("total-progress-label").textContent=pct+"% complete";
+ const badges=[1,2,3].map(i=>user.results[i]?.badge).filter(Boolean);
+ $("stat-badge").textContent=badges.includes("💎 Diamond")?"💎":badges.includes("🥇 Gold")?"🥇":badges.length?"🥉":"—";
+ const labels={1:text("අයනීකරණ ශක්තිය","Ionization Energy"),2:text("ඉලෙක්ට්‍රොනික වින්‍යාසය","Electron Configuration"),3:text("වර්ගීකරණය","Classification")};
+ $("results-body").replaceChildren();
+ [1,2,3].forEach(i=>{
+  const r=user.results[i],tr=document.createElement("tr");
+  [i+" · "+labels[i],r?.badge||"—",r?r.xp+" XP":"0 XP",r?text("සම්පූර්ණයි","Cleared"):text("ඉතිරිව ඇත","Pending")].forEach(v=>{const td=document.createElement("td");td.textContent=v;tr.appendChild(td)});
+  $("results-body").appendChild(tr);
+  $("result-"+i).textContent=r?`${r.badge} • ${r.xp} XP`:text("තවම සම්පූර්ණ කර නැත","Not cleared yet");
+ });
 }
-
-function saveUser(){
-  if(!currentUser) return;
-  try {
-    localStorage.setItem(userKey(currentUser.name),JSON.stringify(currentUser));
-  } catch(e) {
-    alert("Progress save කරන්න බැරි වුණා. Browser storage පරීක්ෂා කරන්න.");
-  }
+function showGame(){ $("dashboard").classList.add("hidden");$("game-screen").classList.remove("hidden");$("game-content").replaceChildren();$("feedback").textContent="";locked=false;}
+function startLevel(n){if(!user){$("auth-screen").classList.remove("hidden");return}stopTimer();level=n;correct=0;runXP=0;showGame();$("game-eyebrow").textContent="LEVEL 0"+n;$("game-title").textContent=LEVELS[n][lang];$("run-xp").textContent="0";$("run-correct").textContent="0";$("run-badge").textContent="💎 Diamond";$("instruction").textContent=n===1?text("මූලද්‍රව්‍යය තෝරා graph එකේ එයට ගැළපෙන ලක්ෂ්‍යය තෝරන්න. Y අක්ෂය: පළමු අයනීකරණ ශක්තිය (kJ mol⁻¹).","Select an element, then its matching graph point. Y-axis: first ionization energy (kJ mol⁻¹)."):n===2?text("⚡ Electron එක තෝරන්න. ඉන්පසු එකතු කළ යුතු shell එක tap/click කරන්න.","⚡ Select the electron, then tap/click the shell to add it."):text("මූලද්‍රව්‍යයක් තෝරා නිවැරදි වර්ගයේ box එක තෝරන්න.","Select an element, then choose the correct classification box.");if(n===1)initL1();if(n===2){l2Index=0;initL2(true)}if(n===3)initL3()}
+function stopTimer(){if(timer){clearInterval(timer);timer=null}}
+function startTimer(seconds){stopTimer();maxTime=seconds;timeLeft=seconds;updateTimer();timer=setInterval(()=>{timeLeft=Math.max(0,timeLeft-1);updateTimer();if(timeLeft<=0){stopTimer();locked=true;toast(text("කාලය අවසන්! නැවත උත්සාහ කරන්න.","Time is up! Try again."));setTimeout(quitGame,900)}},1000)}
+function updateTimer(){const m=Math.floor(timeLeft/60),s=timeLeft%60;$("time-label").textContent=String(m).padStart(2,"0")+":"+String(s).padStart(2,"0");$("timer-fill").style.width=(maxTime?timeLeft/maxTime*100:0)+"%";const elapsed=maxTime-timeLeft;let b=elapsed<=maxTime*.35?"💎 Diamond":elapsed<=maxTime*.65?"🥇 Gold":"🥉 Bronze";$("run-badge").textContent=b}
+function setFeedback(msg,kind=""){const f=$("feedback");f.textContent=msg;f.style.color=kind==="bad"?"var(--bad)":kind==="good"?"var(--lime)":"var(--gold)"}
+function right(points=5){correct++;runXP+=points;$("run-correct").textContent=correct;$("run-xp").textContent=runXP;setFeedback(text("නිවැරදියි! +"+points+" XP ✨","Correct! +"+points+" XP ✨"),"good")}
+function wrong(msg){setFeedback(msg||text("ඒක හරි නැහැ. නැවත උත්සාහ කරන්න.","Not quite. Try again."),"bad")}
+function finishLevel(){
+ if(locked)return;locked=true;stopTimer();
+ const elapsed=maxTime-timeLeft;let badge=elapsed<=maxTime*.35?"💎 Diamond":elapsed<=maxTime*.65?"🥇 Gold":"🥉 Bronze";
+ const bonus=badge==="💎 Diamond"?25:badge==="🥇 Gold"?12:0;
+ const earned=LEVELS[level].xp+runXP+bonus;user.xp+=earned;user.correct+=correct;
+ const old=user.results[level];if(!old||earned>old.xp)user.results[level]={badge,xp:earned,correct,time:maxTime-timeLeft};
+ persist();$("game-content").replaceChildren();
+ const wrap=document.createElement("div");wrap.style.textAlign="center";wrap.style.padding="25px 5px";
+ const title=document.createElement("div");title.style.fontSize="54px";title.textContent=badge;
+ const h=document.createElement("h2");h.textContent=text("Level එක සම්පූර්ණයි!","Level Cleared!");
+ const p=document.createElement("p");p.className="muted";p.textContent=text("ඔබ උපයාගත් XP: ","XP earned: ")+earned+" · "+text("නිවැරදි ක්‍රියා: ","Correct actions: ")+correct;
+ const b=document.createElement("button");b.className="btn";b.textContent=text("Dashboard වෙත යන්න","Back to Dashboard");b.onclick=quitGame;
+ wrap.append(title,h,p,b);$("game-content").appendChild(wrap);$("instruction").textContent=text("විශිෂ්ට වැඩක්!","Great work!");setFeedback(text("ඔබේ ප්‍රතිඵල save කළා.","Your result has been saved."),"good");$("run-xp").textContent=earned;$("run-badge").textContent=badge;
 }
+function quitGame(){stopTimer();level=0;$("game-screen").classList.add("hidden");$("dashboard").classList.remove("hidden");renderDashboard()}
+function shuffle(a){for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a}
 
-window.addEventListener("load",()=>{
-  if(new URLSearchParams(location.search).get("src")==="app"){
-    $("vip-badge").classList.remove("hidden");
-  }
-
-  $("login-btn").addEventListener("click",handleLogin);
-  $("password").addEventListener("keydown",e=>{
-    if(e.key==="Enter") handleLogin();
-  });
-
-  const active = localStorage.getItem("ssg_active_session");
-  if(active){
-    const saved = loadUser(active);
-    if(saved){
-      currentUser = saved;
-      ensureProgress();
-      showDashboard();
-    }
-  }
-});
-
-function ensureProgress(){
-  if(!currentUser.progress) currentUser.progress = defaultProgress();
-  if(!currentUser.progress.easy) currentUser.progress.easy = {};
-  for(let i=1;i<=3;i++){
-    if(!(i in currentUser.progress.easy)){
-      currentUser.progress.easy[i] = null;
-    }
-  }
+/* LEVEL 1 — matching real first ionization-energy values */
+function initL1(){
+ l1Order=shuffle([...elements]);l1Placed=new Set();l1Selected=null;
+ const area=$("game-content");area.replaceChildren();
+ const wrap=document.createElement("div");wrap.className="graph-wrap";
+ const graph=document.createElement("div");graph.className="graph";graph.id="graph";
+ const y=document.createElement("div");y.className="axis-y";y.textContent="First ionization energy (kJ mol⁻¹)";graph.appendChild(y);
+ const x=document.createElement("div");x.className="axis-x";x.textContent="Atomic number (Z)";graph.appendChild(x);
+ // x is atomic number; y maps 0–2500 kJ/mol. Point labels are shuffled IDs.
+ l1Order.forEach((e,i)=>{const p=document.createElement("button");p.type="button";p.className="graph-point";p.textContent=i+1;p.style.left=(e.z/20*100)+"%";p.style.bottom=(e.ie/2500*100)+"%";p.setAttribute("aria-label","Point "+(i+1));p.dataset.sym=e.sym;p.onclick=()=>chooseL1Point(e,p);graph.appendChild(p)});
+ wrap.appendChild(graph);const pool=document.createElement("div");pool.className="pool";pool.id="l1-pool";
+ shuffle([...elements]).forEach(e=>{const b=document.createElement("button");b.className="chip";b.textContent=e.sym;b.onclick=()=>{l1Selected=e.sym;pool.querySelectorAll(".chip").forEach(c=>c.classList.toggle("selected",c.textContent===e.sym));$("instruction").textContent=text("තෝරාගත්තේ ","Selected: ")+e.sym+text(". දැන් graph එකේ එහි point එක තෝරන්න.",". Now select its point on the graph.")};pool.appendChild(b)});
+ area.append(wrap,pool);startTimer(150);
 }
+function chooseL1Point(e,p){if(locked)return;if(!l1Selected){wrong(text("මුලින් මූලද්‍රව්‍යයක් තෝරන්න.","Select an element first."));return}if(l1Selected!==e.sym){wrong(text("වැරදි point එක. නැවත බලන්න.","Wrong point. Try again."));return}if(l1Placed.has(e.sym))return;l1Placed.add(e.sym);p.textContent=e.sym;p.classList.add("filled");p.disabled=true;$("l1-pool").querySelectorAll(".chip").forEach(c=>{if(c.textContent===e.sym){c.classList.add("hidden");c.disabled=true}});l1Selected=null;right(3);if(l1Placed.size===elements.length)finishLevel()}
 
-/* ---------------- LOGIN ---------------- */
-
-function handleLogin(){
-  const name = $("username").value.trim();
-  const pass = $("password").value;
-
-  if(!name || !pass){
-    alert("කරුණාකර නම සහ මුරපදය ඇතුළත් කරන්න!");
-    return;
-  }
-
-  let user = loadUser(name);
-
-  if(user){
-    if(user.password !== pass){
-      alert("වැරදි Password එකක්!");
-      return;
-    }
-  } else {
-    user = {
-      name:name,
-      password:pass,
-      progress:defaultProgress()
-    };
-    try {
-      localStorage.setItem(userKey(name),JSON.stringify(user));
-    } catch(e) {
-      alert("Browser storage එකට save කරන්න බැහැ.");
-      return;
-    }
-  }
-
-  currentUser = user;
-  ensureProgress();
-
-  try {
-    localStorage.setItem("ssg_active_session",name);
-  } catch(e) {}
-
-  showDashboard();
+/* LEVEL 2 — tap-friendly electron shell builder */
+function initL2(first){if(first)startTimer(120);l2State=[0,0,0,0,0];electronPicked=false;renderL2()}
+function renderL2(){
+ const q=l2Questions[l2Index];if(!q){finishLevel();return}
+ $("game-title").textContent=text("Level 2: ","Level 2: ")+q.name+" ("+(l2Index+1)+"/"+l2Questions.length+")";
+ const area=$("game-content");area.replaceChildren();const wrap=document.createElement("div");wrap.className="shells-wrap";
+ const atom=document.createElement("div");atom.className="atom";atom.id="atom";
+ const nuc=document.createElement("div");nuc.className="nucleus";nuc.textContent=q.sym;atom.appendChild(nuc);
+ for(let i=1;i<=4;i++){if(i>q.config.length)continue;const sh=document.createElement("button");sh.type="button";sh.className="shell s"+i;sh.dataset.shell=i;sh.setAttribute("aria-label","Shell "+i);sh.onclick=()=>{if(!electronPicked){wrong(text("මුලින් ⚡ Electron එක තෝරන්න.","Select the ⚡ electron first."));return}addElectron(i)};atom.appendChild(sh)}
+ wrap.appendChild(atom);
+ const source=document.createElement("div");source.className="source-row";const electron=document.createElement("button");electron.className="electron-source";electron.type="button";electron.textContent="⚡";electron.setAttribute("aria-label","Select electron");electron.onclick=()=>{electronPicked=true;setFeedback(text("Electron එක තෝරාගත්තා. දැන් shell එකක් tap කරන්න.","Electron selected. Tap a shell now."),"good")};
+ const label=document.createElement("span");label.textContent=text("Electron ကို තෝරන්න","Select electron");label.className="muted";source.append(electron,label);wrap.appendChild(source);
+ const counts=document.createElement("div");counts.className="pool";counts.id="shell-counts";wrap.appendChild(counts);area.appendChild(wrap);updateShells();
 }
-
-function logout(){
-  stopTimer();
-  currentUser = null;
-  try {localStorage.removeItem("ssg_active_session");} catch(e){}
-  showScreen("auth-screen");
-}
-
-function showScreen(screenId){
-  ["auth-screen","dashboard-screen","game-screen-l1",
-   "game-screen-l2","game-screen-l3"].forEach(id=>{
-    $(id).classList.toggle("hidden",id!==screenId);
-  });
-}
-
-function showDashboard(){
-  stopTimer();
-  if(!currentUser) return;
-
-  ensureProgress();
-  showScreen("dashboard-screen");
-  $("player-display-name").textContent = currentUser.name;
-
-  for(let i=1;i<=3;i++){
-    $("badge-easy-"+i).textContent =
-      currentUser.progress.easy[i] || "🔓";
-  }
-
-  const labels = {
-    1:"Easy Level 1 (අයනීකරණ ශක්තිය)",
-    2:"Easy Level 2 (ඉලෙක්ට්‍රොනික වින්‍යාසය)",
-    3:"Easy Level 3 (මූලද්‍රව්‍ය වර්ගීකරණය)"
-  };
-
-  $("chart-content").replaceChildren();
-
-  for(let i=1;i<=3;i++){
-    const row = document.createElement("div");
-    row.className = "chart-row";
-    const label = document.createElement("span");
-    label.textContent = labels[i];
-    const result = document.createElement("b");
-    result.textContent = currentUser.progress.easy[i] || "තවම නැත";
-    row.append(label,result);
-    $("chart-content").appendChild(row);
-  }
-}
-
-/* ---------------- LEVEL CONTROL ---------------- */
-
-function startLevel(level){
-  if(!currentUser){
-    showScreen("auth-screen");
-    return;
-  }
-
-  stopTimer();
-  activeLevel = level;
-
-  if(level===1){
-    showScreen("game-screen-l1");
-    initL1Game();
-  } else if(level===2){
-    showScreen("game-screen-l2");
-    l2SubIndex = 0;
-    initL2SubLevel(true);
-  } else if(level===3){
-    showScreen("game-screen-l3");
-    initL3Game();
-  }
-}
-
-function quitGame(){
-  stopTimer();
-  showDashboard();
-}
-
-function stopTimer(){
-  if(gameTimer!==null){
-    clearInterval(gameTimer);
-    gameTimer = null;
-  }
-}
-
-/* ---------------- TIMER ---------------- */
-
-function startTimer(level,duration){
-  stopTimer();
-
-  if(duration!==undefined){
-    maxTime = duration;
-    timeLeft = duration;
-  }
-
-  updateTimerUI(level);
-
-  gameTimer = setInterval(()=>{
-    timeLeft = Math.max(0,timeLeft-1);
-    updateTimerUI(level);
-
-    if(timeLeft<=0){
-      stopTimer();
-      alert("කාලය අවසන්! නැවත උත්සාහ කරන්න.");
-      showDashboard();
-    }
-  },1000);
-}
-
-function updateTimerUI(level){
-  const mins = Math.floor(timeLeft/60);
-  const secs = timeLeft%60;
-  const timeString =
-    String(mins).padStart(2,"0")+":"+
-    String(secs).padStart(2,"0");
-
-  const pct = maxTime>0 ? (timeLeft/maxTime)*100 : 0;
-  let badge = "🥉 Bronze";
-
-  const elapsed = maxTime-timeLeft;
-
-  if(level===1){
-    if(elapsed<=60) badge="💎 Diamond";
-    else if(elapsed<=90) badge="🥇 Gold";
-  } else if(level===2){
-    if(elapsed<=50) badge="💎 Diamond";
-    else if(elapsed<=80) badge="🥇 Gold";
-  } else if(level===3){
-    if(elapsed<=30) badge="💎 Diamond";
-    else if(elapsed<=60) badge="🥇 Gold";
-  }
-
-  $("time-display-l"+level).textContent = timeString;
-  $("timer-bar-l"+level).style.width = pct+"%";
-  $("badge-display-l"+level).textContent = badge;
-}
-
-function awardBadge(level){
-  stopTimer();
-
-  const elapsed = maxTime-timeLeft;
-  let badge = "🥉 Bronze";
-
-  if(level===1){
-    if(elapsed<=60) badge="💎 Diamond";
-    else if(elapsed<=90) badge="🥇 Gold";
-  } else if(level===2){
-    if(elapsed<=50) badge="💎 Diamond";
-    else if(elapsed<=80) badge="🥇 Gold";
-  } else {
-    if(elapsed<=30) badge="💎 Diamond";
-    else if(elapsed<=60) badge="🥇 Gold";
-  }
-
-  currentUser.progress.easy[level] = badge;
-  saveUser();
-
-  alert("සුභ පැතුම්! Level "+level+
-        " සම්පූර්ණ කළා! "+badge+" Badge එක දිනාගත්තා! 🏆");
-  showDashboard();
-}
-
-/* ---------------- LEVEL 1 ---------------- */
-
-function initL1Game(){
-  maxTime=150;
-  timeLeft=150;
-  placedCount=0;
-  selectedElement=null;
-
-  $("instruction-l1").textContent =
-    "පහළින් මූලද්‍රව්‍යයක් තෝරා එයට අදාළ ලක්ෂ්‍යය ඔබන්න.";
-
-  $("graph-board").replaceChildren();
-  $("elements-pool").replaceChildren();
-
-  elementsData.forEach((elem,index)=>{
-    const point=document.createElement("button");
-    point.type="button";
-    point.className="graph-point";
-    point.style.left=elem.x+"%";
-    point.style.bottom=elem.y+"%";
-    point.textContent=index+1;
-    point.setAttribute("aria-label",elem.sym+" ස්ථානය");
-
-    point.addEventListener("click",()=>{
-      if(!selectedElement){
-        $("instruction-l1").textContent =
-          "මුලින් පහළින් මූලද්‍රව්‍යයක් තෝරන්න!";
-        return;
-      }
-
-      if(selectedElement!==elem.sym){
-        alert("වැරදි ස්ථානයක්! නැවත උත්සාහ කරන්න.");
-        return;
-      }
-
-      point.textContent=elem.sym;
-      point.classList.add("filled");
-      point.disabled=true;
-
-      const chip=$("chip-"+elem.sym);
-      if(chip) chip.classList.add("hidden");
-
-      selectedElement=null;
-      placedCount++;
-
-      if(placedCount===elementsData.length){
-        awardBadge(1);
-      } else {
-        $("instruction-l1").textContent =
-          "නිවැරදියි! ඊළඟ මූලද්‍රව්‍යය තෝරන්න.";
-      }
-    });
-
-    $("graph-board").appendChild(point);
-
-    const chip=document.createElement("button");
-    chip.type="button";
-    chip.className="elem-chip";
-    chip.id="chip-"+elem.sym;
-    chip.textContent=elem.sym;
-
-    chip.addEventListener("click",()=>{
-      document.querySelectorAll(".elem-chip").forEach(c=>
-        c.classList.remove("selected")
-      );
-      chip.classList.add("selected");
-      selectedElement=elem.sym;
-      $("instruction-l1").textContent =
-        "තෝරාගත් මූලද්‍රව්‍යය: "+elem.sym+
-        ". දැන් නිවැරදි ලක්ෂ්‍යය ඔබන්න.";
-    });
-
-    $("elements-pool").appendChild(chip);
-  });
-
-  startTimer(1,150);
-}
-
-/* ---------------- LEVEL 2 ---------------- */
-
-function initL2SubLevel(firstQuestion=false){
-  const q=l2Questions[l2SubIndex];
-
-  if(!q){
-    awardBadge(2);
-    return;
-  }
-
-  if(firstQuestion){
-    maxTime=120;
-    timeLeft=120;
-  }
-
-  currentShellState=[0,0,0,0,0];
-  isElectronPicked=false;
-
-  $("l2-title").textContent =
-    "Level 2 ("+(l2SubIndex+1)+"/"+l2Questions.length+"): "+q.name;
-  $("l2-nucleus").textContent=q.sym;
-
-  for(let i=1;i<=4;i++){
-    $("shell-"+i).style.display =
-      i<=q.config.length ? "flex" : "none";
-  }
-
-  $("instruction-l2").innerHTML =
-    "⚡ Electron එක Touch කර ඇදගෙන විත් අදාළ වළල්ලට දමන්න!<br>"+
-    "Mobile: Electron එක Touch කර, පසුව වළල්ල Touch කරන්න.";
-
-  updateShellUI();
-
-  if(firstQuestion){
-    startTimer(2,120);
-  } else {
-    updateTimerUI(2);
-  }
-}
-
-/* Click/tap Electron source */
-$("electron-source").addEventListener("click",()=>{
-  isElectronPicked=true;
-  $("instruction-l2").textContent =
-    "Electron එක තෝරාගත්තා! දැන් අදාළ වළල්ල Touch කරන්න.";
-});
-
-/* Desktop drag support */
-$("electron-source").addEventListener("dragstart",event=>{
-  isElectronPicked=true;
-  event.dataTransfer.setData("text/plain","electron");
-  event.dataTransfer.effectAllowed="copy";
-});
-
-for(let i=1;i<=4;i++){
-  const shell=$("shell-"+i);
-
-  shell.addEventListener("dragover",event=>{
-    event.preventDefault();
-    event.dataTransfer.dropEffect="copy";
-  });
-
-  shell.addEventListener("drop",event=>{
-    event.preventDefault();
-    addElectron(i);
-    isElectronPicked=false;
-  });
-
-  shell.addEventListener("click",()=>{
-    if(!isElectronPicked){
-      $("instruction-l2").textContent =
-        "මුලින් Electron එක Touch කරන්න. ඉන්පසු වළල්ල Touch කරන්න.";
-      return;
-    }
-
-    addElectron(i);
-    isElectronPicked=false;
-  });
-}
-
-function addElectron(shellNum){
-  const q=l2Questions[l2SubIndex];
-  if(!q || shellNum>q.config.length) return;
-
-  const maxAllowed=q.config[shellNum-1]||0;
-
-  if(currentShellState[shellNum]>=maxAllowed){
-    alert(shellNum+" වන වළල්ල පිරී ඇත! උපරිම ඉලෙක්ට්‍රෝන: "+maxAllowed);
-    return;
-  }
-
-  currentShellState[shellNum]++;
-  updateShellUI();
-
-  $("instruction-l2").textContent =
-    shellNum+" වන වළල්ලට Electron එකක් එකතු කළා! ⚡";
-
-  checkL2Progress();
-}
-
-function updateShellUI(){
-  for(let i=1;i<=4;i++){
-    $("shell-"+i).querySelectorAll(".electron-dot").forEach(dot=>dot.remove());
-  }
-
-  const q=l2Questions[l2SubIndex];
-  if(!q) return;
-
-  for(let shellNum=1;shellNum<=q.config.length;shellNum++){
-    const shell=$("shell-"+shellNum);
-    const count=currentShellState[shellNum];
-    const allowed=q.config[shellNum-1];
-
-    const size=shell.clientWidth;
-    const center=size/2;
-    const radius=Math.max(0,size/2-7);
-
-    for(let j=0;j<count;j++){
-      const angle=(2*Math.PI*j/allowed)-Math.PI/2;
-      const dot=document.createElement("div");
-      dot.className="electron-dot";
-      dot.style.left=(center+radius*Math.cos(angle)-5)+"px";
-      dot.style.top=(center+radius*Math.sin(angle)-5)+"px";
-      shell.appendChild(dot);
-    }
-  }
-}
-
-function resetL2Current(){
-  currentShellState=[0,0,0,0,0];
-  isElectronPicked=false;
-  updateShellUI();
-
-  $("instruction-l2").innerHTML =
-    "⚡ Electron එක Touch කර ඇදගෙන විත් අදාළ වළල්ලට දමන්න!<br>"+
-    "Mobile: Electron එක Touch කර, පසුව වළල්ල Touch කරන්න.";
-}
-
-function checkL2Progress(){
-  const q=l2Questions[l2SubIndex];
-
-  const complete=q.config.every((count,index)=>
-    currentShellState[index+1]===count
-  );
-
-  if(!complete) return;
-
-  alert("නියමයි! "+q.name+
-        " හි ඉලෙක්ට්‍රොනික වින්‍යාසය නිවැරදියි! 🎉");
-
-  l2SubIndex++;
-
-  if(l2SubIndex<l2Questions.length){
-    initL2SubLevel(false);
-  } else {
-    awardBadge(2);
-  }
-}
-
-/* ---------------- LEVEL 3 ---------------- */
-
-function initL3Game(){
-  maxTime=90;
-  timeLeft=90;
-
-  l3RemainingItems=l3Elements.map(item=>({...item}));
-  l3ActiveElement=null;
-  l3UserBins={metals:[],nonmetals:[],metalloids:[]};
-
-  renderL3Board();
-  startTimer(3,90);
-}
-
-function renderL3Board(){
-  const pool=$("l3-pool");
-  pool.replaceChildren();
-
-  l3RemainingItems.forEach(item=>{
-    const chip=document.createElement("button");
-    chip.type="button";
-    chip.className="class-item";
-    chip.textContent=item.sym;
-
-    if(l3ActiveElement===item){
-      chip.classList.add("selected");
-    }
-
-    chip.addEventListener("click",()=>{
-      l3ActiveElement=item;
-      renderL3Board();
-    });
-
-    pool.appendChild(chip);
-  });
-
-  ["metals","nonmetals","metalloids"].forEach(key=>{
-    const bin=$("bin-"+key);
-    bin.replaceChildren();
-
-    l3UserBins[key].forEach(sym=>{
-      const placed=document.createElement("span");
-      placed.className="placed-chip";
-      placed.textContent=sym;
-      bin.appendChild(placed);
-    });
-  });
-}
-
-function selectBin(binKey){
-  if(!l3ActiveElement){
-    alert("මුලින් මූලද්‍රව්‍යයක් තෝරන්න!");
-    return;
-  }
-
-  const item=l3ActiveElement;
-
-  if(item.type!==binKey){
-    alert("වැරදි භාජනයක්! නැවත උත්සාහ කරන්න.");
-    return;
-  }
-
-  l3UserBins[binKey].push(item.sym);
-
-  l3RemainingItems=l3RemainingItems.filter(
-    remaining=>remaining.sym!==item.sym
-  );
-
-  l3ActiveElement=null;
-  renderL3Board();
-
-  if(l3RemainingItems.length===0){
-    awardBadge(3);
-  }
-}
+function addElectron(n){if(locked)return;const q=l2Questions[l2Index];if(!q||n>q.config.length)return;if(l2State[n]>=q.config[n-1]){wrong(text("මෙම shell එක පිරී ඇත.","This shell is full."));electronPicked=false;return}l2State[n]++;electronPicked=false;right(2);updateShells();if(q.config.every((v,i)=>l2State[i+1]===v)){setFeedback(text(q.sym+" වින්‍යාසය නිවැරදියි!","Correct configuration for "+q.sym+"!"),"good");l2Index++;if(l2Index===l2Questions.length){finishLevel()}else{setTimeout(()=>{if(!locked)renderL2()},650)}}}
+function updateShells(){const q=l2Questions[l2Index];if(!q)return;const atom=$("atom");if(!atom)return;atom.querySelectorAll(".electron-dot").forEach(d=>d.remove());for(let n=1;n<=q.config.length;n++){const shell=atom.querySelector('[data-shell="'+n+'"]');if(!shell)continue;const rect=shell.getBoundingClientRect(),atomRect=atom.getBoundingClientRect();const cx=atom.clientWidth/2,cy=atom.clientHeight/2;const w=shell.offsetWidth;const r=w/2-5;for(let j=0;j<l2State[n];j++){const angle=(Math.PI*2*j/q.config[n-1])-Math.PI/2;const dot=document.createElement("span");dot.className="electron-dot";dot.style.left=(cx+r*Math.cos(angle)-5)+"px";dot.style.top=(cy+r*Math.sin(angle)-5)+"px";atom.appendChild(dot)}}const counts=$("shell-counts");if(counts){counts.replaceChildren();q.config.forEach((v,i)=>{const b=document.createElement("span");b.className="metric";b.textContent="KLMN"[i]+": "+l2State[i+1]+"/"+v;counts.appendChild(b)})}}
+
+/* LEVEL 3 — classification */
+function initL3(){l3Remaining=shuffle(l3Elements.map(x=>({...x})));l3Bins={metals:[],nonmetals:[],metalloids:[]};l3Selected=null;renderL3();startTimer(90)}
+function renderL3(){const area=$("game-content");area.replaceChildren();const pool=document.createElement("div");pool.className="pool";pool.id="l3-pool";l3Remaining.forEach(item=>{const b=document.createElement("button");b.type="button";b.className="chip"+(l3Selected===item.sym?" selected":"");b.textContent=item.sym;b.onclick=()=>{l3Selected=item.sym;renderL3()};pool.appendChild(b)});area.appendChild(pool);const grid=document.createElement("div");grid.className="bin-grid";const defs=[["metals","🔵 "+text("ලෝහ","Metals")],["nonmetals","🔴 "+text("අලෝහ","Non-metals")],["metalloids","🟡 "+text("ලෝහාලෝහ","Metalloids")]];defs.forEach(([key,title])=>{const b=document.createElement("button");b.type="button";b.className="bin";const h=document.createElement("h4");h.textContent=title;const items=document.createElement("div");items.className="bin-items";l3Bins[key].forEach(sym=>{const s=document.createElement("span");s.className="placed";s.textContent=sym;items.appendChild(s)});b.append(h,items);b.onclick=()=>placeL3(key);grid.appendChild(b)});area.appendChild(grid)}
+function placeL3(key){if(locked)return;if(!l3Selected){wrong(text("මුලින් මූලද්‍රව්‍යයක් තෝරන්න.","Select an element first."));return}const item=l3Remaining.find(x=>x.sym===l3Selected);if(!item)return;if(item.type!==key){wrong(text("වැරදි වර්ගයයි. නැවත උත්සාහ කරන්න.","Incorrect category. Try again."));return}l3Bins[key].push(item.sym);l3Remaining=l3Remaining.filter(x=>x.sym!==item.sym);l3Selected=null;right(5);renderL3();if(l3Remaining.length===0)finishLevel()}
+window.addEventListener("resize",()=>{if(level===2&&!$("game-screen").classList.contains("hidden")&&!locked)updateShells()});
+try{const active=localStorage.getItem("ssg_active_v2");if(active){$("username").value=active;}}catch(e){}
+applyLanguage();
 </script>
 </body>
-</html> 
+</html>
