@@ -37,15 +37,12 @@
     .chart-container { background: #0d111d; border: 1px solid var(--neon-cyan); padding: 15px; border-radius: 8px; }
     .chart-row { display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px dashed #2a334d; }
    
-    /* Instruction Banner */
     .instruction-banner { text-align: center; background: rgba(0, 243, 255, 0.1); border: 1px dashed var(--neon-cyan); padding: 10px; border-radius: 6px; margin: 12px 0; font-weight: bold; color: var(--neon-cyan); font-size: 16px; }
 
-    /* Timer & Badges */
     .timer-container { width: 100%; background: #101420; height: 18px; border-radius: 10px; overflow: hidden; border: 1px solid var(--neon-cyan); margin: 10px 0; }
     .timer-bar { height: 100%; width: 100%; background: linear-gradient(90deg, var(--neon-green), var(--neon-yellow), var(--neon-pink)); transition: width 1s linear; }
     .badge-status { text-align: center; font-size: 17px; font-weight: bold; color: var(--neon-yellow); margin-bottom: 10px; }
 
-    /* Level 1 Arena */
     .graph-board { width: 100%; height: 240px; border-left: 2px solid var(--neon-cyan); border-bottom: 2px solid var(--neon-cyan); position: relative; margin: 15px 0; background: rgba(0, 243, 255, 0.02); }
     .graph-point { width: 30px; height: 30px; border: 2px dashed var(--neon-pink); border-radius: 50%; position: absolute; transform: translate(-50%, -50%); display: flex; justify-content: center; align-items: center; font-size: 11px; color: #888; cursor: pointer; }
     .graph-point.filled { border: 2px solid var(--neon-green); background: var(--neon-cyan); color: #000; font-weight: bold; box-shadow: 0 0 10px var(--neon-cyan); }
@@ -53,7 +50,6 @@
     .elem-chip { padding: 8px 14px; background: #1f2942; border: 1px solid var(--neon-cyan); border-radius: 4px; cursor: pointer; font-weight: bold; }
     .elem-chip.selected { background: var(--neon-pink); box-shadow: 0 0 10px var(--neon-pink); }
 
-    /* Level 2 Shell Arena */
     .shells-wrapper { display: flex; flex-direction: column; align-items: center; justify-content: center; margin: 15px 0; }
     .atomic-system { position: relative; width: 280px; height: 280px; display: flex; justify-content: center; align-items: center; }
     .nucleus { width: 45px; height: 45px; background: var(--neon-pink); border-radius: 50%; display: flex; justify-content: center; align-items: center; font-weight: bold; color: #fff; box-shadow: 0 0 15px var(--neon-pink); z-index: 10; font-size: 18px; }
@@ -73,7 +69,6 @@
   <div class="container">
     <h1 class="title-neon">Simple Science Gaming</h1>
 
-    <!-- 1. AUTH SCREEN -->
     <div id="auth-screen">
       <h2 style="margin-bottom: 20px; color: var(--neon-pink);">PLAYER LOGIN / REGISTER</h2>
       <div class="auth-box">
@@ -89,7 +84,6 @@
       </div>
     </div>
 
-    <!-- 2. MAIN DASHBOARD -->
     <div id="dashboard-screen" class="hidden">
       <div class="dashboard-header">
         <h2>ආයුබෝවන්, <span id="player-display-name" style="color: var(--neon-cyan);"></span>! 👋</h2>
@@ -97,7 +91,6 @@
       </div>
 
       <div class="chains-container">
-        <!-- Easy Chain -->
         <div class="chain-card">
           <h3 style="color: var(--neon-green);">EASY CHAIN</h3>
           <button class="level-btn" onclick="startLevel('easy', 1)">
@@ -110,7 +103,6 @@
           </button>
         </div>
 
-        <!-- Normal Chain -->
         <div class="chain-card">
           <h3 style="color: var(--neon-yellow);">NORMAL CHAIN</h3>
           <button class="level-btn locked">
@@ -119,7 +111,6 @@
           </button>
         </div>
 
-        <!-- Hard Chain -->
         <div class="chain-card">
           <h3 style="color: var(--neon-pink);">HARD CHAIN</h3>
           <button class="level-btn locked">
@@ -137,7 +128,6 @@
       <button class="btn" style="background: #333;" onclick="logout()">Logout</button>
     </div>
 
-    <!-- 3. GAME ARENA: LEVEL 1 -->
     <div id="game-screen-l1" class="hidden">
       <div style="display: flex; justify-content: space-between; align-items: center;">
         <h3 style="color: var(--neon-cyan);">Level 1: අයණිකරණ ශක්ති ප්‍රස්තරය</h3>
@@ -149,7 +139,6 @@
         කාලය: <span id="time-display-l1">02:30</span> | Badge එක: <span id="badge-display-l1">💎 Diamond</span>
       </div>
 
-      <!-- Live Instruction Banner -->
       <div id="instruction-l1" class="instruction-banner">
         👉 පියවර 1: පහළින් මූලද්‍රව්‍යයක් Touch කරන්න.
       </div>
@@ -158,7 +147,6 @@
       <div class="elements-pool" id="elements-pool"></div>
     </div>
 
-    <!-- 4. GAME ARENA: LEVEL 2 -->
     <div id="game-screen-l2" class="hidden">
       <div style="display: flex; justify-content: space-between; align-items: center;">
         <h3 style="color: var(--neon-pink);" id="l2-title">Level 2: ඉලෙක්ට්‍රොනික වින්‍යාසය</h3>
@@ -177,15 +165,12 @@
       <div class="shells-wrapper">
         <div class="atomic-system">
           <div class="nucleus" id="l2-nucleus">Mg</div>
-          <!-- Shell 1 (Inner) -->
           <div class="shell shell-1" onclick="addElectronToShell(1)">
             <span class="shell-count" id="sc-1">0/2</span>
           </div>
-          <!-- Shell 2 (Middle) -->
           <div class="shell shell-2" onclick="addElectronToShell(2)">
             <span class="shell-count" id="sc-2">0/8</span>
           </div>
-          <!-- Shell 3 (Outer) -->
           <div class="shell shell-3" id="shell-3-box" onclick="addElectronToShell(3)">
             <span class="shell-count" id="sc-3">0/2</span>
           </div>
