@@ -16,8 +16,8 @@
       --text-color: #e0e6ed;
     }
     * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Rajdhani', sans-serif; }
-    body { background-color: var(--bg-color); color: var(--text-color); min-height: 100vh; display: flex; justify-content: center; align-items: center; padding: 20px; }
-    .container { width: 100%; max-width: 900px; background: var(--card-bg); border: 2px solid var(--neon-cyan); box-shadow: 0 0 20px rgba(0, 243, 255, 0.2); border-radius: 12px; padding: 25px; }
+    body { background-color: var(--bg-color); color: var(--text-color); min-height: 100vh; display: flex; justify-content: center; align-items: center; padding: 15px; }
+    .container { width: 100%; max-width: 900px; background: var(--card-bg); border: 2px solid var(--neon-cyan); box-shadow: 0 0 20px rgba(0, 243, 255, 0.2); border-radius: 12px; padding: 20px; }
     h1, h2, h3 { font-family: 'Orbitron', sans-serif; text-transform: uppercase; text-align: center; letter-spacing: 2px; }
     .title-neon { color: var(--neon-cyan); text-shadow: 0 0 10px var(--neon-cyan); margin-bottom: 20px; }
     .auth-box { display: flex; flex-direction: column; gap: 15px; max-width: 400px; margin: 0 auto; }
@@ -29,22 +29,42 @@
     .btn:hover { box-shadow: 0 0 15px var(--neon-cyan); transform: translateY(-2px); }
     .dashboard-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #2a334d; padding-bottom: 15px; margin-bottom: 20px; }
     .vip-tag { background: var(--neon-yellow); color: #000; padding: 4px 10px; border-radius: 20px; font-weight: bold; font-size: 12px; box-shadow: 0 0 10px var(--neon-yellow); }
-    .chains-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; margin-bottom: 30px; }
+    .chains-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; margin-bottom: 20px; }
     .chain-card { background: #0d111d; border: 1px solid #2a334d; border-radius: 8px; padding: 15px; }
     .chain-card h3 { margin-bottom: 15px; color: var(--neon-pink); }
-    .level-btn { width: 100%; padding: 10px; margin: 8px 0; background: #1a2238; border: 1px solid var(--neon-cyan); color: #fff; border-radius: 5px; cursor: pointer; display: flex; justify-content: space-between; align-items: center; }
+    .level-btn { width: 100%; padding: 10px; margin: 8px 0; background: #1a2238; border: 1px solid var(--neon-cyan); color: #fff; border-radius: 5px; cursor: pointer; display: flex; justify-content: space-between; align-items: center; font-size: 15px; }
     .level-btn.locked { border-color: #444; color: #666; cursor: not-allowed; background: #101420; }
     .chart-container { background: #0d111d; border: 1px solid var(--neon-cyan); padding: 15px; border-radius: 8px; }
     .chart-row { display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px dashed #2a334d; }
-    .timer-container { width: 100%; background: #101420; height: 20px; border-radius: 10px; overflow: hidden; border: 1px solid var(--neon-cyan); margin: 15px 0; }
+   
+    /* Instruction Banner */
+    .instruction-banner { text-align: center; background: rgba(0, 243, 255, 0.1); border: 1px dashed var(--neon-cyan); padding: 10px; border-radius: 6px; margin: 12px 0; font-weight: bold; color: var(--neon-cyan); font-size: 16px; }
+
+    /* Timer & Badges */
+    .timer-container { width: 100%; background: #101420; height: 18px; border-radius: 10px; overflow: hidden; border: 1px solid var(--neon-cyan); margin: 10px 0; }
     .timer-bar { height: 100%; width: 100%; background: linear-gradient(90deg, var(--neon-green), var(--neon-yellow), var(--neon-pink)); transition: width 1s linear; }
-    .badge-status { text-align: center; font-size: 18px; font-weight: bold; color: var(--neon-yellow); margin-bottom: 15px; }
-    .graph-board { width: 100%; height: 250px; border-left: 2px solid var(--neon-cyan); border-bottom: 2px solid var(--neon-cyan); position: relative; margin: 20px 0; background: rgba(0, 243, 255, 0.02); }
-    .graph-point { width: 32px; height: 32px; border: 2px dashed var(--neon-pink); border-radius: 50%; position: absolute; transform: translate(-50%, -50%); display: flex; justify-content: center; align-items: center; font-size: 11px; color: #888; cursor: pointer; }
+    .badge-status { text-align: center; font-size: 17px; font-weight: bold; color: var(--neon-yellow); margin-bottom: 10px; }
+
+    /* Level 1 Arena */
+    .graph-board { width: 100%; height: 240px; border-left: 2px solid var(--neon-cyan); border-bottom: 2px solid var(--neon-cyan); position: relative; margin: 15px 0; background: rgba(0, 243, 255, 0.02); }
+    .graph-point { width: 30px; height: 30px; border: 2px dashed var(--neon-pink); border-radius: 50%; position: absolute; transform: translate(-50%, -50%); display: flex; justify-content: center; align-items: center; font-size: 11px; color: #888; cursor: pointer; }
     .graph-point.filled { border: 2px solid var(--neon-green); background: var(--neon-cyan); color: #000; font-weight: bold; box-shadow: 0 0 10px var(--neon-cyan); }
-    .elements-pool { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; margin-top: 15px; }
+    .elements-pool { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; margin-top: 10px; }
     .elem-chip { padding: 8px 14px; background: #1f2942; border: 1px solid var(--neon-cyan); border-radius: 4px; cursor: pointer; font-weight: bold; }
     .elem-chip.selected { background: var(--neon-pink); box-shadow: 0 0 10px var(--neon-pink); }
+
+    /* Level 2 Shell Arena */
+    .shells-wrapper { display: flex; flex-direction: column; align-items: center; justify-content: center; margin: 15px 0; }
+    .atomic-system { position: relative; width: 280px; height: 280px; display: flex; justify-content: center; align-items: center; }
+    .nucleus { width: 45px; height: 45px; background: var(--neon-pink); border-radius: 50%; display: flex; justify-content: center; align-items: center; font-weight: bold; color: #fff; box-shadow: 0 0 15px var(--neon-pink); z-index: 10; font-size: 18px; }
+    .shell { position: absolute; border: 2px solid var(--neon-cyan); border-radius: 50%; display: flex; justify-content: center; align-items: flex-start; cursor: pointer; transition: 0.2s; }
+    .shell:hover { border-color: var(--neon-yellow); background: rgba(0, 243, 255, 0.05); }
+    .shell-1 { width: 110px; height: 110px; }
+    .shell-2 { width: 180px; height: 180px; }
+    .shell-3 { width: 250px; height: 250px; }
+    .shell-count { position: absolute; top: -12px; background: var(--card-bg); padding: 0 6px; font-size: 12px; color: var(--neon-yellow); border-radius: 4px; border: 1px solid var(--neon-yellow); }
+    .electron-pool-btn { padding: 10px 20px; background: var(--neon-cyan); color: #000; border: none; font-weight: bold; border-radius: 20px; cursor: pointer; box-shadow: 0 0 10px var(--neon-cyan); margin-top: 10px; }
+
     .hidden { display: none !important; }
   </style>
 </head>
@@ -84,9 +104,9 @@
             <span>Level 1: අයණිකරණ ප්‍රස්තරය</span>
             <span id="badge-easy-1">🔓</span>
           </button>
-          <button class="level-btn locked">
-            <span>Level 2: Coming Soon</span>
-            <span>🔒</span>
+          <button class="level-btn" onclick="startLevel('easy', 2)">
+            <span>Level 2: ඉලෙක්ට්‍රොනික වින්‍යාසය</span>
+            <span id="badge-easy-2">🔓</span>
           </button>
         </div>
 
@@ -117,25 +137,65 @@
       <button class="btn" style="background: #333;" onclick="logout()">Logout</button>
     </div>
 
-    <!-- 3. GAME ARENA -->
-    <div id="game-screen" class="hidden">
+    <!-- 3. GAME ARENA: LEVEL 1 -->
+    <div id="game-screen-l1" class="hidden">
       <div style="display: flex; justify-content: space-between; align-items: center;">
-        <h3 style="color: var(--neon-cyan);">Level 1: මූලද්‍රව්‍ය 20 අයණිකරණ ශක්ති ප්‍රස්තරය</h3>
+        <h3 style="color: var(--neon-cyan);">Level 1: අයණිකරණ ශක්ති ප්‍රස්තරය</h3>
         <button class="btn" style="width: auto; padding: 5px 15px; margin: 0;" onclick="quitGame()">Exit</button>
       </div>
 
-      <div class="timer-container">
-        <div id="timer-bar" class="timer-bar"></div>
-      </div>
+      <div class="timer-container"><div id="timer-bar-l1" class="timer-bar"></div></div>
       <div class="badge-status">
-        කාලය: <span id="time-display">02:30</span> | Badge එක: <span id="current-badge-display">💎 Diamond</span>
+        කාලය: <span id="time-display-l1">02:30</span> | Badge එක: <span id="badge-display-l1">💎 Diamond</span>
       </div>
 
-      <p style="text-align: center;">පහතින් මූලද්‍රව්‍යයක් තෝරා ප්‍රස්තරයේ නිවැරදි අංකය මත Click කරන්න:</p>
+      <!-- Live Instruction Banner -->
+      <div id="instruction-l1" class="instruction-banner">
+        👉 පියවර 1: පහළින් මූලද්‍රව්‍යයක් Touch කරන්න.
+      </div>
 
       <div class="graph-board" id="graph-board"></div>
       <div class="elements-pool" id="elements-pool"></div>
     </div>
+
+    <!-- 4. GAME ARENA: LEVEL 2 -->
+    <div id="game-screen-l2" class="hidden">
+      <div style="display: flex; justify-content: space-between; align-items: center;">
+        <h3 style="color: var(--neon-pink);" id="l2-title">Level 2: ඉලෙක්ට්‍රොනික වින්‍යාසය</h3>
+        <button class="btn" style="width: auto; padding: 5px 15px; margin: 0;" onclick="quitGame()">Exit</button>
+      </div>
+
+      <div class="timer-container"><div id="timer-bar-l2" class="timer-bar"></div></div>
+      <div class="badge-status">
+        කාලය: <span id="time-display-l2">02:00</span> | Badge එක: <span id="badge-display-l2">💎 Diamond</span>
+      </div>
+
+      <div id="instruction-l2" class="instruction-banner">
+        👉 'ඉලෙක්ට්‍රෝනයක් ගන්න' ඔබා අදාළ වළල්ල මත Touch කරන්න!
+      </div>
+
+      <div class="shells-wrapper">
+        <div class="atomic-system">
+          <div class="nucleus" id="l2-nucleus">Mg</div>
+          <!-- Shell 1 (Inner) -->
+          <div class="shell shell-1" onclick="addElectronToShell(1)">
+            <span class="shell-count" id="sc-1">0/2</span>
+          </div>
+          <!-- Shell 2 (Middle) -->
+          <div class="shell shell-2" onclick="addElectronToShell(2)">
+            <span class="shell-count" id="sc-2">0/8</span>
+          </div>
+          <!-- Shell 3 (Outer) -->
+          <div class="shell shell-3" id="shell-3-box" onclick="addElectronToShell(3)">
+            <span class="shell-count" id="sc-3">0/2</span>
+          </div>
+        </div>
+
+        <button class="electron-pool-btn" onclick="selectElectron()">⚡ ඉලෙක්ට්‍රෝනයක් ගන්න (Touch)</button>
+        <button class="btn" style="background: #444; width: auto; margin-top: 15px;" onclick="resetL2Current()">නැවත මුල සිට පටන් ගන්න 🔄</button>
+      </div>
+    </div>
+
   </div>
 
   <script>
@@ -152,12 +212,23 @@
       { sym: 'K', x: 95, y: 10 }, { sym: 'Ca', x: 98, y: 25 }
     ];
 
+    const l2Questions = [
+      { name: 'මැග්නීසියම් (Mg)', sym: 'Mg', config: [2, 8, 2] },
+      { name: 'ඔක්සිජන් (O)', sym: 'O', config: [2, 6] },
+      { name: 'කැල්සියම් (Ca)', sym: 'Ca', config: [2, 8, 8, 2] }
+    ];
+
     let currentUser = null;
     let selectedElement = null;
     let gameTimer = null;
     let timeLeft = 150;
-    const maxTime = 150;
+    let maxTime = 150;
     let placedCount = 0;
+
+    // Level 2 State
+    let l2SubIndex = 0;
+    let currentShellState = [0, 0, 0, 0];
+    let hasSelectedElectron = false;
 
     window.onload = function() {
       const urlParams = new URLSearchParams(window.location.search);
@@ -195,7 +266,7 @@
         storedData = {
           name: name,
           password: pass,
-          progress: { easy: { 1: null } }
+          progress: { easy: { 1: null, 2: null } }
         };
         localStorage.setItem('ssg_user_' + name, JSON.stringify(storedData));
       }
@@ -207,15 +278,19 @@
 
     function showDashboard() {
       document.getElementById('auth-screen').classList.add('hidden');
-      document.getElementById('game-screen').classList.add('hidden');
+      document.getElementById('game-screen-l1').classList.add('hidden');
+      document.getElementById('game-screen-l2').classList.add('hidden');
       document.getElementById('dashboard-screen').classList.remove('hidden');
       document.getElementById('player-display-name').innerText = currentUser.name;
 
-      const easy1Badge = currentUser.progress.easy[1] || 'ලබාගෙන නැත ❌';
-      document.getElementById('badge-easy-1').innerText = currentUser.progress.easy[1] || '🔓';
+      document.getElementById('badge-easy-1').innerText = (currentUser.progress.easy && currentUser.progress.easy[1]) || '🔓';
+      document.getElementById('badge-easy-2').innerText = (currentUser.progress.easy && currentUser.progress.easy[2]) || '🔓';
 
       const chartBox = document.getElementById('chart-content');
-      chartBox.innerHTML = `<div class="chart-row"><span>Easy Chain - Level 1 (අයණිකරණ ශක්තිය)</span> <span><b>${easy1Badge}</b></span></div>`;
+      chartBox.innerHTML = `
+        <div class="chart-row"><span>Easy Level 1 (අයණිකරණ ශක්තිය)</span> <span><b>${(currentUser.progress.easy && currentUser.progress.easy[1]) || 'නැත ❌'}</b></span></div>
+        <div class="chart-row"><span>Easy Level 2 (ඉලෙක්ට්‍රොනික වින්‍යාසය)</span> <span><b>${(currentUser.progress.easy && currentUser.progress.easy[2]) || 'නැත ❌'}</b></span></div>
+      `;
     }
 
     function logout() {
@@ -226,15 +301,24 @@
     function startLevel(chain, level) {
       if (chain === 'easy' && level === 1) {
         document.getElementById('dashboard-screen').classList.add('hidden');
-        document.getElementById('game-screen').classList.remove('hidden');
-        initGraphGame();
+        document.getElementById('game-screen-l1').classList.remove('hidden');
+        initL1Game();
+      } else if (chain === 'easy' && level === 2) {
+        document.getElementById('dashboard-screen').classList.add('hidden');
+        document.getElementById('game-screen-l2').classList.remove('hidden');
+        l2SubIndex = 0;
+        initL2SubLevel();
       }
     }
 
-    function initGraphGame() {
+    /* --- LEVEL 1 LOGIC --- */
+    function initL1Game() {
+      maxTime = 150;
       timeLeft = 150;
       placedCount = 0;
       selectedElement = null;
+
+      document.getElementById('instruction-l1').innerText = "👉 පියවර 1: පහළින් මූලද්‍රව්‍යයක් Touch කරන්න.";
 
       const board = document.getElementById('graph-board');
       const pool = document.getElementById('elements-pool');
@@ -255,10 +339,13 @@
             document.getElementById('chip-' + elem.sym).style.visibility = 'hidden';
             selectedElement = null;
             placedCount++;
+            document.getElementById('instruction-l1').innerText = "👉 නිවැරදියි! ඊළඟ මූලද්‍රව්‍යය පහළින් Touch කරන්න.";
 
             if (placedCount === elementsData.length) {
-              finishGame();
+              finishL1Game();
             }
+          } else {
+            alert('වැරදි ස්ථානයක්! නැවත උත්සාහ කරන්න.');
           }
         };
         board.appendChild(point);
@@ -272,20 +359,125 @@
           document.querySelectorAll('.elem-chip').forEach(c => c.classList.remove('selected'));
           chip.classList.add('selected');
           selectedElement = elem.sym;
+          document.getElementById('instruction-l1').innerText = `👉 තෝරාගත් මූලද්‍රව්‍යය: [ ${elem.sym} ]. දැන් ප්‍රස්තරයේ නිවැරදි අංකය ඔබන්න!`;
         };
         pool.appendChild(chip);
       });
 
-      startTimer();
+      startTimer(1);
     }
 
-    function startTimer() {
+    function finishL1Game() {
       clearInterval(gameTimer);
-      updateTimerUI();
+      const timeSpent = maxTime - timeLeft;
+      let badge = '🥉 Bronze';
+      if (timeSpent <= 60) badge = '💎 Diamond';
+      else if (timeSpent <= 90) badge = '🥇 Gold';
+
+      if (!currentUser.progress.easy) currentUser.progress.easy = {};
+      currentUser.progress.easy[1] = badge;
+      localStorage.setItem('ssg_user_' + currentUser.name, JSON.stringify(currentUser));
+
+      alert(`සුභ පැතුම්! Level 1 සඳහා ඔබ ${badge} එකක් දිනාගත්තා! 🎉`);
+      showDashboard();
+    }
+
+    /* --- LEVEL 2 LOGIC --- */
+    function initL2SubLevel() {
+      maxTime = 120; // 2 Minutes
+      timeLeft = 120;
+      currentShellState = [0, 0, 0, 0];
+      hasSelectedElectron = false;
+
+      const q = l2Questions[l2SubIndex];
+      document.getElementById('l2-title').innerText = `Level 2 (${l2SubIndex+1}/3): ${q.name}`;
+      document.getElementById('l2-nucleus').innerText = q.sym;
+      document.getElementById('instruction-l2').innerText = "👉 පහත 'ඉලෙක්ට්‍රෝනයක් ගන්න' ඔබා අදාළ වළල්ල මත Touch කරන්න!";
+
+      updateShellUI();
+      startTimer(2);
+    }
+
+    function selectElectron() {
+      hasSelectedElectron = true;
+      document.getElementById('instruction-l2').innerText = "⚡ ඉලෙක්ට්‍රෝනයක් සූදානම්! දැන් අදාළ වළල්ල (Shell) මත Touch කරන්න.";
+    }
+
+    function addElectronToShell(shellNum) {
+      if (!hasSelectedElectron) {
+        alert("කරුණාකර පළමුව 'ඉලෙක්ට්‍රෝනයක් ගන්න' බටන් එක Touch කරන්න!");
+        return;
+      }
+
+      const q = l2Questions[l2SubIndex];
+      const maxAllowed = q.config[shellNum - 1] || 0;
+
+      if (currentShellState[shellNum] < maxAllowed) {
+        currentShellState[shellNum]++;
+        hasSelectedElectron = false;
+        document.getElementById('instruction-l2').innerText = `👉 ${shellNum} වන වළල්ලට ඉලෙක්ට්‍රෝනයක් එකතු කළා!`;
+        updateShellUI();
+        checkL2Progress();
+      } else {
+        alert(`${shellNum} වන වළල්ලේ තිබිය හැකි උපරිම ඉලෙක්ට්‍රෝන ගණන පිරී ඇත!`);
+      }
+    }
+
+    function updateShellUI() {
+      const q = l2Questions[l2SubIndex];
+      document.getElementById('sc-1').innerText = `${currentShellState[1]}/${q.config[0] || 0}`;
+      document.getElementById('sc-2').innerText = `${currentShellState[2]}/${q.config[1] || 0}`;
+      document.getElementById('sc-3').innerText = `${currentShellState[3]}/${q.config[2] || 0}`;
+    }
+
+    function resetL2Current() {
+      currentShellState = [0, 0, 0, 0];
+      hasSelectedElectron = false;
+      updateShellUI();
+      document.getElementById('instruction-l2').innerText = "👉 නැවත මුල සිට: 'ඉලෙක්ට්‍රෝනයක් ගන්න' ඔබන්න.";
+    }
+
+    function checkL2Progress() {
+      const q = l2Questions[l2SubIndex];
+      let win = true;
+      for (let i = 0; i < q.config.length; i++) {
+        if (currentShellState[i + 1] !== q.config[i]) win = false;
+      }
+
+      if (win) {
+        clearInterval(gameTimer);
+        alert(`නියමයි! ඔබ ${q.name} හි ඉලෙක්ට්‍රොනික වින්‍යාසය නිවැරදිව සෑදුවා! 🎉`);
+        l2SubIndex++;
+        if (l2SubIndex < l2Questions.length) {
+          initL2SubLevel();
+        } else {
+          finishL2Game();
+        }
+      }
+    }
+
+    function finishL2Game() {
+      const timeSpent = maxTime - timeLeft;
+      let badge = '🥉 Bronze';
+      if (timeSpent <= 50) badge = '💎 Diamond';
+      else if (timeSpent <= 80) badge = '🥇 Gold';
+
+      if (!currentUser.progress.easy) currentUser.progress.easy = {};
+      currentUser.progress.easy[2] = badge;
+      localStorage.setItem('ssg_user_' + currentUser.name, JSON.stringify(currentUser));
+
+      alert(`සුභ පැතුම්! Level 2 සම්පූර්ණ කර ඔබ ${badge} එකක් දිනාගත්තා! 🏆`);
+      showDashboard();
+    }
+
+    /* --- TIMER UTILS --- */
+    function startTimer(levelNum) {
+      clearInterval(gameTimer);
+      updateTimerUI(levelNum);
 
       gameTimer = setInterval(() => {
         timeLeft--;
-        updateTimerUI();
+        updateTimerUI(levelNum);
 
         if (timeLeft <= 0) {
           clearInterval(gameTimer);
@@ -295,40 +487,26 @@
       }, 1000);
     }
 
-    function updateTimerUI() {
+    function updateTimerUI(levelNum) {
       const mins = Math.floor(timeLeft / 60);
       const secs = timeLeft % 60;
-      document.getElementById('time-display').innerText =
-        `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
-
+      const timeStr = `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
       const pct = (timeLeft / maxTime) * 100;
-      document.getElementById('timer-bar').style.width = pct + '%';
 
       const timeSpent = maxTime - timeLeft;
-      let badgeText = '';
+      let badgeText = '🥉 Bronze Badge';
+      if (timeSpent <= 50) badgeText = '💎 Diamond Badge';
+      else if (timeSpent <= 80) badgeText = '🥇 Gold Badge';
 
-      if (timeSpent <= 60) badgeText = '💎 Diamond Badge';
-      else if (timeSpent <= 90) badgeText = '🥇 Gold Badge';
-      else if (timeSpent <= 150) badgeText = '🥉 Bronze Badge';
-      else badgeText = '❌ No Badge';
-
-      document.getElementById('current-badge-display').innerText = badgeText;
-    }
-
-    function finishGame() {
-      clearInterval(gameTimer);
-      const timeSpent = maxTime - timeLeft;
-      let earnedBadge = 'No Badge ❌';
-
-      if (timeSpent <= 60) earnedBadge = '💎 Diamond';
-      else if (timeSpent <= 90) earnedBadge = '🥇 Gold';
-      else if (timeSpent <= 150) earnedBadge = '🥉 Bronze';
-
-      currentUser.progress.easy[1] = earnedBadge;
-      localStorage.setItem('ssg_user_' + currentUser.name, JSON.stringify(currentUser));
-
-      alert(`සුභ පැතුම්! ඔබ ${earnedBadge} එකක් දිනාගත්තා! 🎉`);
-      showDashboard();
+      if (levelNum === 1) {
+        document.getElementById('time-display-l1').innerText = timeStr;
+        document.getElementById('timer-bar-l1').style.width = pct + '%';
+        document.getElementById('badge-display-l1').innerText = badgeText;
+      } else {
+        document.getElementById('time-display-l2').innerText = timeStr;
+        document.getElementById('timer-bar-l2').style.width = pct + '%';
+        document.getElementById('badge-display-l2').innerText = badgeText;
+      }
     }
 
     function quitGame() {
