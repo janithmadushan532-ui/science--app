@@ -33,11 +33,10 @@
     .chain-card { background: #0d111d; border: 1px solid #2a334d; border-radius: 8px; padding: 15px; }
     .chain-card h3 { margin-bottom: 15px; color: var(--neon-pink); }
     .level-btn { width: 100%; padding: 10px; margin: 8px 0; background: #1a2238; border: 1px solid var(--neon-cyan); color: #fff; border-radius: 5px; cursor: pointer; display: flex; justify-content: space-between; align-items: center; font-size: 15px; }
-    .level-btn.locked { border-color: #444; color: #666; cursor: not-allowed; background: #101420; }
     .chart-container { background: #0d111d; border: 1px solid var(--neon-cyan); padding: 15px; border-radius: 8px; }
     .chart-row { display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px dashed #2a334d; }
    
-    .instruction-banner { text-align: center; background: rgba(0, 243, 255, 0.1); border: 1px dashed var(--neon-cyan); padding: 10px; border-radius: 6px; margin: 12px 0; font-weight: bold; color: var(--neon-cyan); font-size: 16px; }
+    .instruction-banner { text-align: center; background: rgba(0, 243, 255, 0.1); border: 1px dashed var(--neon-cyan); padding: 10px; border-radius: 6px; margin: 12px 0; font-weight: bold; color: var(--neon-cyan); font-size: 15px; }
 
     .timer-container { width: 100%; background: #101420; height: 18px; border-radius: 10px; overflow: hidden; border: 1px solid var(--neon-cyan); margin: 10px 0; }
     .timer-bar { height: 100%; width: 100%; background: linear-gradient(90deg, var(--neon-green), var(--neon-yellow), var(--neon-pink)); transition: width 1s linear; }
@@ -50,16 +49,26 @@
     .elem-chip { padding: 8px 14px; background: #1f2942; border: 1px solid var(--neon-cyan); border-radius: 4px; cursor: pointer; font-weight: bold; }
     .elem-chip.selected { background: var(--neon-pink); box-shadow: 0 0 10px var(--neon-pink); }
 
-    .shells-wrapper { display: flex; flex-direction: column; align-items: center; justify-content: center; margin: 15px 0; }
+    /* Level 2 Shell Arena */
+    .shells-wrapper { display: flex; flex-direction: column; align-items: center; justify-content: center; margin: 10px 0; }
     .atomic-system { position: relative; width: 280px; height: 280px; display: flex; justify-content: center; align-items: center; }
     .nucleus { width: 45px; height: 45px; background: var(--neon-pink); border-radius: 50%; display: flex; justify-content: center; align-items: center; font-weight: bold; color: #fff; box-shadow: 0 0 15px var(--neon-pink); z-index: 10; font-size: 18px; }
-    .shell { position: absolute; border: 2px solid var(--neon-cyan); border-radius: 50%; display: flex; justify-content: center; align-items: flex-start; cursor: pointer; transition: 0.2s; }
+   
+    .shell { position: absolute; border: 2px solid var(--neon-cyan); border-radius: 50%; display: flex; justify-content: center; align-items: center; cursor: pointer; transition: 0.2s; }
     .shell:hover { border-color: var(--neon-yellow); background: rgba(0, 243, 255, 0.05); }
-    .shell-1 { width: 110px; height: 110px; }
-    .shell-2 { width: 180px; height: 180px; }
-    .shell-3 { width: 250px; height: 250px; }
-    .shell-count { position: absolute; top: -12px; background: var(--card-bg); padding: 0 6px; font-size: 12px; color: var(--neon-yellow); border-radius: 4px; border: 1px solid var(--neon-yellow); }
-    .electron-pool-btn { padding: 10px 20px; background: var(--neon-cyan); color: #000; border: none; font-weight: bold; border-radius: 20px; cursor: pointer; box-shadow: 0 0 10px var(--neon-cyan); margin-top: 10px; }
+   
+    .shell-1 { width: 90px; height: 90px; z-index: 4; }
+    .shell-2 { width: 145px; height: 145px; z-index: 3; }
+    .shell-3 { width: 200px; height: 200px; z-index: 2; }
+    .shell-4 { width: 255px; height: 255px; z-index: 1; }
+
+    /* Electron Dots inside shells */
+    .electron-dot { position: absolute; width: 10px; height: 10px; background: var(--neon-yellow); border-radius: 50%; box-shadow: 0 0 8px var(--neon-yellow); transform: translate(-50%, -50%); }
+
+    /* Electron Box Source */
+    .electron-box { display: flex; align-items: center; justify-content: center; gap: 12px; margin-top: 15px; background: #0d111d; padding: 12px 20px; border: 1px dashed var(--neon-cyan); border-radius: 10px; }
+    .electron-draggable { width: 35px; height: 35px; background: radial-gradient(circle, var(--neon-cyan), #0077ff); border-radius: 50%; cursor: grab; display: flex; justify-content: center; align-items: center; box-shadow: 0 0 10px var(--neon-cyan); font-size: 16px; font-weight: bold; color: #000; user-select: none; }
+    .electron-draggable:active { cursor: grabbing; }
 
     .hidden { display: none !important; }
   </style>
@@ -69,6 +78,7 @@
   <div class="container">
     <h1 class="title-neon">Simple Science Gaming</h1>
 
+    <!-- 1. AUTH SCREEN -->
     <div id="auth-screen">
       <h2 style="margin-bottom: 20px; color: var(--neon-pink);">PLAYER LOGIN / REGISTER</h2>
       <div class="auth-box">
@@ -84,6 +94,7 @@
       </div>
     </div>
 
+    <!-- 2. DASHBOARD -->
     <div id="dashboard-screen" class="hidden">
       <div class="dashboard-header">
         <h2>ආයුබෝවන්, <span id="player-display-name" style="color: var(--neon-cyan);"></span>! 👋</h2>
@@ -105,7 +116,7 @@
 
         <div class="chain-card">
           <h3 style="color: var(--neon-yellow);">NORMAL CHAIN</h3>
-          <button class="level-btn locked">
+          <button class="level-btn" style="opacity: 0.5; cursor: not-allowed;">
             <span>Level 1: Unlocks Soon</span>
             <span>🔒</span>
           </button>
@@ -113,7 +124,7 @@
 
         <div class="chain-card">
           <h3 style="color: var(--neon-pink);">HARD CHAIN</h3>
-          <button class="level-btn locked">
+          <button class="level-btn" style="opacity: 0.5; cursor: not-allowed;">
             <span>Level 1: Unlocks Soon</span>
             <span>🔒</span>
           </button>
@@ -128,6 +139,7 @@
       <button class="btn" style="background: #333;" onclick="logout()">Logout</button>
     </div>
 
+    <!-- 3. LEVEL 1 GAME -->
     <div id="game-screen-l1" class="hidden">
       <div style="display: flex; justify-content: space-between; align-items: center;">
         <h3 style="color: var(--neon-cyan);">Level 1: අයණිකරණ ශක්ති ප්‍රස්තරය</h3>
@@ -147,6 +159,7 @@
       <div class="elements-pool" id="elements-pool"></div>
     </div>
 
+    <!-- 4. LEVEL 2 GAME (SHELL FILLING WITHOUT NUMBERS) -->
     <div id="game-screen-l2" class="hidden">
       <div style="display: flex; justify-content: space-between; align-items: center;">
         <h3 style="color: var(--neon-pink);" id="l2-title">Level 2: ඉලෙක්ට්‍රොනික වින්‍යාසය</h3>
@@ -159,25 +172,28 @@
       </div>
 
       <div id="instruction-l2" class="instruction-banner">
-        👉 'ඉලෙක්ට්‍රෝනයක් ගන්න' ඔබා අදාළ වළල්ල මත Touch කරන්න!
+        👉 Electron Box එකෙන් තිතක් **Drag කරලා** හෝ **Touch කරලා** අදාළ වළල්ල මත තබන්න!
       </div>
 
       <div class="shells-wrapper">
-        <div class="atomic-system">
+        <div class="atomic-system" id="atomic-system">
           <div class="nucleus" id="l2-nucleus">Mg</div>
-          <div class="shell shell-1" onclick="addElectronToShell(1)">
-            <span class="shell-count" id="sc-1">0/2</span>
-          </div>
-          <div class="shell shell-2" onclick="addElectronToShell(2)">
-            <span class="shell-count" id="sc-2">0/8</span>
-          </div>
-          <div class="shell shell-3" id="shell-3-box" onclick="addElectronToShell(3)">
-            <span class="shell-count" id="sc-3">0/2</span>
-          </div>
+         
+          <!-- Shells -->
+          <div class="shell shell-1" id="shell-1" ondragover="allowDrop(event)" ondrop="dropElectron(1)" onclick="clickAddElectron(1)"></div>
+          <div class="shell shell-2" id="shell-2" ondragover="allowDrop(event)" ondrop="dropElectron(2)" onclick="clickAddElectron(2)"></div>
+          <div class="shell shell-3" id="shell-3-box" ondragover="allowDrop(event)" ondrop="dropElectron(3)" onclick="clickAddElectron(3)"></div>
+          <div class="shell shell-4" id="shell-4-box" ondragover="allowDrop(event)" ondrop="dropElectron(4)" onclick="clickAddElectron(4)"></div>
         </div>
 
-        <button class="electron-pool-btn" onclick="selectElectron()">⚡ ඉලෙක්ට්‍රෝනයක් ගන්න (Touch)</button>
-        <button class="btn" style="background: #444; width: auto; margin-top: 15px;" onclick="resetL2Current()">නැවත මුල සිට පටන් ගන්න 🔄</button>
+        <!-- Electron Box Source -->
+        <div class="electron-box">
+          <span style="font-size: 14px; font-weight: bold; color: var(--neon-cyan);">Electron Box:</span>
+          <div class="electron-draggable" draggable="true" ondragstart="drag(event)" onclick="selectElectronFromBox()" title="Drag me!">⚡</div>
+          <span style="font-size: 12px; color: #aaa;">(Drag or Tap)</span>
+        </div>
+
+        <button class="btn" style="background: #444; width: auto; margin-top: 10px;" onclick="resetL2Current()">නැවත මුල සිට පටන් ගන්න 🔄</button>
       </div>
     </div>
 
@@ -212,7 +228,7 @@
 
     let l2SubIndex = 0;
     let currentShellState = [0, 0, 0, 0, 0];
-    let hasSelectedElectron = false;
+    let isElectronPicked = false;
 
     window.onload = function() {
       const urlParams = new URLSearchParams(window.location.search);
@@ -368,137 +384,9 @@
       showDashboard();
     }
 
-    function initL2SubLevel() {
-      maxTime = 120;
-      timeLeft = 120;
-      currentShellState = [0, 0, 0, 0, 0];
-      hasSelectedElectron = false;
-
-      const q = l2Questions[l2SubIndex];
-      document.getElementById('l2-title').innerText = `Level 2 (${l2SubIndex+1}/3): ${q.name}`;
-      document.getElementById('l2-nucleus').innerText = q.sym;
-      document.getElementById('instruction-l2').innerText = "👉 පහත 'ඉලෙක්ට්‍රෝනයක් ගන්න' ඔබා අදාළ වළල්ල මත Touch කරන්න!";
-
-      updateShellUI();
-      startTimer(2);
-    }
-
-    function selectElectron() {
-      hasSelectedElectron = true;
-      document.getElementById('instruction-l2').innerText = "⚡ ඉලෙක්ට්‍රෝනයක් සූදානම්! දැන් අදාළ වළල්ල (Shell) මත Touch කරන්න.";
-    }
-
-    function addElectronToShell(shellNum) {
-      if (!hasSelectedElectron) {
-        alert("කරුණාකර පළමුව 'ඉලෙක්ට්‍රෝනයක් ගන්න' බටන් එක Touch කරන්න!");
-        return;
-      }
-
-      const q = l2Questions[l2SubIndex];
-      const maxAllowed = q.config[shellNum - 1] || 0;
-
-      if (currentShellState[shellNum] < maxAllowed) {
-        currentShellState[shellNum]++;
-        hasSelectedElectron = false;
-        document.getElementById('instruction-l2').innerText = `👉 ${shellNum} වන වළල්ලට ඉලෙක්ට්‍රෝනයක් එකතු කළා!`;
-        updateShellUI();
-        checkL2Progress();
-      } else {
-        alert(`${shellNum} වන වළල්ලේ තිබිය හැකි උපරිම ඉලෙක්ට්‍රෝන ගණන පිරී ඇත!`);
-      }
-    }
-
-    function updateShellUI() {
-      const q = l2Questions[l2SubIndex];
-      document.getElementById('sc-1').innerText = `${currentShellState[1]}/${q.config[0] || 0}`;
-      document.getElementById('sc-2').innerText = `${currentShellState[2]}/${q.config[1] || 0}`;
-      document.getElementById('sc-3').innerText = `${currentShellState[3]}/${q.config[2] || 0}`;
-    }
-
-    function resetL2Current() {
-      currentShellState = [0, 0, 0, 0, 0];
-      hasSelectedElectron = false;
-      updateShellUI();
-      document.getElementById('instruction-l2').innerText = "👉 නැවත මුල සිට: 'ඉලෙක්ට්‍රෝනයක් ගන්න' ඔබන්න.";
-    }
-
-    function checkL2Progress() {
-      const q = l2Questions[l2SubIndex];
-      let win = true;
-      for (let i = 0; i < q.config.length; i++) {
-        if (currentShellState[i + 1] !== q.config[i]) win = false;
-      }
-
-      if (win) {
-        clearInterval(gameTimer);
-        alert(`නියමයි! ඔබ ${q.name} හි ඉලෙක්ට්‍රොනික වින්‍යාසය නිවැරදිව සෑදුවා! 🎉`);
-        l2SubIndex++;
-        if (l2SubIndex < l2Questions.length) {
-          initL2SubLevel();
-        } else {
-          finishL2Game();
-        }
-      }
-    }
-
-    function finishL2Game() {
-      const timeSpent = maxTime - timeLeft;
-      let badge = '🥉 Bronze';
-      if (timeSpent <= 50) badge = '💎 Diamond';
-      else if (timeSpent <= 80) badge = '🥇 Gold';
-
-      if (!currentUser.progress.easy) currentUser.progress.easy = {};
-      currentUser.progress.easy[2] = badge;
-      localStorage.setItem('ssg_user_' + currentUser.name, JSON.stringify(currentUser));
-
-      alert(`සුභ පැතුම්! Level 2 සම්පූර්ණ කර ඔබ ${badge} එකක් දිනාගත්තා! 🏆`);
-      showDashboard();
-    }
-
-    function startTimer(levelNum) {
-      clearInterval(gameTimer);
-      updateTimerUI(levelNum);
-
-      gameTimer = setInterval(() => {
-        timeLeft--;
-        updateTimerUI(levelNum);
-
-        if (timeLeft <= 0) {
-          clearInterval(gameTimer);
-          alert('කාලය අවසන්! නැවත උත්සාහ කරන්න.');
-          quitGame();
-        }
-      }, 1000);
-    }
-
-    function updateTimerUI(levelNum) {
-      const mins = Math.floor(timeLeft / 60);
-      const secs = timeLeft % 60;
-      const timeStr = `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
-      const pct = (timeLeft / maxTime) * 100;
-
-      const timeSpent = maxTime - timeLeft;
-      let badgeText = '🥉 Bronze Badge';
-      if (timeSpent <= 50) badgeText = '💎 Diamond Badge';
-      else if (timeSpent <= 80) badgeText = '🥇 Gold Badge';
-
-      if (levelNum === 1) {
-        document.getElementById('time-display-l1').innerText = timeStr;
-        document.getElementById('timer-bar-l1').style.width = pct + '%';
-        document.getElementById('badge-display-l1').innerText = badgeText;
-      } else {
-        document.getElementById('time-display-l2').innerText = timeStr;
-        document.getElementById('timer-bar-l2').style.width = pct + '%';
-        document.getElementById('badge-display-l2').innerText = badgeText;
-      }
-    }
-
-    function quitGame() {
-      clearInterval(gameTimer);
-      showDashboard();
-    }
-  </script>
-</body>
-</html>
+    /* --- LEVEL 2: SHELL FILLING WITHOUT NUMBERS --- */
+    function initL2SubLevel
 
  
+
+     
