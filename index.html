@@ -225,9 +225,8 @@
     let maxTime = 150;
     let placedCount = 0;
 
-    // Level 2 State
     let l2SubIndex = 0;
-    let currentShellState = [0, 0, 0, 0];
+    let currentShellState = [0, 0, 0, 0, 0];
     let hasSelectedElectron = false;
 
     window.onload = function() {
@@ -241,6 +240,7 @@
         const data = JSON.parse(localStorage.getItem('ssg_user_' + activeName));
         if (data) {
           currentUser = data;
+          if (!currentUser.progress.easy) currentUser.progress.easy = { 1: null, 2: null };
           showDashboard();
         }
       }
@@ -283,13 +283,15 @@
       document.getElementById('dashboard-screen').classList.remove('hidden');
       document.getElementById('player-display-name').innerText = currentUser.name;
 
-      document.getElementById('badge-easy-1').innerText = (currentUser.progress.easy && currentUser.progress.easy[1]) || '🔓';
-      document.getElementById('badge-easy-2').innerText = (currentUser.progress.easy && currentUser.progress.easy[2]) || '🔓';
+      if(!currentUser.progress) currentUser.progress = { easy: { 1: null, 2: null } };
+     
+      document.getElementById('badge-easy-1').innerText = currentUser.progress.easy[1] || '🔓';
+      document.getElementById('badge-easy-2').innerText = currentUser.progress.easy[2] || '🔓';
 
       const chartBox = document.getElementById('chart-content');
       chartBox.innerHTML = `
-        <div class="chart-row"><span>Easy Level 1 (අයණිකරණ ශක්තිය)</span> <span><b>${(currentUser.progress.easy && currentUser.progress.easy[1]) || 'නැත ❌'}</b></span></div>
-        <div class="chart-row"><span>Easy Level 2 (ඉලෙක්ට්‍රොනික වින්‍යාසය)</span> <span><b>${(currentUser.progress.easy && currentUser.progress.easy[2]) || 'නැත ❌'}</b></span></div>
+        <div class="chart-row"><span>Easy Level 1 (අයණිකරණ ශක්තිය)</span> <span><b>${currentUser.progress.easy[1] || 'නැත ❌'}</b></span></div>
+        <div class="chart-row"><span>Easy Level 2 (ඉලෙක්ට්‍රොනික වින්‍යාසය)</span> <span><b>${currentUser.progress.easy[2] || 'නැත ❌'}</b></span></div>
       `;
     }
 
@@ -311,7 +313,6 @@
       }
     }
 
-    /* --- LEVEL 1 LOGIC --- */
     function initL1Game() {
       maxTime = 150;
       timeLeft = 150;
@@ -382,11 +383,10 @@
       showDashboard();
     }
 
-    /* --- LEVEL 2 LOGIC --- */
     function initL2SubLevel() {
-      maxTime = 120; // 2 Minutes
+      maxTime = 120;
       timeLeft = 120;
-      currentShellState = [0, 0, 0, 0];
+      currentShellState = [0, 0, 0, 0, 0];
       hasSelectedElectron = false;
 
       const q = l2Questions[l2SubIndex];
@@ -431,7 +431,7 @@
     }
 
     function resetL2Current() {
-      currentShellState = [0, 0, 0, 0];
+      currentShellState = [0, 0, 0, 0, 0];
       hasSelectedElectron = false;
       updateShellUI();
       document.getElementById('instruction-l2').innerText = "👉 නැවත මුල සිට: 'ඉලෙක්ට්‍රෝනයක් ගන්න' ඔබන්න.";
@@ -470,7 +470,6 @@
       showDashboard();
     }
 
-    /* --- TIMER UTILS --- */
     function startTimer(levelNum) {
       clearInterval(gameTimer);
       updateTimerUI(levelNum);
