@@ -159,7 +159,7 @@
       <div class="elements-pool" id="elements-pool"></div>
     </div>
 
-    <!-- 4. LEVEL 2 GAME (SHELL FILLING WITHOUT NUMBERS) -->
+    <!-- 4. LEVEL 2 GAME (SHELL FILLING) -->
     <div id="game-screen-l2" class="hidden">
       <div style="display: flex; justify-content: space-between; align-items: center;">
         <h3 style="color: var(--neon-pink);" id="l2-title">Level 2: ඉලෙක්ට්‍රොනික වින්‍යාසය</h3>
@@ -172,21 +172,19 @@
       </div>
 
       <div id="instruction-l2" class="instruction-banner">
-        👉 Electron Box එකෙන් තිතක් **Drag කරලා** හෝ **Touch කරලා** අදාළ වළල්ල මත තබන්න!
+        👉 Electron Box එකෙන් තිතක් Drag කර හෝ Touch කර අදාළ වළල්ල මත තබන්න!
       </div>
 
       <div class="shells-wrapper">
         <div class="atomic-system" id="atomic-system">
           <div class="nucleus" id="l2-nucleus">Mg</div>
          
-          <!-- Shells -->
           <div class="shell shell-1" id="shell-1" ondragover="allowDrop(event)" ondrop="dropElectron(1)" onclick="clickAddElectron(1)"></div>
           <div class="shell shell-2" id="shell-2" ondragover="allowDrop(event)" ondrop="dropElectron(2)" onclick="clickAddElectron(2)"></div>
           <div class="shell shell-3" id="shell-3-box" ondragover="allowDrop(event)" ondrop="dropElectron(3)" onclick="clickAddElectron(3)"></div>
           <div class="shell shell-4" id="shell-4-box" ondragover="allowDrop(event)" ondrop="dropElectron(4)" onclick="clickAddElectron(4)"></div>
         </div>
 
-        <!-- Electron Box Source -->
         <div class="electron-box">
           <span style="font-size: 14px; font-weight: bold; color: var(--neon-cyan);">Electron Box:</span>
           <div class="electron-draggable" draggable="true" ondragstart="drag(event)" onclick="selectElectronFromBox()" title="Drag me!">⚡</div>
@@ -200,7 +198,58 @@
   </div>
 
   <script>
-  function handleLogin() {
+    const elementsData = [
+      { sym: 'H', x: 5, y: 30 }, { sym: 'He', x: 10, y: 90 },
+      { sym: 'Li', x: 15, y: 15 }, { sym: 'Be', x: 20, y: 35 },
+      { sym: 'B', x: 25, y: 30 }, { sym: 'C', x: 30, y: 45 },
+      { sym: 'N', x: 35, y: 55 }, { sym: 'O', x: 40, y: 50 },
+      { sym: 'F', x: 45, y: 70 }, { sym: 'Ne', x: 50, y: 85 },
+      { sym: 'Na', x: 55, y: 12 }, { sym: 'Mg', x: 60, y: 30 },
+      { sym: 'Al', x: 65, y: 25 }, { sym: 'Si', x: 70, y: 40 },
+      { sym: 'P', x: 75, y: 50 }, { sym: 'S', x: 80, y: 45 },
+      { sym: 'Cl', x: 85, y: 65 }, { sym: 'Ar', x: 90, y: 80 },
+      { sym: 'K', x: 95, y: 10 }, { sym: 'Ca', x: 98, y: 25 }
+    ];
+
+    const l2Questions = [
+      { name: 'මැග්නීසියම් (Mg)', sym: 'Mg', config: [2, 8, 2] },
+      { name: 'ඔක්සිජන් (O)', sym: 'O', config: [2, 6] },
+      { name: 'කැල්සියම් (Ca)', sym: 'Ca', config: [2, 8, 8, 2] }
+    ];
+
+    let currentUser = null;
+    let selectedElement = null;
+    let gameTimer = null;
+    let timeLeft = 150;
+    let maxTime = 150;
+    let placedCount = 0;
+
+    let l2SubIndex = 0;
+    let currentShellState = [0, 0, 0, 0, 0];
+    let isElectronPicked = false;
+
+    window.onload = function() {
+      const urlParams = new URLSearchParams(window.location.search);
+      if (urlParams.get('src') === 'app') {
+        document.getElementById('vip-badge').classList.remove('hidden');
+      }
+
+      const activeName = localStorage.getItem('ssg_active_session');
+      if (activeName) {
+        try {
+          const data = JSON.parse(localStorage.getItem('ssg_user_' + activeName));
+          if (data) {
+            currentUser = data;
+            if (!currentUser.progress) currentUser.progress = { easy: { 1: null, 2: null } };
+            showDashboard();
+          }
+        } catch(e) {
+          localStorage.removeItem('ssg_active_session');
+        }
+      }
+    };
+
+    function handleLogin() {
       const usernameInput = document.getElementById('username');
       const passwordInput = document.getElementById('password');
      
@@ -220,39 +269,6 @@
       } catch(e) {
         storedData = null;
       }
-
-      if (storedData) {
-        if (storedData.password !== pass) {
-          alert('වැරදි Password එකක්!');
-          return;
-        }
-      } else {
-        storedData = {
-          name: name,
-          password: pass,
-          progress: { easy: { 1: null, 2: null } }
-        };
-        localStorage.setItem('ssg_user_' + name, JSON.stringify(storedData));
-      }
-
-      currentUser = storedData;
-      localStorage.setItem('ssg_active_session', name);
-      showDashboard();
-    }
-
- 
-
-
-    function handleLogin() {
-      const name = document.getElementById('username').value.trim();
-      const pass = document.getElementById('password').value;
-
-      if(!name || !pass) {
-        alert('దయவுකරලා නම සහ මුරපදය ඇතුළත් කරන්න!');
-        return;
-      }
-
-      let storedData = JSON.parse(localStorage.getItem('ssg_user_' + name));
 
       if (storedData) {
         if (storedData.password !== pass) {
@@ -380,9 +396,174 @@
       showDashboard();
     }
 
-    /* --- LEVEL 2: SHELL FILLING WITHOUT NUMBERS --- */
-    function initL2SubLevel
+    function initL2SubLevel() {
+      maxTime = 120;
+      timeLeft = 120;
+      currentShellState = [0, 0, 0, 0, 0];
+      isElectronPicked = false;
+
+      const q = l2Questions[l2SubIndex];
+      document.getElementById('l2-title').innerText = `Level 2 (${l2SubIndex+1}/3): ${q.name}`;
+      document.getElementById('l2-nucleus').innerText = q.sym;
+      document.getElementById('instruction-l2').innerText = "👉 Electron Box එකෙන් තිතක් Drag කර හෝ Touch කර අදාළ වළල්ල මත තබන්න!";
+
+      document.getElementById('shell-3-box').style.display = q.config.length >= 3 ? 'flex' : 'none';
+      document.getElementById('shell-4-box').style.display = q.config.length >= 4 ? 'flex' : 'none';
+
+      updateShellUI();
+      startTimer(2);
+    }
+
+    function drag(ev) {
+      ev.dataTransfer.setData("text", "electron");
+    }
+
+    function allowDrop(ev) {
+      ev.preventDefault();
+    }
+
+    function dropElectron(shellNum) {
+      let ev = window.event;
+      if(ev) ev.preventDefault();
+      addElectron(shellNum);
+    }
+
+    function selectElectronFromBox() {
+      isElectronPicked = true;
+      document.getElementById('instruction-l2').innerText = "⚡ ඉලෙක්ට්‍රෝනයක් සූදානම්! දැන් අදාළ වළල්ල (Shell) මත Touch කරන්න.";
+    }
+
+    function clickAddElectron(shellNum) {
+      if (isElectronPicked) {
+        addElectron(shellNum);
+        isElectronPicked = false;
+      }
+    }
+
+    function addElectron(shellNum) {
+      const q = l2Questions[l2SubIndex];
+      if (shellNum > q.config.length) return;
+
+      const maxAllowed = q.config[shellNum - 1] || 0;
+
+      if (currentShellState[shellNum] < maxAllowed) {
+        currentShellState[shellNum]++;
+        document.getElementById('instruction-l2').innerText = `👉 ${shellNum} වන වළල්ලට ඉලෙක්ට්‍රෝනයක් එකතු කළා!`;
+        updateShellUI();
+        checkL2Progress();
+      } else {
+        alert(`${shellNum} වන වළල්ලේ තිබිය හැකි උපරිම ඉලෙක්ට්‍රෝන ගණන (${maxAllowed}) පිරී ඇත!`);
+      }
+    }
+
+    function updateShellUI() {
+      const q = l2Questions[l2SubIndex];
+     
+      document.querySelectorAll('.electron-dot').forEach(d => d.remove());
+
+      for (let i = 1; i <= q.config.length; i++) {
+        const count = currentShellState[i];
+        const shellElem = document.getElementById(`shell-${i}`);
+        const radius = shellElem.offsetWidth / 2;
+
+        for (let j = 0; j < count; j++) {
+          const angle = (j / q.config[i-1]) * 2 * Math.PI;
+          const x = radius + radius * Math.cos(angle);
+          const y = radius + radius * Math.sin(angle);
+
+          const dot = document.createElement('div');
+          dot.className = 'electron-dot';
+          dot.style.left = x + 'px';
+          dot.style.top = y + 'px';
+          shellElem.appendChild(dot);
+        }
+      }
+    }
+
+    function resetL2Current() {
+      currentShellState = [0, 0, 0, 0, 0];
+      isElectronPicked = false;
+      updateShellUI();
+      document.getElementById('instruction-l2').innerText = "👉 නැවත මුල සිට: Box එකෙන් ඉලෙක්ට්‍රෝනයක් Drag කරන්න හෝ Touch කරන්න.";
+    }
+
+    function checkL2Progress() {
+      const q = l2Questions[l2SubIndex];
+      let win = true;
+      for (let i = 0; i < q.config.length; i++) {
+        if (currentShellState[i + 1] !== q.config[i]) win = false;
+      }
+
+      if (win) {
+        clearInterval(gameTimer);
+        alert(`නියමයි! ඔබ ${q.name} හි ඉලෙක්ට්‍රොනික වින්‍යාසය නිවැරදිව සෑදුවා! 🎉`);
+        l2SubIndex++;
+        if (l2SubIndex < l2Questions.length) {
+          initL2SubLevel();
+        } else {
+          finishL2Game();
+        }
+      }
+    }
+
+    function finishL2Game() {
+      const timeSpent = maxTime - timeLeft;
+      let badge = '🥉 Bronze';
+      if (timeSpent <= 50) badge = '💎 Diamond';
+      else if (timeSpent <= 80) badge = '🥇 Gold';
+
+      if (!currentUser.progress.easy) currentUser.progress.easy = {};
+      currentUser.progress.easy[2] = badge;
+      localStorage.setItem('ssg_user_' + currentUser.name, JSON.stringify(currentUser));
+
+      alert(`සුභ පැතුම්! Level 2 සම්පූර්ණ කර ඔබ ${badge} එකක් දිනාගත්තා! 🏆`);
+      showDashboard();
+    }
+
+    function startTimer(levelNum) {
+      clearInterval(gameTimer);
+      updateTimerUI(levelNum);
+
+      gameTimer = setInterval(() => {
+        timeLeft--;
+        updateTimerUI(levelNum);
+
+        if (timeLeft <= 0) {
+          clearInterval(gameTimer);
+          alert('කාලය අවසන්! නැවත උත්සාහ කරන්න.');
+          quitGame();
+        }
+      }, 1000);
+    }
+
+    function updateTimerUI(levelNum) {
+      const mins = Math.floor(timeLeft / 60);
+      const secs = timeLeft % 60;
+      const timeStr = `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+      const pct = (timeLeft / maxTime) * 100;
+
+      const timeSpent = maxTime - timeLeft;
+      let badgeText = '🥉 Bronze Badge';
+      if (timeSpent <= 50) badgeText = '💎 Diamond Badge';
+      else if (timeSpent <= 80) badgeText = '🥇 Gold Badge';
+
+      if (levelNum === 1) {
+        document.getElementById('time-display-l1').innerText = timeStr;
+        document.getElementById('timer-bar-l1').style.width = pct + '%';
+        document.getElementById('badge-display-l1').innerText = badgeText;
+      } else {
+        document.getElementById('time-display-l2').innerText = timeStr;
+        document.getElementById('timer-bar-l2').style.width = pct + '%';
+        document.getElementById('badge-display-l2').innerText = badgeText;
+      }
+    }
+
+    function quitGame() {
+      clearInterval(gameTimer);
+      showDashboard();
+    }
+  </script>
+</body>
+</html>
 
  
-
-     
