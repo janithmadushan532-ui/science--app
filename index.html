@@ -409,11 +409,42 @@
     }
 
     // Auth & LocalStorage
-    document.getElementById('auth-form').addEventListener('submit', function(e) {
-      e.preventDefault();
-      const name = document.getElementById('username').value.trim();
-      const pass = document.getElementById('password').value;
+    document.getElementById('auth-form').onsubmit = function(e) {
+  e.preventDefault();
+  const name = document.getElementById('username').value.trim();
+  const pass = document.getElementById('password').value;
 
+  if(!name || !pass) {
+    alert('කරුණාකරලා නම සහ මුරපදය ඇතුළත් කරන්න!');
+    return;
+  }
+
+  let storedData = JSON.parse(localStorage.getItem('ssg_user_' + name));
+
+  if (storedData) {
+    if (storedData.password !== pass) {
+      alert('වැරදි Password එකක්!');
+      return;
+    }
+  } else {
+    storedData = {
+      name: name,
+      password: pass,
+      progress: {
+        easy: { 1: null, 2: null },
+        normal: { 1: null },
+        hard: { 1: null }
+      }
+    };
+    localStorage.setItem('ssg_user_' + name, JSON.stringify(storedData));
+  }
+
+  currentUser = storedData;
+  localStorage.setItem('ssg_active_session', name);
+  showDashboard();
+};
+
+ 
       let storedData = JSON.parse(localStorage.getItem('ssg_user_' + name));
 
       if (storedData) {
