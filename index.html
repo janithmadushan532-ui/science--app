@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>අයනිකරන ශක්ති අභියෝගය</title>
+<style>
+  body { font-family: Arial, sans-serif; background: #f4f6f7; color: #333; padding: 10px; text-align: center; margin: 0; }
+  h3 { color: #1a5276; font-size: 16px; margin-bottom: 2px; }
+  p { font-size: 11px; color: #5d6d7e; margin-top: 0; margin-bottom: 10px; }
+
+  .graph-wrapper {
+    background: #ffffff;
+    border: 2px solid #3498db;
+    border-radius: 12px;
+    padding: 10px;
+    margin-bottom: 15px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+  }
+
+  .graph-svg-box {
+    width: 100%;
+    height: 190px;
+    background: #f4f6f7;
+    border-bottom: 2px solid #2c3e50;
+    border-left: 2px solid #2c3e50;
+    border-radius: 6px;
+    margin-bottom: 10px;
+  }
+
+  .grid-20 {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 6px;
+  }
+
+  .slot-card {
+    background: #ffffff;
+    border: 1px solid #aed6f1;
+    border-radius: 6px;
+    padding: 4px;
+  }
+
+  .slot-label {
+    font-size: 10px;
+    font-weight: bold;
+    color: #e74c3c;
+    display: block;
+    margin-bottom: 2px;
+  }
+
+  select {
+    width: 100%;
+    padding: 4px 2px;
+    border-radius: 4px;
+    border: 1px solid #3498db;
+    font-weight: bold;
+    color: #1b2631;
+    font-size: 11px;
+    background: #fcf3cf;
+  }
+
+  .btn-check {
+    background: #27ae60;
+    color: white;
+    border: none;
+    padding: 14px;
+    font-size: 15px;
+    font-weight: bold;
+    border-radius: 25px;
+    width: 100%;
+    cursor: pointer;
+    margin-top: 10px;
+    box-shadow: 0 3px 6px rgba(0,0,0,0.1);
+  }
+
+  .btn-check:active { background: #219653; }
+
+  #result {
+    margin-top: 12px;
+    padding: 12px;
+    border-radius: 8px;
+    font-weight: bold;
+    font-size: 13px;
+    display: none;
+    line-height: 1.5;
+  }
+  .win { background: #d4edda; color: #155724; border: 1px solid #c3e6cb; }
+  .lose { background: #f8d7da; color: #721c24; border: 1px solid #f5c6cb; }
+</style>
+</head>
+<body>
+
+<h3>අයණිකරන ශක්ති ප්‍රස්ථාර අභියෝගය 📈</h3>
+<p>ප්‍රස්ථාරයේ ලකුණු කර ඇති අංක 1 සිට 20 දක්වා ස්ථාන වලට අදාළ මූලද්‍රව්‍ය තෝරන්න!</p>
+
+<div class="graph-wrapper">
+  <div class="graph-svg-box">
+    <svg width="100%" height="100%" viewBox="0 0 500 170" preserveAspectRatio="none">
+      <line x1="0" y1="40" x2="500" y2="40" stroke="#eaeded" stroke-width="1" />
+      <line x1="0" y1="80" x2="500" y2="80" stroke="#eaeded" stroke-width="1" />
+      <line x1="0" y1="120" x2="500" y2="120" stroke="#eaeded" stroke-width="1" />
+
+      <polyline fill="none" stroke="#e74c3c" stroke-width="3"
+        points="15,70 38,10 61,130 84,90 107,110 130,80 153,50 176,70 199,35 222,20
+                245,140 268,100 291,120 314,90 337,60 360,75 383,45 406,30 429,150 452,110" />
+
+      <g fill="#3498db">
+        <circle cx="15" cy="70" r="4" /><text x="10" y="95" font-size="9" fill="#2c3e50" font-weight="bold">1</text>
+        <circle cx="38" cy="10" r="4" /><text x="33" y="28" font-size="9" fill="#2c3e50" font-weight="bold">2</text>
+        <circle cx="61" cy="130" r="4" /><text x="56" y="150" font-size="9" fill="#2c3e50" font-weight="bold">3</text>
+        <circle cx="84" cy="90" r="4" /><text x="79" y="112" font-size="9" fill="#2c3e50" font-weight="bold">4</text>
+        <circle cx="107" cy="110" r="4" /><text x="102" y="130" font-size="9" fill="#2c3e50" font-weight="bold">5</text>
+        <circle cx="130" cy="80" r="4" /><text x="125" y="102" font-size="9" fill="#2c3e50" font-weight="bold">6</text>
+        <circle cx="153" cy="50" r="4" /><text x="148" y="70" font-size="9" fill="#2c3e50" font-weight="bold">7</text>
+        <circle cx="176" cy="70" r="4" /><text x="171" y="92" font-size="9" fill="#2c3e50" font-weight="bold">8</text>
+        <circle cx="199" cy="35" r="4" /><text x="194" y="55" font-size="9" fill="#2c3e50" font-weight="bold">9</text>
+        <circle cx="222" cy="20" r="4" /><text x="214" y="38" font-size="9" fill="#2c3e50" font-weight="bold">10</text>
+        <circle cx="245" cy="140" r="4" /><text x="237" y="160" font-size="9" fill="#2c3e50" font-weight="bold">11</text>
+        <circle cx="268" cy="100" r="4" /><text x="260" y="120" font-size="9" fill="#2c3e50" font-weight="bold">12</text>
+        <circle cx="291" cy="120" r="4" /><text x="283" y="140" font-size="9" fill="#2c3e50" font-weight="bold">13</text>
+        <circle cx="314" cy="90" r="4" /><text x="306" y="112" font-size="9" fill="#2c3e50" font-weight="bold">14</text>
+        <circle cx="337" cy="60" r="4" /><text x="329" y="80" font-size="9" fill="#2c3e50" font-weight="bold">15</text>
+        <circle cx="360" cy="75" r="4" /><text x="352" y="95" font-size="9" fill="#2c3e50" font-weight="bold">16</text>
+        <circle cx="383" cy="45" r="4" /><text x="375" y="65" font-size="9" fill="#2c3e50" font-weight="bold">17</text>
+        <circle cx="406" cy="30" r="4" /><text x="398" y="48" font-size="9" fill="#2c3e50" font-weight="bold">18</text>
+        <circle cx="429" cy="150" r="4" /><text x="421" y="168" font-size="9" fill="#2c3e50" font-weight="bold">19</text>
+        <circle cx="452" cy="110" r="4" /><text x="444" y="130" font-size="9" fill="#2c3e50" font-weight="bold">20</text>
+      </g>
+    </svg>
+  </div>
+
+  <div class="grid-20" id="selectorsGrid"></div>
+</div>
+
+<button type="button" class="btn-check" id="checkBtn">පිළිතුරු පරීක්ෂා කරන්න 🎯</button>
+<div id="result"></div>
+
+<script>
+var elementsList = ["H", "He", "Li", "Be", "B", "C", "N", "O", "F", "Ne", "Na", "Mg", "Al", "Si", "P", "S", "Cl", "Ar", "K", "Ca"];
+var gridHtml = "";
+
+for (var i = 1; i <= 20; i++) {
+  gridHtml += '<div class="slot-card"><span class="slot-label">' + i + '</span>' +
+              '<select class="elem-select"><option value="">?</option>';
+  for (var j = 0; j < elementsList.length; j++) {
+    gridHtml += '<option value="' + elementsList[j] + '">' + elementsList[j] + '</option>';
+  }
+  gridHtml += '</select></div>';
+}
+document.getElementById("selectorsGrid").innerHTML = gridHtml;
+
+document.getElementById("checkBtn").addEventListener("click", function() {
+  var correct = ["H", "He", "Li", "Be", "B", "C", "N", "O", "F", "Ne", "Na", "Mg", "Al", "Si", "P", "S", "Cl", "Ar", "K", "Ca"];
+  var selects = document.querySelectorAll(".elem-select");
+  var score = 0;
+  var hasEmpty = false;
+
+  for (var i = 0; i < selects.length; i++) {
+    var val = selects[i].value;
+    if (val === "") {
+      hasEmpty = true;
+    }
+    if (val === correct[i]) {
+      score++;
+    }
+  }
+
+  var res = document.getElementById("result");
+  res.style.display = "block";
+
+  if (hasEmpty) {
+    res.className = "lose";
+    res.innerHTML = "⚠️ කරුණාකර සියලුම ස්ථාන 20 ටම මූලද්‍රව්‍ය තෝරන්න!";
+  } else if (score === 20) {
+    res.className = "win";
+    res.innerHTML = "🏆 සුපිරි! ඔයා ප්‍රස්ථාරයේ ස්ථාන 20ම නිවැරදිව තේරුවා! (20/20)<br>💎 <b>Diamond Badge එක හිමිවුණා!</b>";
+  } else {
+    res.className = "lose";
+    res.innerHTML = "❌ ඔයාගේ ලකුණු: " + score + "/20යි. Be > B, N > O, Mg > Al, P > S විශේෂ අවස්ථා නැවත මතක් කරගෙන ට්‍රයි කරන්න.";
+  }
+});
+</script>
+
+</body>
+</html>
+
+ 
