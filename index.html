@@ -1,541 +1,268 @@
 <!DOCTYPE html>
 <html lang="si">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="theme-color" content="#090d18">
-<title>Simple Science Gaming | Neon Arena</title>
-<style>
-:root{--bg:#080b14;--panel:#111827;--panel2:#0c1220;--line:#24334b;--cyan:#22f0ff;--pink:#ff3b91;--lime:#8cff6b;--gold:#ffd866;--text:#edf5ff;--muted:#9eabc2;--bad:#ff667a;--shadow:0 0 28px #22f0ff12}
-*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;min-height:100vh;background:radial-gradient(ellipse at 20% 0%,#13233b 0,transparent 40%),radial-gradient(ellipse at 90% 15%,#26112b 0,transparent 30%),var(--bg);color:var(--text);font:15px/1.5 system-ui,-apple-system,Segoe UI,Arial,sans-serif;padding:14px}button,input{font:inherit}button{cursor:pointer;touch-action:manipulation}button:focus-visible,input:focus-visible{outline:2px solid var(--gold);outline-offset:3px}.app{max-width:1050px;margin:auto}.topbar{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin:0 0 16px}.brand{display:flex;align-items:center;gap:10px}.brand-mark{width:43px;height:43px;display:grid;place-items:center;border-radius:13px;background:linear-gradient(135deg,var(--cyan),#5970ff);color:#06101c;font-size:22px;font-weight:1000;box-shadow:0 0 22px #22f0ff30}.brand h1{margin:0;font-size:clamp(18px,4vw,25px);letter-spacing:.04em}.brand p{margin:0;color:var(--muted);font-size:12px}.top-actions{display:flex;gap:8px;flex-wrap:wrap}.pill-btn,.btn,.small-btn{border:1px solid var(--line);border-radius:10px;padding:10px 13px;background:#151e30;color:var(--text);font-weight:750}.pill-btn:hover,.small-btn:hover{border-color:var(--cyan)}.btn{border:0;background:linear-gradient(100deg,#00cfe3,#7b6cff 65%,#ff4c9a);color:#07101c;box-shadow:0 7px 22px #22f0ff18}.btn:hover{filter:brightness(1.1);transform:translateY(-1px)}.btn:disabled{opacity:.45;cursor:not-allowed;transform:none}.panel{background:linear-gradient(160deg,#141d2e,#0d1320);border:1px solid var(--line);border-radius:18px;padding:clamp(14px,3vw,24px);box-shadow:var(--shadow);margin-bottom:16px}.hidden{display:none!important}.eyebrow{color:var(--cyan);font-weight:900;text-transform:uppercase;letter-spacing:.13em;font-size:11px}.muted{color:var(--muted)}h2,h3,p{overflow-wrap:anywhere}h2{font-size:clamp(21px,4vw,29px);line-height:1.2;margin:6px 0 12px}h3{font-size:18px;margin:0 0 10px}.hero{display:grid;grid-template-columns:1.35fr .65fr;gap:18px;align-items:center}.hero h2 span{color:var(--cyan);text-shadow:0 0 18px #22f0ff35}.hero p{color:var(--muted);max-width:650px}.hero-stat{background:#090f1b;border:1px solid #2a3c57;border-radius:15px;padding:16px;text-align:center}.hero-stat strong{display:block;font-size:32px;color:var(--gold)}.hero-stat small{color:var(--muted)}.auth{max-width:470px;margin:25px auto}.field{display:grid;gap:6px;margin:12px 0}.field label{color:#b8faff;font-weight:750}.field input{width:100%;min-width:0;padding:13px;background:#080e19;border:1px solid #30425d;border-radius:10px;color:var(--text)}.full{width:100%;margin-top:8px}.note{font-size:12px;color:var(--muted);line-height:1.6}.stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin:16px 0}.stat{background:#0b1220;border:1px solid var(--line);padding:13px;border-radius:13px;min-width:0}.stat span{display:block;color:var(--muted);font-size:12px}.stat strong{font-size:clamp(18px,3vw,25px);color:var(--cyan)}.section-head{display:flex;align-items:end;justify-content:space-between;gap:10px;flex-wrap:wrap;margin-bottom:13px}.level-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;position:relative}.level-grid:before{content:"";position:absolute;inset:0;z-index:0;pointer-events:none;opacity:.62;background-image:url("data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 width=%271000%27 height=%27600%27 viewBox=%270 0 1000 600%27%3E%3Cpath d=%27M220 65 C600 20 820 110 750 205 S340 285 260 365 S650 490 790 535%27 fill=%27none%27 stroke=%27%2322f0ff%27 stroke-width=%276%27 stroke-linecap=%27round%27 stroke-dasharray=%2712 16%27 opacity=%27.55%27/%3E%3C/svg%3E");background-size:100% 100%}.level-card{z-index:1}.level-card{position:relative;overflow:hidden}.level-card:nth-child(1){border-color:#20d9e8;background:linear-gradient(145deg,#123347,#0b1220)}.level-card:nth-child(2){border-color:#a78bfa;background:linear-gradient(145deg,#2b2048,#0b1220)}.level-card:nth-child(3){border-color:#fb923c;background:linear-gradient(145deg,#432719,#0b1220)}.level-card:nth-child(4){border-color:#4ade80;background:linear-gradient(145deg,#153a2e,#0b1220)}.level-card:nth-child(5){border-color:#facc15;background:linear-gradient(145deg,#44351a,#0b1220)}.level-card .path-number{display:inline-grid;place-items:center;width:32px;height:32px;border-radius:50%;background:linear-gradient(135deg,#22f0ff,#a78bfa);color:#08101c;font-weight:1000;margin-bottom:3px}.level-card:nth-child(2){transform:translateY(20px)}.level-card:nth-child(3){transform:translateY(-5px)}.level-card:nth-child(4){transform:translateY(15px)}.level-card{padding:16px;border-radius:14px;background:#0b1220;border:1px solid var(--line);min-width:0;display:flex;flex-direction:column;gap:9px}.level-card .emoji{font-size:28px}.level-card h3{margin:0}.level-card p{margin:0;color:var(--muted);font-size:13px;flex:1}.level-card .meta{font-size:12px;color:var(--gold)}.level-card .btn{width:100%;margin-top:4px}.progress-track{height:7px;border-radius:20px;background:#202a3d;overflow:hidden}.progress-fill{height:100%;width:0;background:linear-gradient(90deg,var(--cyan),var(--pink));transition:width .3s}.game-head{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}.game-head h2{margin:3px 0}.game-metrics{display:flex;gap:8px;flex-wrap:wrap}.metric{background:#0a1120;border:1px solid var(--line);padding:7px 10px;border-radius:9px;font-size:13px}.metric b{color:var(--gold)}.timer{height:8px;background:#253047;border-radius:20px;overflow:hidden;margin:13px 0}.timer div{height:100%;width:100%;background:linear-gradient(90deg,var(--lime),var(--gold),var(--pink));transition:width .4s linear}.instruction{padding:11px 13px;border:1px dashed #2d9da9;background:#22f0ff0a;border-radius:11px;color:#c5fbff;margin:12px 0;line-height:1.6}.cell-target-name{display:inline-block;color:#fff!important;background:linear-gradient(135deg,#ff1744,#c40035);padding:2px 8px;border-radius:8px;font-weight:950;box-shadow:0 0 12px #ff174455;white-space:normal}.instruction.cell-question-correct{border:2px solid #c084fc;background:linear-gradient(120deg,#581c87,#312e81);color:#fff;font-weight:900;box-shadow:0 0 18px #c084fc55;transition:background .2s,border-color .2s}.game-area{background:#080e19;border:1px solid var(--line);border-radius:14px;padding:14px}.pool{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;margin-top:12px}.chip{padding:9px 12px;border:1px solid #2b5970;border-radius:9px;background:#13243a;color:var(--text);font-weight:800;min-width:45px}.chip.selected{background:#5c2043;border-color:var(--pink);box-shadow:0 0 12px #ff3b9140}.chip.correct{background:#123c35;border-color:var(--lime)}.graph-wrap{padding:5px 6px 0}.graph{position:relative;isolation:isolate;height:390px;border-left:3px solid var(--cyan);border-bottom:3px solid var(--cyan);border-radius:0 0 0 2px;margin:24px 10px 48px 48px;background:repeating-linear-gradient(to top,transparent 0,transparent calc(20% - 1px),#29415c calc(20% - 1px),#29415c 20%),repeating-linear-gradient(to right,transparent 0,transparent calc(10% - 1px),#20334b calc(10% - 1px),#20334b 10%);box-shadow:inset 0 0 24px #06152b80}.graph-line{position:absolute;inset:0;width:100%;height:100%;overflow:visible;z-index:1;pointer-events:none}.graph-line polyline{fill:none;stroke:#ff668f;stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round;vector-effect:non-scaling-stroke;filter:drop-shadow(0 0 2px #ff4c9a45)}.axis-y{position:absolute;left:-43px;top:50%;transform:translate(-50%,-50%) rotate(-90deg);transform-origin:center;font-size:clamp(10px,2.6vw,12px);color:#b9c8df;white-space:nowrap;pointer-events:none}.axis-x{position:absolute;bottom:-38px;left:0;right:0;text-align:center;color:#b9c8df;font-size:clamp(10px,2.6vw,12px);white-space:nowrap}.graph-point{position:absolute;z-index:2;transform:translate(-50%,50%);width:12px;height:12px;min-width:0;border-radius:50%;background:#43d8ee;border:2px solid #e8feff;font-size:0;color:transparent;font-weight:900;padding:0;box-shadow:0 0 0 2px #22f0ff20,0 0 5px #22f0ff55;touch-action:manipulation;appearance:none}.graph-point:focus-visible{outline:2px solid var(--gold);outline-offset:4px}.graph-point.filled{width:15px;height:15px;min-width:0;background:var(--lime);border:2px solid white;box-shadow:0 0 0 2px #a3ff5730,0 0 7px #a3ff5790;color:transparent}.graph-point:disabled{opacity:1}.graph-y-tick,.graph-x-tick{display:none}.shells-wrap{display:flex;flex-direction:column;align-items:center;gap:10px}.atom{width:min(340px,78vw);height:min(340px,78vw);position:relative;display:grid;place-items:center}.nucleus{width:47px;height:47px;border-radius:50%;display:grid;place-items:center;background:var(--pink);color:white;font-weight:900;z-index:6;box-shadow:0 0 18px #ff3b9160}.shell{position:absolute;border:2px solid #22f0ffad;border-radius:50%;display:block;z-index:1;cursor:pointer;background:transparent;padding:0}.shell.s1{width:29%;height:29%}.shell.s2{width:48%;height:48%}.shell.s3{width:67%;height:67%}.shell.s4{width:86%;height:86%}.electron-dot{position:absolute;width:10px;height:10px;border-radius:50%;background:var(--gold);box-shadow:0 0 8px var(--gold);pointer-events:none;z-index:4;animation:electronPop .28s ease-out}@keyframes electronPop{from{transform:scale(.1);opacity:.2}to{transform:scale(1);opacity:1}}.electron-controls{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-top:8px}.electron-controls button{min-width:125px}.badge-row{display:flex;flex-wrap:wrap;gap:7px;margin-top:10px}.game-badge{border:1px solid #53617a;background:#17243a;border-radius:20px;padding:5px 9px;font-size:12px;color:#dbeafe}.game-badge.earned{border-color:#fbbf24;background:#473315;color:#ffedaa}.electron-source{width:52px;height:52px;border-radius:50%;border:1px solid #22f0ff;background:radial-gradient(circle,#69fbff,#2372cc);color:#07101c;font-weight:1000;font-size:20px;display:grid;place-items:center}.source-row{display:flex;align-items:center;justify-content:center;gap:12px;flex-wrap:wrap;margin-top:6px}.bin-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:9px}.bin{border:2px solid #39455c;border-radius:16px;background:linear-gradient(155deg,#23334a,#101827);min-height:125px;padding:10px 5px;text-align:center;cursor:pointer;box-shadow:inset 0 0 18px #ffffff08;transition:transform .15s,filter .15s}.bin:hover{transform:translateY(-3px);filter:brightness(1.15)}.bin:nth-child(1){background:linear-gradient(145deg,#f97316,#7c2d12);border-color:#fdba74}.bin:nth-child(2){background:linear-gradient(145deg,#2563eb,#172554);border-color:#93c5fd}.bin:nth-child(3){background:linear-gradient(145deg,#9333ea,#3b0764);border-color:#d8b4fe}.bin h4{color:#fff;text-shadow:0 1px 4px #0008}.hint-btn{border-color:#fbbf24;background:linear-gradient(135deg,#713f12,#3b260c);color:#ffedaa}.formula-target{font-size:clamp(19px,4vw,28px);font-weight:950;text-align:center;color:#a7f3d0;padding:15px;border:1px solid #34d399;border-radius:14px;background:linear-gradient(135deg,#064e3b88,#0b1220);margin:10px 0}.formula-selected{padding:12px;border:1px dashed #6ee7b7;border-radius:12px;text-align:center;min-height:50px;color:#d1fae5}.physics-scene{position:relative;overflow:hidden;height:150px;margin:16px 0;border:1px solid #42506a;border-radius:14px;background:linear-gradient(#101d31 0 72%,#25344a 72% 75%,#0a1220 75%)}.physics-track{position:absolute;left:0;right:0;bottom:25%;height:3px;background:#facc15}.physics-object{position:absolute;left:12px;bottom:calc(25% + 3px);font-size:38px;transform:translateX(0)}.physics-object.go{animation:accelerateMove 3s cubic-bezier(.65,.02,.92,.45) forwards}@keyframes accelerateMove{0%{transform:translateX(0)}100%{transform:translateX(min(70vw,650px))}}.physics-label{position:absolute;top:10px;left:12px;color:#cbd5e1;font-size:12px}.physics-equation{padding:12px;border:1px solid #475569;border-radius:12px;background:#101a2a;text-align:center;font-size:clamp(17px,4vw,23px);font-weight:850;color:#fde68a}.physics-question{display:block;font-size:clamp(19px,4.8vw,25px);line-height:1.5!important;font-weight:900;color:#f8fbff;background:linear-gradient(135deg,#183653,#262044);border:2px solid #53d9e8;border-radius:16px;padding:clamp(16px,4vw,23px);margin:14px 0 18px;min-height:92px;overflow-wrap:anywhere;word-break:normal;box-shadow:0 8px 24px #0003}.physics-progress{display:inline-flex;align-items:center;justify-content:center;background:#17384a;border:1px solid #53d9e8;color:#c9fbff;font-weight:850;font-size:14px;border-radius:999px;padding:6px 13px;margin-bottom:10px}.physics-question:empty{display:none}@media(max-width:480px){.game-area{padding:11px}.physics-question{font-size:20px;padding:16px;min-height:100px;margin:12px 0 16px}.physics-equation{padding:10px}}.physics-answer{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}.physics-answer input{flex:1;min-width:120px;background:#080e19;border:1px solid #42506a;border-radius:10px;padding:12px;color:var(--text)}.physics-answer button{flex:1;min-width:120px}.physics-note{font-size:13px;color:var(--muted);margin-top:8px}.ion-chip{min-width:80px}.ion-chip small{display:block;font-size:10px;color:#a7f3d0}.bin h4{font-size:clamp(10px,2.4vw,13px);margin:0 0 9px;color:var(--gold)}.bin-items{display:flex;flex-wrap:wrap;justify-content:center;gap:5px}.placed{background:var(--cyan);color:#06101c;padding:4px 6px;border-radius:5px;font-weight:900;font-size:12px}.feedback{min-height:25px;color:var(--gold);text-align:center;margin:10px 0;font-weight:750}.actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}.actions button{flex:1;min-width:130px}.table{width:100%;border-collapse:collapse;font-size:13px}.table th,.table td{text-align:left;padding:10px 8px;border-bottom:1px solid var(--line)}.table th{color:var(--cyan)}.footer{text-align:center;color:#6f7e96;font-size:11px;padding:8px}.toast{position:fixed;left:50%;bottom:18px;transform:translateX(-50%);background:#142238;border:1px solid var(--cyan);padding:12px 16px;border-radius:12px;box-shadow:0 10px 35px #0008;z-index:20;max-width:90vw;text-align:center}.danger{color:var(--bad)}
-.cell-select-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin:16px 0}.cell-select{border:2px solid #3b82f6;border-radius:16px;padding:18px 10px;background:linear-gradient(145deg,#163b54,#102033);color:#f0f9ff;font-weight:900;font-size:18px;min-height:110px}.cell-select:nth-child(2){border-color:#f472b6;background:linear-gradient(145deg,#52264c,#21152f)}.cell-select span{display:block;font-size:32px;margin-bottom:5px}.cell-stage{background:radial-gradient(ellipse at center,#182e48,#09111e 72%);border:1px solid #35516f;border-radius:16px;padding:8px;overflow:hidden;margin:12px 0}.cell-svg{display:block;width:100%;max-height:390px;touch-action:manipulation;user-select:none;-webkit-tap-highlight-color:transparent}.cell-part{cursor:pointer;outline:none}.cell-hit{fill:#fde68a;fill-opacity:.015;stroke:transparent;stroke-width:1;pointer-events:all}.cell-hit:focus-visible{fill-opacity:.22;stroke:#fff;stroke-width:3}.cell-part:focus-visible{stroke:#fff;stroke-width:4}.cell-part.correct-part{filter:drop-shadow(0 0 7px #a3ff57)}.cell-answer-tick{pointer-events:none;filter:drop-shadow(0 2px 3px #07101c)}.cell-answer-tick circle{fill:#16a34a;stroke:#fff;stroke-width:3}.cell-answer-tick path{fill:none;stroke:#fff;stroke-width:5;stroke-linecap:round;stroke-linejoin:round}.cell-label{font-size:11px;font-weight:800;fill:#f4faff;paint-order:stroke;stroke:#07101c;stroke-width:2px;stroke-linejoin:round;pointer-events:none}.cell-progress{display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap;color:#b7d5f4;font-size:13px}@media(max-width:480px){.cell-select-grid{grid-template-columns:1fr}.cell-select{min-height:80px}.cell-label{font-size:12px}}
-@media(max-width:720px){body{padding:10px}.app{width:100%;max-width:100%}.hero{grid-template-columns:minmax(0,1fr)}.level-grid{grid-template-columns:minmax(0,1fr);gap:12px}.level-card:nth-child(n){transform:none}.hero-stat{display:flex;align-items:center;justify-content:space-around;gap:12px}.level-card{display:flex;flex-direction:column;align-items:stretch;width:100%;min-width:0;padding:16px;gap:9px}.level-card>*{min-width:0;max-width:100%}.level-card .path-number{align-self:flex-start;flex:0 0 auto}.level-card .emoji{font-size:30px;line-height:1.2}.level-card h3{font-size:clamp(18px,5vw,23px);line-height:1.4;overflow-wrap:anywhere;word-break:normal}.level-card p{font-size:14px;line-height:1.65;overflow-wrap:anywhere;word-break:normal}.level-card .meta{font-size:13px;line-height:1.5;white-space:normal;overflow-wrap:anywhere}.level-card .btn{width:100%;min-height:48px;grid-column:auto;margin-top:4px;white-space:normal}.level-card small{line-height:1.5}.stats{grid-template-columns:repeat(2,minmax(0,1fr))}.graph{height:360px;margin:26px 7px 48px 42px}.panel{border-radius:15px}}@media(max-width:360px){body{padding:7px}.panel{padding:11px}.level-card{padding:13px}.level-card h3{font-size:18px}.level-card p{font-size:13px}.level-card .meta{font-size:12px}.bin-grid{gap:4px}.bin{padding:8px 2px}.metric{font-size:11px}.graph{height:320px;margin-left:38px;margin-right:4px}.graph-point{width:11px;height:11px;min-width:0}.graph-point.filled{width:14px;height:14px;min-width:0}}
-
-.question-result{min-height:340px;display:flex;align-items:center;justify-content:center;text-align:center;padding:24px 12px;animation:resultIn .35s ease-out}
-.result-card{width:min(620px,100%);border:2px solid #3b526d;border-radius:24px;padding:clamp(22px,5vw,42px) 18px;background:radial-gradient(circle at 50% 0%,#223a58,#0b1220 70%);box-shadow:0 0 45px #22f0ff20;overflow:hidden;position:relative}
-.result-card.good{border-color:#8cff6b;box-shadow:0 0 38px #8cff6b30}.result-card.bad{border-color:#ff667a;box-shadow:0 0 38px #ff667a25}
-.result-icon{font-size:clamp(68px,15vw,104px);line-height:1.15;animation:resultPop .55s cubic-bezier(.18,.89,.32,1.28);filter:drop-shadow(0 0 15px currentColor)}
-.result-title{font-size:clamp(25px,6vw,38px);font-weight:1000;margin:10px 0}.result-card.good .result-title{color:#9cff7d}.result-card.bad .result-title{color:#ff8794}
-.result-detail{font-size:clamp(15px,3.5vw,18px);line-height:1.7;color:#e8f1ff;margin:12px auto;max-width:520px}.result-explain{border-radius:13px;background:#07101d;border:1px solid #354965;padding:12px;margin:14px auto;max-width:520px;color:#d7e8ff;line-height:1.65}
-.result-points{font-size:19px;font-weight:900;color:var(--gold);margin:12px}.result-next{width:min(360px,100%);font-size:17px;padding:14px;margin-top:8px}
-@keyframes resultIn{from{opacity:0;transform:translateY(14px) scale(.97)}to{opacity:1;transform:translateY(0) scale(1)}}
-@keyframes resultPop{0%{transform:scale(.2) rotate(-18deg);opacity:.1}75%{transform:scale(1.15) rotate(5deg)}100%{transform:scale(1) rotate(0);opacity:1}}
-.confetti{font-size:25px;letter-spacing:7px;animation:confettiFloat 1.1s ease-in-out infinite alternate}
-@keyframes confettiFloat{from{transform:translateY(0)}to{transform:translateY(-7px)}}
-@keyframes trolleyRun{0%{transform:translateX(-35px);opacity:.2}25%{opacity:1}100%{transform:translateX(80px);opacity:1}}
-@media(max-width:600px){.question-result{min-height:300px;padding:12px 0}.result-card{padding:24px 14px}.result-next{width:100%}}
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cell Biology Shooter Game</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #121212;
+            color: white;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            overflow: hidden;
+        }
+        #question-box {
+            font-size: 22px;
+            font-weight: bold;
+            background-color: #333;
+            padding: 12px 25px;
+            border-radius: 10px;
+            margin-bottom: 15px;
+            border: 2px solid #00E676;
+            text-align: center;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+        }
+        #stats {
+            margin-bottom: 10px;
+            font-size: 18px;
+            font-weight: bold;
+        }
+        canvas {
+            border: 3px solid #00E676;
+            background-color: #1e272e;
+            cursor: crosshair;
+            border-radius: 8px;
+        }
+    </style>
 </head>
 <body>
-<div class="app">
-<header class="topbar">
-  <div class="brand"><div class="brand-mark">⚛</div><div><h1>SIMPLE SCIENCE GAMING</h1><p>LEARN • PLAY • LEVEL UP</p></div></div>
-  <div class="top-actions"><button class="pill-btn" id="lang-btn" type="button">සිංහල / EN</button><button class="pill-btn hidden" id="logout-btn" type="button">↪ Logout</button></div>
-</header>
 
-<section id="auth-screen" class="panel auth">
-  <div class="eyebrow" data-si="PLAYER ACCESS" data-en="PLAYER ACCESS">PLAYER ACCESS</div>
-  <h2 data-si="Science Arena එකට සාදරයෙන් පිළිගනිමු!" data-en="Welcome to the Science Arena!">Science Arena එකට සාදරයෙන් පිළිගනිමු!</h2>
-  <p class="muted" data-si="ඔබේ player නම ඇතුළත් කර ඉගෙනීමේ ගමන අරඹන්න." data-en="Enter a player name and begin your learning journey.">ඔබේ player නම ඇතුළත් කර ඉගෙනීමේ ගමන අරඹන්න.</p>
-  <div class="field"><label for="username" data-si="Player නම" data-en="Player name">Player නම</label><input id="username" maxlength="32" autocomplete="nickname" placeholder="Player name"></div>
-  <button class="btn full" id="login-btn" type="button" data-si="ARENA එකට ඇතුළු වෙන්න →" data-en="ENTER THE ARENA →">ARENA එකට ඇතුළු වෙන්න →</button>
-  <p class="note" style="margin-top:12px" data-si="Demo profile එකක් පමණයි. Progress එක මේ browser/device එකේ save වේ. රහස්‍ය මුරපදයක් ඇතුළත් කරන්න එපා." data-en="Demo profile only. Progress is saved in this browser/device. Do not enter a private password.">Demo profile එකක් පමණයි. Progress එක මේ browser/device එකේ save වේ. රහස්‍ය මුරපදයක් ඇතුළත් කරන්න එපා.</p>
-</section>
-
-<section id="dashboard" class="hidden">
-  <div class="panel hero">
-    <div><div class="eyebrow" data-si="ඔබේ මෙහෙයුම ආරම්භයි" data-en="YOUR MISSION STARTS NOW">ඔබේ මෙහෙයුම ආරම්භයි</div><h2><span id="hello-name">Player</span>, <span data-si="මීළඟ Science Champion ඔබද?" data-en="ready to become a Science Champion?">මීළඟ Science Champion ඔබද?</span></h2><p data-si="ප්‍රශ්න විසඳන්න, XP එකතු කරන්න, badges දිනාගෙන ඔබේ දැනුම වැඩි කරගන්න." data-en="Solve challenges, earn XP, collect badges and build your science skills.">ප්‍රශ්න විසඳන්න, XP එකතු කරන්න, badges දිනාගෙන ඔබේ දැනුම වැඩි කරගන්න.</p></div>
-    <div class="hero-stat"><div><strong id="hero-level">01</strong><small data-si="PLAYER LEVEL" data-en="PLAYER LEVEL">PLAYER LEVEL</small></div><div><strong id="hero-xp">0</strong><small>XP</small></div></div>
-  </div>
-  <div class="stats">
-    <div class="stat"><span data-si="මුළු XP" data-en="TOTAL XP">මුළු XP</span><strong id="stat-xp">0</strong></div>
-    <div class="stat"><span data-si="සම්පූර්ණ කළ Levels" data-en="LEVELS CLEARED">සම්පූර්ණ කළ Levels</span><strong id="stat-cleared">0/6</strong></div>
-    <div class="stat"><span data-si="හොඳම Badge" data-en="BEST BADGE">හොඳම Badge</span><strong id="stat-badge">—</strong></div>
-    <div class="stat"><span data-si="නිවැරදි පිළිතුරු" data-en="CORRECT ANSWERS">නිවැරදි පිළිතුරු</span><strong id="stat-correct">0</strong></div>
-  </div>
-  <div class="panel">
-    <div class="section-head"><div><div class="eyebrow">SELECT YOUR CHALLENGE</div><h2 data-si="Game Levels" data-en="Game Levels">Game Levels</h2></div><span class="muted" id="total-progress-label">0% complete</span></div>
-    <div class="progress-track"><div id="total-progress" class="progress-fill"></div></div>
-    <div class="level-grid" style="margin-top:14px">
-      <article class="level-card"><span class="path-number">01</span><div class="emoji">📈</div><h3 data-si="Level 1: අයනීකරණ ශක්තිය" data-en="Level 1: Ionization Energy">Level 1: අයනීකරණ ශක්තිය</h3><p data-si="මූලද්‍රව්‍ය 20ක් නිවැරදි graph ස්ථානයට ගෙන යන්න." data-en="Match 20 elements to their correct graph positions.">මූලද්‍රව්‍ය 20ක් නිවැරදි graph ස්ථානයට ගෙන යන්න.</p><div class="meta">+100 XP • 240 sec</div><button class="btn" onclick="startLevel(1)" data-si="▶ ක්‍රීඩා කරන්න" data-en="▶ PLAY LEVEL">▶ ක්‍රීඩා කරන්න</button><small class="muted" id="result-1">Not played</small></article>
-      <article class="level-card"><span class="path-number">02</span><div class="emoji">⚛️</div><h3 data-si="Level 2: ඉලෙක්ට්‍රොනික වින්‍යාසය" data-en="Level 2: Electron Configuration">Level 2: ඉලෙක්ට්‍රොනික වින්‍යාසය</h3><p data-si="පළමු මූලද්‍රව්‍ය 20යේ electron shells සම්පූර්ණ කරන්න." data-en="Build electron shells for the first 20 elements.">පළමු මූලද්‍රව්‍ය 20යේ electron shells සම්පූර්ණ කරන්න.</p><div class="meta">+120 XP • 300 sec</div><button class="btn" onclick="startLevel(2)" data-si="▶ ක්‍රීඩා කරන්න" data-en="▶ PLAY LEVEL">▶ ක්‍රීඩා කරන්න</button><small class="muted" id="result-2">Not played</small></article>
-      <article class="level-card"><span class="path-number">03</span><div class="emoji">🧪</div><h3 data-si="Level 3: මූලද්‍රව්‍ය වර්ගීකරණය" data-en="Level 3: Element Classification">Level 3: මූලද්‍රව්‍ය වර්ගීකරණය</h3><p data-si="ලෝහ, අලෝහ සහ ලෝහාලෝහ වෙන් කරන්න." data-en="Sort metals, non-metals and metalloids.">ලෝහ, අලෝහ සහ ලෝහාලෝහ වෙන් කරන්න.</p><div class="meta">+100 XP • 150 sec</div><button class="btn" onclick="startLevel(3)" data-si="▶ ක්‍රීඩා කරන්න" data-en="▶ PLAY LEVEL">▶ ක්‍රීඩා කරන්න</button><small class="muted" id="result-3">Not played</small></article>
-      <article class="level-card"><span class="path-number">04</span><div class="emoji">🧬</div><h3 data-si="Level 4: රසායනික සූත්‍ර අභියෝගය" data-en="Level 4: Formula Challenge">Level 4: රසායනික සූත්‍ර අභියෝගය</h3><p data-si="කාලය අවසන් වීමට පෙර අයන එකතු කර නිවැරදි සූත්‍ර සාදන්න." data-en="Combine ions to build correct chemical formulas before time runs out.">කාලය අවසන් වීමට පෙර අයන එකතු කර නිවැරදි සූත්‍ර සාදන්න.</p><div class="meta">+150 XP • 210 sec</div><button class="btn" onclick="startLevel(4)" data-si="▶ ක්‍රීඩා කරන්න" data-en="▶ PLAY LEVEL">▶ ක්‍රීඩා කරන්න</button><small class="muted" id="result-4">Not played</small></article>
-      <article class="level-card"><span class="path-number">05</span><div class="emoji">🚀</div><h3 data-si="Level 5: බලය, ස්කන්ධය හා ත්වරණය" data-en="Level 5: Force, Mass & Acceleration">Level 5: බලය, ස්කන්ධය හා ත්වරණය</h3><p data-si="ප්‍රශ්න 9කින් බලය, ස්කන්ධය සහ ත්වරණය සොයන්න." data-en="Solve 9 questions on force, mass and acceleration.">ප්‍රශ්න 9කින් බලය, ස්කන්ධය සහ ත්වරණය සොයන්න.</p><div class="meta">+150 XP • 300 sec</div><button class="btn" onclick="startLevel(5)" data-si="▶ ක්‍රීඩා කරන්න" data-en="▶ PLAY LEVEL">▶ ක්‍රීඩා කරන්න</button><small class="muted" id="result-5">Not played</small></article>
-      <article class="level-card" style="border-color:#67e8f9;background:linear-gradient(145deg,#123d49,#0b1220)"><span class="path-number">06</span><div class="emoji">🌱🐾</div><h3 data-si="Level 6: ශාක හා සත්ත්ව සෛල" data-en="Level 6: Plant & Animal Cells">Level 6: ශාක හා සත්ත්ව සෛල</h3><p data-si="සෛල රූපයේ කොටස් හඳුනාගෙන ශාක සෛලයත් සත්ත්ව සෛලයත් ඉගෙන ගන්න." data-en="Identify parts in plant and animal cells.">සෛල රූපයේ කොටස් හඳුනාගෙන ශාක සෛලයත් සත්ත්ව සෛලයත් ඉගෙන ගන්න.</p><div class="meta">+180 XP • 240 sec</div><button class="btn" onclick="startLevel(6)" data-si="▶ ක්‍රීඩා කරන්න" data-en="▶ PLAY LEVEL">▶ ක්‍රීඩා කරන්න</button><small class="muted" id="result-6">Not played</small></article>
+    <div id="stats">
+        Score: <span id="score" style="color: #FFD700;">0</span> |
+        Time Left: <span id="timer" style="color: #FF5252;">60</span>s
     </div>
-  </div>
-  <div class="panel"><div class="section-head"><div><div class="eyebrow">PLAYER RECORD</div><h3 data-si="ඔබේ ප්‍රතිඵල" data-en="Your Results">ඔබේ ප්‍රතිඵල</h3></div></div><div style="overflow-x:auto"><table class="table"><thead><tr><th>Level</th><th data-si="හොඳම Badge" data-en="Best badge">හොඳම Badge</th><th>XP</th><th data-si="තත්ත්වය" data-en="Status">තත්ත්වය</th></tr></thead><tbody id="results-body"></tbody></table></div></div>
-</section>
 
-<section id="game-screen" class="panel hidden">
-  <div class="game-head"><div><div class="eyebrow" id="game-eyebrow">LEVEL 1</div><h2 id="game-title">Science Challenge</h2></div><button class="small-btn" id="exit-btn" type="button">✕ <span data-si="පිටවෙන්න" data-en="Exit">පිටවෙන්න</span></button></div>
-  <div class="game-metrics"><div class="metric">⏱ <b id="time-label">02:30</b></div><div class="metric">✨ XP <b id="run-xp">0</b></div><div class="metric">🎯 <b id="run-correct">0</b> <span data-si="නිවැරදි" data-en="correct">නිවැරදි</span></div><div class="metric">🏅 <b id="run-badge">💎 Diamond</b></div></div>
-  <div class="timer"><div id="timer-fill"></div></div>
-  <div id="instruction" class="instruction">Instruction</div>
-  <div id="game-content" class="game-area"></div>
-  <div id="feedback" class="feedback" aria-live="polite"></div>
-  <div class="actions"><button class="small-btn hint-btn" id="hint-btn" type="button">💡 <span data-si="ඉඟියක්" data-en="Hint">ඉඟියක්</span></button><button class="small-btn" id="restart-btn" type="button">↻ <span data-si="නැවත අරඹන්න" data-en="Restart">නැවත අරඹන්න</span></button><button class="small-btn" id="back-btn" type="button">⌂ <span data-si="Dashboard" data-en="Dashboard">Dashboard</span></button></div>
-</section>
-<div class="footer">SIMPLE SCIENCE GAMING • Learn by playing • Demo version</div>
-</div>
-<div id="toast" class="toast hidden" role="status"></div>
-<script>
-"use strict";
-const $=id=>document.getElementById(id);
-const LEVELS={
-  1:{si:"අයනීකරණ ශක්තිය",en:"Ionization Energy",duration:360,xp:100},
-  2:{si:"ඉලෙක්ට්‍රොනික වින්‍යාසය",en:"Electron Configuration",duration:420,xp:120},
-  3:{si:"මූලද්‍රව්‍ය වර්ගීකරණය",en:"Element Classification",duration:240,xp:100},
-  4:{si:"රසායනික සූත්‍ර අභියෝගය",en:"Chemical Formula Challenge",duration:300,xp:150},
-  5:{si:"බලය හා ත්වරණය",en:"Force & Acceleration",duration:600,xp:150},
-  6:{si:"ශාක හා සත්ත්ව සෛල",en:"Plant & Animal Cells",duration:420,xp:180}
-};
-// First ionization energy, kJ mol−1; values are approximate standard gas-phase values.
-const elements=[
- {sym:"H",z:1,ie:1312},{sym:"He",z:2,ie:2372},{sym:"Li",z:3,ie:520},{sym:"Be",z:4,ie:900},
- {sym:"B",z:5,ie:801},{sym:"C",z:6,ie:1087},{sym:"N",z:7,ie:1402},{sym:"O",z:8,ie:1314},
- {sym:"F",z:9,ie:1681},{sym:"Ne",z:10,ie:2081},{sym:"Na",z:11,ie:496},{sym:"Mg",z:12,ie:738},
- {sym:"Al",z:13,ie:578},{sym:"Si",z:14,ie:787},{sym:"P",z:15,ie:1012},{sym:"S",z:16,ie:1000},
- {sym:"Cl",z:17,ie:1251},{sym:"Ar",z:18,ie:1521},{sym:"K",z:19,ie:419},{sym:"Ca",z:20,ie:590}
-];
-const l2Questions=[
- {name:"හයිඩ්‍රජන් (H)",sym:"H",config:[1]},{name:"හීලියම් (He)",sym:"He",config:[2]},
- {name:"ලිතියම් (Li)",sym:"Li",config:[2,1]},{name:"බෙරිලියම් (Be)",sym:"Be",config:[2,2]},
- {name:"බෝරෝන් (B)",sym:"B",config:[2,3]},{name:"කාබන් (C)",sym:"C",config:[2,4]},
- {name:"නයිට්‍රජන් (N)",sym:"N",config:[2,5]},{name:"ඔක්සිජන් (O)",sym:"O",config:[2,6]},
- {name:"ෆ්ලෝරීන් (F)",sym:"F",config:[2,7]},{name:"නියෝන් (Ne)",sym:"Ne",config:[2,8]},
- {name:"සෝඩියම් (Na)",sym:"Na",config:[2,8,1]},{name:"මැග්නීසියම් (Mg)",sym:"Mg",config:[2,8,2]},
- {name:"ඇලුමිනියම් (Al)",sym:"Al",config:[2,8,3]},{name:"සිලිකන් (Si)",sym:"Si",config:[2,8,4]},
- {name:"පොස්පරස් (P)",sym:"P",config:[2,8,5]},{name:"සල්ෆර් (S)",sym:"S",config:[2,8,6]},
- {name:"ක්ලෝරීන් (Cl)",sym:"Cl",config:[2,8,7]},{name:"ආගන් (Ar)",sym:"Ar",config:[2,8,8]},
- {name:"පොටෑසියම් (K)",sym:"K",config:[2,8,8,1]},{name:"කැල්සියම් (Ca)",sym:"Ca",config:[2,8,8,2]}
-];
-const l3Elements=[
- {sym:"Li",type:"metals"},{sym:"Mg",type:"metals"},{sym:"K",type:"metals"},{sym:"Ca",type:"metals"},{sym:"Al",type:"metals"},
- {sym:"C",type:"nonmetals"},{sym:"O",type:"nonmetals"},{sym:"N",type:"nonmetals"},{sym:"F",type:"nonmetals"},{sym:"Cl",type:"nonmetals"},
- {sym:"B",type:"metalloids"},{sym:"Si",type:"metalloids"}
-];
-const storeKey=name=>"ssg_v2_"+name.trim().toLocaleLowerCase();
-let lang=localStorage.getItem("ssg_lang")||"si",user=null,level=0,timer=null,timeLeft=0,maxTime=0,correct=0,runXP=0,locked=false,questionPending=false;
-let l1Order=[],l1Placed=new Set(),l1Selected=null,l2Index=0,l2State=[0,0,0,0,0],l2Mistakes=0,l2Submitted=false,electronPicked=false,l3Remaining=[],l3Bins={metals:[],nonmetals:[],metalloids:[]},l3Selected=null,l4Index=0,l4Cation=null,l4Anion=null,l4Ions=[],l5Index=0,l5Mission=null,l6CellType=null,l6Index=0,l6FirstType=null;
-function blankProfile(name){return {name,xp:0,correct:0,results:{1:null,2:null,3:null,4:null,5:null,6:null}}}
-function toast(msg){const t=$("toast");t.textContent=msg;t.classList.remove("hidden");clearTimeout(toast.t);toast.t=setTimeout(()=>t.classList.add("hidden"),2300)}
-function text(si,en){return lang==="si"?si:en}
-function applyLanguage(){
- document.documentElement.lang=lang;$("lang-btn").textContent=lang==="si"?"සිංහල / EN":"EN / සිංහල";
- document.querySelectorAll("[data-si][data-en]").forEach(el=>el.textContent=lang==="si"?el.dataset.si:el.dataset.en);
- if(user&& !$("dashboard").classList.contains("hidden"))renderDashboard();
-}
-$("lang-btn").addEventListener("click",()=>{lang=lang==="si"?"en":"si";localStorage.setItem("ssg_lang",lang);applyLanguage();});
-$("login-btn").addEventListener("click",login);
-$("username").addEventListener("keydown",e=>{if(e.key==="Enter")login()});
-$("logout-btn").addEventListener("click",logout);
-$("exit-btn").addEventListener("click",quitGame);
-$("back-btn").addEventListener("click",quitGame);
-$("restart-btn").addEventListener("click",()=>{if(level)startLevel(level)});$("hint-btn").addEventListener("click",showHint);
-function login(){
- const name=$("username").value.trim();
- if(!name){toast(text("මුලින් player නම ඇතුළත් කරන්න.","Please enter a player name first."));$("username").focus();return}
- let data;try{data=JSON.parse(localStorage.getItem(storeKey(name)))}catch(e){}
- user=data&&typeof data==="object"?data:blankProfile(name);
- user.name=name;if(!user.results)user.results={1:null,2:null,3:null,4:null,5:null,6:null}; for(let i=1;i<=6;i++)if(!(i in user.results))user.results[i]=null;
- if(!Number.isFinite(user.xp))user.xp=0;if(!Number.isFinite(user.correct))user.correct=0;
- try{localStorage.setItem(storeKey(name),JSON.stringify(user));localStorage.setItem("ssg_active_v2",name)}catch(e){toast(text("Browser save පහසුකම නැහැ.","Browser storage is unavailable."))}
- renderDashboard();$("auth-screen").classList.add("hidden");$("dashboard").classList.remove("hidden");$("logout-btn").classList.remove("hidden");
-}
-function logout(){stopTimer();user=null;level=0;$("dashboard").classList.add("hidden");$("game-screen").classList.add("hidden");$("auth-screen").classList.remove("hidden");$("logout-btn").classList.add("hidden");}
-function persist(){if(!user)return;try{localStorage.setItem(storeKey(user.name),JSON.stringify(user))}catch(e){toast(text("Progress save කළ නොහැක.","Could not save progress."))}}
-function renderDashboard(){
- if(!user)return;
- $("hello-name").textContent=user.name;$("stat-xp").textContent=user.xp;$("hero-xp").textContent=user.xp;
- $("hero-level").textContent=String(Math.floor(user.xp/100)+1).padStart(2,"0");$("stat-correct").textContent=user.correct;
- const done=[1,2,3,4,5,6].filter(i=>user.results[i]).length;$("stat-cleared").textContent=done+"/6";
- const pct=Math.round(done/6*100);$("total-progress").style.width=pct+"%";$("total-progress-label").textContent=pct+"% complete";
- const badges=[1,2,3,4,5,6].map(i=>user.results[i]?.badge).filter(Boolean);
- $("stat-badge").textContent=badges.includes("💎 Diamond")?"💎":badges.includes("🥇 Gold")?"🥇":badges.length?"🥉":"—";
- const labels={1:text("අයනීකරණ ශක්තිය","Ionization Energy"),2:text("ඉලෙක්ට්‍රොනික වින්‍යාසය","Electron Configuration"),3:text("වර්ගීකරණය","Classification"),4:text("රසායනික සූත්‍ර","Formula Challenge"),5:text("බලය හා ත්වරණය","Force & Acceleration"),6:"ශාක හා සත්ත්ව සෛල"};
- $("results-body").replaceChildren();
- [1,2,3,4,5,6].forEach(i=>{
-  const r=user.results[i],tr=document.createElement("tr");
-  [i+" · "+labels[i],r?.badge||"—",r?r.xp+" XP":"0 XP",r?text("සම්පූර්ණයි","Cleared"):text("ඉතිරිව ඇත","Pending")].forEach(v=>{const td=document.createElement("td");td.textContent=v;tr.appendChild(td)});
-  $("results-body").appendChild(tr);
-  $("result-"+i).textContent=r?`${r.badge} • ${r.xp} XP`:text("තවම සම්පූර්ණ කර නැත","Not cleared yet");
- });
-}
-function showGame(){ $("dashboard").classList.add("hidden");$("game-screen").classList.remove("hidden");$("game-content").replaceChildren();$("feedback").textContent="";locked=false;questionPending=false;}
-function startLevel(n){if(!user){$("auth-screen").classList.remove("hidden");return}stopTimer();level=n;correct=0;runXP=0;showGame();$("game-eyebrow").textContent="LEVEL 0"+n;$("game-title").textContent=LEVELS[n][lang];$("run-xp").textContent="0";$("run-correct").textContent="0";$("run-badge").textContent="💎 Diamond";$("instruction").textContent=n===1?text("මූලද්‍රව්‍යයක් තෝරලා, line graph එකේ ඒකට ගැළපෙන point එක තෝරන්න.","Select an element, then tap its point on the connected line graph."):n===2?text("⚡ ＋ Electron ඔබලා නිවැරදි shell configuration එක හදන්න.","Press + Electron to build the correct shell configuration."):n===3?text("මූලද්‍රව්‍යයක් තෝරා නිවැරදි වර්ගයේ වර්ණවත් box එක තෝරන්න.","Select an element, then its colorful category bin."):n===4?text("සංයෝග නාමයට ගැළපෙන ධන සහ ඍණ අයන තෝරන්න.","Choose the positive and negative ions that form the named compound."):n===5?"ට්‍රොලියේ බඩු ඉවත් කර මුළු ස්කන්ධය වෙනස් කරන්න. ත්වරණය 2 m/s² වූ විට ට්‍රොලිය ගමන් කරයි.":"ශාක සෛලය හෝ සත්ත්ව සෛලය තෝරාගෙන, සෛලය ඇතුළේ අදාළ කොටස Touch කරන්න.";if(n===1)initL1();if(n===2){shuffle(l2Questions);l2Index=0;initL2(true)}if(n===3)initL3();if(n===4)initL4();if(n===5)initL5();if(n===6){initL6()}}
-function stopTimer(){if(timer){clearInterval(timer);timer=null}}
-function startTimer(seconds){stopTimer();maxTime=seconds;timeLeft=seconds;updateTimer();timer=setInterval(()=>{timeLeft=Math.max(0,timeLeft-1);updateTimer();if(timeLeft<=0){stopTimer();locked=true;toast(text("කාලය අවසන්! නැවත උත්සාහ කරන්න.","Time is up! Try again."));setTimeout(quitGame,900)}},1000)}
-function updateTimer(){const m=Math.floor(timeLeft/60),s=timeLeft%60;$("time-label").textContent=String(m).padStart(2,"0")+":"+String(s).padStart(2,"0");$("timer-fill").style.width=(maxTime?timeLeft/maxTime*100:0)+"%";const elapsed=maxTime-timeLeft;let b=elapsed<=maxTime*.35?"💎 Diamond":elapsed<=maxTime*.65?"🥇 Gold":"🥉 Bronze";$("run-badge").textContent=b}
-function setFeedback(msg,kind=""){const f=$("feedback");f.textContent=msg;f.style.color=kind==="bad"?"var(--bad)":kind==="good"?"var(--lime)":"var(--gold)"}
-function right(points=5){correct++;runXP+=points;$("run-correct").textContent=correct;$("run-xp").textContent=runXP;setFeedback(text("නිවැරදියි! +"+points+" XP ✨","Correct! +"+points+" XP ✨"),"good")}
-function makeQuestionProgress(current,total){const wrap=document.createElement("div");wrap.style.margin="0 0 14px";const label=document.createElement("div");label.className="muted";label.style.fontWeight="800";label.style.marginBottom="6px";label.textContent=text("ප්‍රශ්නය ","Question ")+current+" / "+total;const track=document.createElement("div");track.className="progress-track";const fill=document.createElement("div");fill.className="progress-fill";fill.style.width=Math.min(100,Math.max(0,(current-1)/total*100))+"%";track.appendChild(fill);wrap.append(label,track);return wrap}
+    <div id="question-box">
+        ප්‍රශ්නය: <span id="question" style="color: #00E676;">Loading...</span>
+    </div>
 
-function wrong(msg){if(level===2)l2Mistakes++;setFeedback(msg||text("ඒක හරි නැහැ. නැවත උත්සාහ කරන්න.","Not quite. Try again."),"bad")}
-function pauseTimer(){stopTimer()}
-function resumeTimer(){if(locked||timeLeft<=0||timer)return;timer=setInterval(()=>{timeLeft=Math.max(0,timeLeft-1);updateTimer();if(timeLeft<=0){stopTimer();locked=true;toast(text("කාලය අවසන්! නැවත උත්සාහ කරන්න.","Time is up! Try again."));setTimeout(quitGame,900)}},1000)}
-function showQuestionResult(isCorrect,detail,explanation,nextAction,points=0){
- if(questionPending||locked)return;questionPending=true;pauseTimer();
- const area=$("game-content");area.replaceChildren();
- const wrap=document.createElement("div");wrap.className="question-result";
- const card=document.createElement("div");card.className="result-card "+(isCorrect?"good":"bad");
- const conf=document.createElement("div");conf.className="confetti";conf.textContent=isCorrect?"✨ ⭐ 🎉 ⭐ ✨":"💡 🌈 💡";
- const ico=document.createElement("div");ico.className="result-icon";ico.textContent=isCorrect?"✅":"❌";
- const title=document.createElement("div");title.className="result-title";title.textContent=isCorrect?text("නියමයි! උත්තරය හරි!","Great! Correct answer!"):text("ආයෙත් උත්සාහ කරමු!","Let's learn from this!");
- const d=document.createElement("div");d.className="result-detail";d.textContent=detail;
- const exp=document.createElement("div");exp.className="result-explain";exp.textContent=explanation;
- const pts=document.createElement("div");pts.className="result-points";pts.textContent=isCorrect?"+"+points+" XP ✨":text("මේ ප්‍රශ්නය නැවත උත්සාහ කරන්න.","Try this question again.");
- const btn=document.createElement("button");btn.type="button";btn.className="btn result-next";btn.textContent=isCorrect?text("ඊළඟ ප්‍රශ්නය ➜","Next Question ➜"):text("නැවත උත්සාහ කරන්න ↻","Try Again ↻");btn.onclick=()=>{
-  if(locked)return;
-  questionPending=false;
-  if(isCorrect){nextAction()}
-  else{
-   // Keep the player on the same question after a wrong answer.
-   if(level===1)initL1(true);
-   else if(level===2)renderL2();
-   else if(level===3)renderL3();
-   else if(level===4)renderL4();
-   else if(level===5)renderL5();
-   else if(level===6)renderL6Question();
-  }
-  if(!locked)resumeTimer();
- };
- card.append(conf,ico,title,d,exp,pts,btn);wrap.appendChild(card);area.appendChild(wrap);
- setFeedback(isCorrect?text("නිවැරදි පිළිතුර!","Correct answer!"):text("පිළිතුර සහ පැහැදිලි කිරීම බලන්න.","Review the answer and explanation."),isCorrect?"good":"bad");
-}
-function advanceL2(){l2Index++;if(l2Index>=l2Questions.length)finishLevel();else{l2State=[0,0,0,0,0];renderL2()}}
-function advanceL4(){l4Index++;l4Cation=null;l4Anion=null;if(l4Index>=formulaQuestions.length)finishLevel();else renderL4()}
-function advanceL5(){l5Index++;l5Answered=false;l5Removed=new Set();if(l5Index>=l5Questions.length)finishLevel();else renderL5()}
-function advanceL6(){l6CompletedQuestions++;l6Round++;if(l6Round<l6Order.length)renderL6Question();else if(l6Type===l6FirstType)beginL6Type(l6FirstType==="plant"?"animal":"plant");else finishLevel()}
-function finishLevel(){
- if(locked)return;locked=true;stopTimer();
- const elapsed=maxTime-timeLeft;let badge=elapsed<=maxTime*.35?"💎 Diamond":elapsed<=maxTime*.65?"🥇 Gold":"🥉 Bronze";
- const bonus=badge==="💎 Diamond"?25:badge==="🥇 Gold"?12:0;
- const earned=LEVELS[level].xp+runXP+bonus;user.xp+=earned;user.correct+=correct;
- const old=user.results[level];if(!old||earned>old.xp)user.results[level]={badge,xp:earned,correct,time:maxTime-timeLeft};
- persist();$("game-content").replaceChildren();
- const wrap=document.createElement("div");wrap.style.textAlign="center";wrap.style.padding="25px 5px";
- const title=document.createElement("div");title.style.fontSize="54px";title.textContent=badge;
- const h=document.createElement("h2");h.textContent=text("Level එක සම්පූර්ණයි!","Level Cleared!");
- const p=document.createElement("p");p.className="muted";p.textContent=text("ඔබ උපයාගත් XP: ","XP earned: ")+earned+" · "+text("නිවැරදි ක්‍රියා: ","Correct actions: ")+correct;
- const b=document.createElement("button");b.className="btn";b.textContent=text("Dashboard වෙත යන්න","Back to Dashboard");b.onclick=quitGame;
- const replay=document.createElement("button");replay.className="small-btn";replay.style.margin="8px";replay.textContent=text("නැවත ක්‍රීඩා කරන්න ↻","Replay level ↻");replay.onclick=()=>startLevel(level);wrap.append(title,h,p,b,replay);if(level<6){const nextLevel=document.createElement("button");nextLevel.className="btn";nextLevel.style.margin="8px";nextLevel.textContent=text("ඊළඟ Level එක ➜","Next Level ➜");nextLevel.onclick=()=>startLevel(level+1);wrap.appendChild(nextLevel)}$("game-content").appendChild(wrap);$("instruction").textContent=text("විශිෂ්ට වැඩක්!","Great work!");setFeedback(text("ඔබේ ප්‍රතිඵල save කළා.","Your result has been saved."),"good");$("run-xp").textContent=earned;$("run-badge").textContent=badge;
-}
-function quitGame(){stopTimer();level=0;$("game-screen").classList.add("hidden");$("dashboard").classList.remove("hidden");renderDashboard()}
-function shuffle(a){for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a}
+    <canvas id="gameCanvas" width="850" height="500"></canvas>
 
-/* LEVEL 1 — matching real first ionization-energy values */
-function initL1(preserve=false){
- if(!preserve){l1Order=shuffle([...elements]);l1Placed=new Set();l1Selected=null;startTimer(LEVELS[1].duration)}
- const area=$("game-content");area.replaceChildren();area.appendChild(makeQuestionProgress(l1Placed.size+1,elements.length));
- const wrap=document.createElement("div");wrap.className="graph-wrap";
- const graph=document.createElement("div");graph.className="graph";graph.id="graph";
- const y=document.createElement("div");y.className="axis-y";y.textContent="First ionization energy (kJ mol⁻¹)";graph.appendChild(y);
- const x=document.createElement("div");x.className="axis-x";x.textContent="Atomic number (Z)";graph.appendChild(x);
- // Clean line graph: keep the scientific data positions, hide numeric axis ticks, and connect points in atomic-number order.
- const plotPoints=[...elements].sort((a,b)=>a.z-b.z).map(e=>({e,x:2.5+(e.z-1)/19*95,y:100-(2+(e.ie/2500*94))}));
- const svgNS="http://www.w3.org/2000/svg";const svg=document.createElementNS(svgNS,"svg");svg.setAttribute("class","graph-line");svg.setAttribute("viewBox","0 0 1000 500");svg.setAttribute("preserveAspectRatio","none");svg.setAttribute("aria-hidden","true");
- const line=document.createElementNS(svgNS,"polyline");line.setAttribute("points",plotPoints.map(pt=>(pt.x*10)+","+(pt.y*5)).join(" "));svg.appendChild(line);graph.appendChild(svg);
- l1Order.forEach(e=>{const p=document.createElement("button");p.type="button";p.className="graph-point";p.textContent="";p.style.left=(2.5+(e.z-1)/19*95)+"%";p.style.bottom=(2+(e.ie/2500*94))+"%";p.setAttribute("aria-label","Point for "+e.sym+", atomic number "+e.z);p.title=e.sym;p.dataset.sym=e.sym;p.onclick=()=>chooseL1Point(e,p);if(l1Placed.has(e.sym)){p.textContent=e.sym;p.classList.add("filled");p.disabled=true}graph.appendChild(p)});
- wrap.appendChild(graph);const pool=document.createElement("div");pool.className="pool";pool.id="l1-pool";
- shuffle([...elements]).forEach(e=>{const b=document.createElement("button");b.className="chip";b.textContent=e.sym;if(l1Placed.has(e.sym)){b.classList.add("hidden");b.disabled=true}b.onclick=()=>{if(questionPending||locked)return;l1Selected=e.sym;pool.querySelectorAll(".chip").forEach(c=>c.classList.toggle("selected",c.textContent===e.sym));$("instruction").textContent=text("තෝරාගත්තේ ","Selected: ")+e.sym+text(". දැන් graph එකේ එහි point එක තෝරන්න.",". Now select its point on the graph.")};pool.appendChild(b)});
- area.append(wrap,pool);
-}
-function chooseL1Point(e,p){if(locked||questionPending)return;if(!l1Selected){wrong(text("මුලින් මූලද්‍රව්‍යයක් තෝරන්න.","Select an element first."));return}const chosen=elements.find(x=>x.sym===l1Selected);if(!chosen||l1Placed.has(chosen.sym))return;const isRight=chosen.sym===e.sym;const explanation=text(chosen.sym+" හි පරමාණුක අංකය Z = "+chosen.z+" යි. එහි පළමු අයනීකරණ ශක්තිය ආසන්න වශයෙන් "+chosen.ie+" kJ mol⁻¹ වේ.",chosen.sym+" has atomic number Z = "+chosen.z+" and a first ionization energy of about "+chosen.ie+" kJ mol⁻¹.");if(isRight)right(3);showQuestionResult(isRight,isRight?text("හරි graph point එක තෝරාගත්තා!","You selected the correct graph point!"):text(""+chosen.sym+" සඳහා වෙනත් point එකක් තෝරාගෙන තිබුණා.","That was not the point for "+chosen.sym+"."),explanation,()=>{const point=$("graph")?.querySelector('[data-sym="'+chosen.sym+'"]');if(point){point.textContent=chosen.sym;point.classList.add("filled");point.disabled=true}l1Placed.add(chosen.sym);$("l1-pool").querySelectorAll(".chip").forEach(c=>{if(c.textContent===chosen.sym){c.classList.add("hidden");c.disabled=true}});l1Selected=null;if(l1Placed.size===elements.length)finishLevel();else initL1(true)},isRight?3:0)}
+    <script>
+        const canvas = document.getElementById('gameCanvas');
+        const ctx = canvas.getContext('2d');
 
-/* LEVEL 2 — Electron Rush: build a configuration, then submit it */
-function initL2(first){if(first)startTimer(LEVELS[2].duration);l2State=[0,0,0,0,0];l2Mistakes=0;l2Submitted=false;electronPicked=false;renderL2()}
-function renderL2(){
- l2Submitted=false;
- const q=l2Questions[l2Index];if(!q){finishLevel();return}
- $("game-title").textContent=text("⚛ Electron Rush: ","⚛ Electron Rush: ")+q.name+" ("+(l2Index+1)+"/"+l2Questions.length+")";
- $("instruction").textContent=text("＋ / − Electron භාවිතයෙන් ඔබට ඕනෑ විදිහට පුරවලා Submit කරන්න.","Use + / − Electron to build your configuration, then press Submit.");
- const area=$("game-content");area.replaceChildren();area.appendChild(makeQuestionProgress(l2Index+1,l2Questions.length));const wrap=document.createElement("div");wrap.className="shells-wrap";
- const status=document.createElement("div");status.className="metric";status.textContent=text("මූලද්‍රව්‍යය ","Element ")+(l2Index+1)+"/"+l2Questions.length;wrap.appendChild(status);
- const atom=document.createElement("div");atom.className="atom";atom.id="atom";
- const nuc=document.createElement("div");nuc.className="nucleus";nuc.textContent=q.sym;atom.appendChild(nuc);
- for(let i=1;i<=4;i++){if(i>q.config.length)continue;const sh=document.createElement("div");sh.className="shell s"+i;sh.dataset.shell=i;sh.setAttribute("aria-label","Shell "+i);atom.appendChild(sh)}
- wrap.appendChild(atom);
- const controls=document.createElement("div");controls.className="electron-controls";
- const plus=document.createElement("button");plus.type="button";plus.className="btn";plus.textContent="＋ Electron";plus.onclick=()=>addNextElectron();
- const minus=document.createElement("button");minus.type="button";minus.className="small-btn";minus.textContent="− Electron";minus.onclick=()=>removeLastElectron();
- const submit=document.createElement("button");submit.type="button";submit.className="btn";submit.textContent=text("✓ Submit","✓ Submit");submit.onclick=submitL2;
- controls.append(plus,minus,submit);wrap.appendChild(controls);
- const counts=document.createElement("div");counts.className="pool";counts.id="shell-counts";wrap.appendChild(counts);
- area.appendChild(wrap);requestAnimationFrame(()=>updateShells());
-}
-function addNextElectron(){
- if(locked)return;const q=l2Questions[l2Index];if(!q)return;
- const maxCapacity=[2,8,8,2];let i=-1;
- // Allow the player to overfill relative to the target configuration, while
- // respecting each shell's maximum capacity.
- for(let shell=1;shell<=4;shell++){if(l2State[shell]<maxCapacity[shell-1]){i=shell;break}}
- if(i<0){setFeedback(text("තවත් electron පුරවන්න බැහැ.","No more electrons can be added."),"bad");return}
- l2State[i]++;updateShells();setFeedback(text("Electron එකතු කළා. අවසන් වූ පසු Submit කරන්න.","Electron added. Press Submit when finished."));
-}
-function submitL2(){
- if(locked||l2Submitted)return;const q=l2Questions[l2Index];if(!q)return;
- l2Submitted=true;
- const area=$("game-content");
- const box=document.createElement("div");box.className="panel";box.style.marginTop="14px";box.id="l2-answer-choices";
- const heading=document.createElement("h3");heading.textContent=text("දැන් නිවැරදි electron configuration එක තෝරන්න.","Now choose the correct electron configuration.");
- const note=document.createElement("p");note.className="muted";note.textContent=text("ඔබ පුරවපු electron shells Submit කළා. පහත පිළිතුරු අතරින් නිවැරදි එක තෝරන්න.","You submitted your shell diagram. Choose the correct answer below.");
- const expected=[...q.config,0,0,0,0].slice(0,4);
- const same=(a,b)=>a.length===b.length&&a.every((v,i)=>v===b[i]);
- let choices=[q.config.slice()];
- l2Questions.filter(x=>x.sym!==q.sym&&x.config.length===q.config.length).forEach(x=>{if(choices.length<4&&!choices.some(c=>same(c,x.config)))choices.push(x.config.slice())});
- const variants=[];
- for(let i=0;i<q.config.length;i++){
-  for(const delta of [-1,1]){const v=q.config.slice();const capacity=[2,8,8,2][i];v[i]=Math.max(0,Math.min(capacity,v[i]+delta));if(!same(v,q.config)&&!variants.some(c=>same(c,v)))variants.push(v)}
- }
- for(const v of variants){if(choices.length>=4)break;if(!choices.some(c=>same(c,v)))choices.push(v)}
- const pool=document.createElement("div");pool.className="pool";
- shuffle(choices).forEach(config=>{const b=document.createElement("button");b.type="button";b.className="chip";b.textContent=config.join(" – ");b.onclick=()=>{
-  if(locked||questionPending)return;
-  const ok=same(config,q.config);
-  const explanation=text("නිවැරදි වින්‍යාසය: "+q.config.join(", ")+". K, L, M, N shell වල electron ගණන අනුපිළිවෙළින් සලකන්න.","Correct configuration: "+q.config.join(", ")+". Read the electron counts in the K, L, M and N shells in order.");
-  if(ok)right(10);
-  showQuestionResult(ok,ok?text("හරි! "+q.sym+" සඳහා නිවැරදි වින්‍යාසය තෝරාගත්තා.","Correct! You chose the right configuration for "+q.sym+"."):text("ඒ වින්‍යාසය නිවැරදි නැහැ. නැවත උත්සාහ කරන්න.","That configuration is not correct. Try again."),explanation,advanceL2,ok?10:0);
- };pool.appendChild(b)});
- box.append(heading,note,pool);area.appendChild(box);box.scrollIntoView?.({behavior:"smooth",block:"nearest"});
-}
-function removeLastElectron(){
- if(locked)return;for(let i=4;i>=1;i--){if(l2State[i]>0){l2State[i]--;updateShells();setFeedback(text("අවසන් electron එක ඉවත් කළා.","Removed the last electron."));return}}
- wrong(text("ඉවත් කිරීමට electron එකක් නැහැ.","There are no electrons to remove."));
-}
-function updateShells(){
- const q=l2Questions[l2Index];if(!q)return;const atom=$("atom");if(!atom)return;
- atom.querySelectorAll(".electron-dot").forEach(d=>d.remove());
- for(let n=1;n<=4;n++){
-  const shell=atom.querySelector('[data-shell="'+n+'"]');if(!shell)continue;
-  const atomRect=atom.getBoundingClientRect(),shellRect=shell.getBoundingClientRect();
-  const cx=shellRect.left-atomRect.left+shellRect.width/2,cy=shellRect.top-atomRect.top+shellRect.height/2;
-  const r=Math.max(0,Math.min(shellRect.width,shellRect.height)/2-7),capacity=[2,8,8,2][n-1];
-  for(let j=0;j<l2State[n];j++){
-   const angle=(Math.PI*2*j/Math.max(capacity,1))-Math.PI/2;
-   const dot=document.createElement("span");dot.className="electron-dot";
-   dot.style.left=(cx+r*Math.cos(angle)-5)+"px";dot.style.top=(cy+r*Math.sin(angle)-5)+"px";atom.appendChild(dot);
-  }
- }
- const counts=$("shell-counts");if(counts){counts.replaceChildren();[2,8,8,2].forEach((v,i)=>{const b=document.createElement("span");b.className="metric";b.textContent="KLMN"[i]+": "+l2State[i+1]+"/"+v;counts.appendChild(b)})}
-}
+        const questionEl = document.getElementById('question');
+        const scoreEl = document.getElementById('score');
+        const timerEl = document.getElementById('timer');
 
-/* LEVEL 3 — classification */
-function initL3(){l3Remaining=shuffle(l3Elements.map(x=>({...x})));l3Bins={metals:[],nonmetals:[],metalloids:[]};l3Selected=null;renderL3();startTimer(LEVELS[3].duration)}
-function renderL3(){const area=$("game-content");area.replaceChildren();area.appendChild(makeQuestionProgress(l3Elements.length-l3Remaining.length+1,l3Elements.length));const pool=document.createElement("div");pool.className="pool";pool.id="l3-pool";l3Remaining.forEach(item=>{const b=document.createElement("button");b.type="button";b.className="chip"+(l3Selected===item.sym?" selected":"");b.textContent=item.sym;b.onclick=()=>{l3Selected=item.sym;renderL3()};pool.appendChild(b)});area.appendChild(pool);const grid=document.createElement("div");grid.className="bin-grid";const defs=[["metals","🔵 "+text("ලෝහ","Metals")],["nonmetals","🔴 "+text("අලෝහ","Non-metals")],["metalloids","🟡 "+text("ලෝහාලෝහ","Metalloids")]];defs.forEach(([key,title])=>{const b=document.createElement("button");b.type="button";b.className="bin";const h=document.createElement("h4");h.textContent=title;const items=document.createElement("div");items.className="bin-items";l3Bins[key].forEach(sym=>{const s=document.createElement("span");s.className="placed";s.textContent=sym;items.appendChild(s)});b.append(h,items);b.onclick=()=>placeL3(key);grid.appendChild(b)});area.appendChild(grid)}
-function placeL3(key){if(locked||questionPending)return;if(!l3Selected){wrong(text("මුලින් මූලද්‍රව්‍යයක් තෝරන්න.","Select an element first."));return}const item=l3Remaining.find(x=>x.sym===l3Selected);if(!item)return;const ok=item.type===key;const names={metals:text("ලෝහ","metals"),nonmetals:text("අලෝහ","non-metals"),metalloids:text("ලෝහාලෝහ","metalloids")};if(ok)right(5);showQuestionResult(ok,ok?text(item.sym+" නිවැරදි කාණ්ඩයට දැම්මා!","You placed "+item.sym+" in the right category!"):text(item.sym+" අයත් වන්නේ "+names[item.type]+" කාණ්ඩයටයි.",item.sym+" belongs in the "+names[item.type]+" category."),text("නිවැරදි කාණ්ඩය: "+names[item.type]+".","Correct category: "+names[item.type]+"."),()=>{l3Bins[item.type].push(item.sym);l3Remaining=l3Remaining.filter(x=>x.sym!==item.sym);l3Selected=null;if(l3Remaining.length===0)finishLevel();else renderL3()},ok?5:0)}
+        let score = 0;
+        let timeLeft = 60;
+        let gameOver = false;
 
-/* LEVEL 4 — timed ionic formula builder */
-const formulaQuestions=[
- {nameSi:"මැග්නීසියම් නයිට්‍රයිඩ්",nameEn:"Magnesium nitride",cation:"Mg",anion:"N",cationCount:3,anionCount:2,formula:"Mg₃N₂",hintSi:"නිවැරදි ධන අයනය සහ ඍණ අයනය තෝරන්න. සූත්‍රයේ අනුපාතය game එකෙන් හදනවා.",hintEn:"Choose the correct positive and negative ions. The game calculates the formula ratio."},
- {nameSi:"ඇමෝනියම් පොස්පේට්",nameEn:"Ammonium phosphate",cation:"NH₄",anion:"PO₄",cationCount:3,anionCount:1,formula:"(NH₄)₃PO₄",hintSi:"NH₄⁺ සහ PO₄³⁻ අයන දෙක තෝරන්න. සූත්‍රය game එකෙන් හදනවා.",hintEn:"Choose NH₄⁺ and PO₄³⁻. The game builds the formula."},
- {nameSi:"ඇලුමිනියම් ඔක්සයිඩ්",nameEn:"Aluminium oxide",cation:"Al",anion:"O",cationCount:2,anionCount:3,formula:"Al₂O₃",hintSi:"Al³⁺ සහ O²⁻ අයන දෙක තෝරන්න. සූත්‍රය game එකෙන් හදනවා.",hintEn:"Choose Al³⁺ and O²⁻. The game builds the formula."},
- {nameSi:"පොටෑසියම් කාබනේට්",nameEn:"Potassium carbonate",cation:"K",anion:"CO₃",cationCount:2,anionCount:1,formula:"K₂CO₃",hintSi:"K⁺ සහ CO₃²⁻ අයන දෙක තෝරන්න. සූත්‍රය game එකෙන් හදනවා.",hintEn:"Choose K⁺ and CO₃²⁻. The game builds the formula."},
- {nameSi:"සෝඩියම් ඔක්සයිඩ්",nameEn:"Sodium oxide",cation:"Na",anion:"O",cationCount:2,anionCount:1,formula:"Na₂O",hintSi:"Na⁺ සහ O²⁻ අයන දෙක තෝරන්න. සූත්‍රය game එකෙන් හදනවා.",hintEn:"Choose Na⁺ and O²⁻. The game builds the formula."},
- {nameSi:"කැල්සියම් ක්ලොරයිඩ්",nameEn:"Calcium chloride",cation:"Ca",anion:"Cl",cationCount:1,anionCount:2,formula:"CaCl₂",hintSi:"Ca²⁺ සහ Cl⁻ අයන දෙක තෝරන්න. සූත්‍රය game එකෙන් හදනවා.",hintEn:"Choose Ca²⁺ and Cl⁻. The game builds the formula."},
- {nameSi:"කැල්සියම් ඔක්සයිඩ්",nameEn:"Calcium oxide",cation:"Ca",anion:"O",cationCount:1,anionCount:1,formula:"CaO",hintSi:"Ca²⁺ සහ O²⁻ අයන දෙක තෝරන්න. සූත්‍රය game එකෙන් හදනවා.",hintEn:"Choose Ca²⁺ and O²⁻. The game builds the formula."}
-];
-const ionData=[
- {sym:"Mg",charge:2,type:"cation"},{sym:"Al",charge:3,type:"cation"},{sym:"Ca",charge:2,type:"cation"},{sym:"K",charge:1,type:"cation"},{sym:"Na",charge:1,type:"cation"},{sym:"NH₄",charge:1,type:"cation"},
- {sym:"CO₃",charge:-2,type:"anion"},{sym:"NO₃",charge:-1,type:"anion"},{sym:"Cl",charge:-1,type:"anion"},{sym:"O",charge:-2,type:"anion"},{sym:"N",charge:-3,type:"anion"},{sym:"PO₄",charge:-3,type:"anion"}
-];
-function initL4(){l4Index=0;l4Cation=null;l4Anion=null;l4Ions=shuffle(ionData.map(x=>({...x})));renderL4();startTimer(LEVELS[4].duration)}
-function renderL4(){
- const q=formulaQuestions[l4Index];if(!q){finishLevel();return}
- $("game-title").textContent=text("Level 4: ","Level 4: ")+text(q.nameSi,q.nameEn)+" ("+(l4Index+1)+"/"+formulaQuestions.length+")";
- $("instruction").textContent=text("සංයෝගයට අදාළ ධන අයනය සහ ඍණ අයනය touch කරන්න. සූත්‍රය game එකෙන් හදනවා.","Touch the correct positive and negative ions. The game builds the formula automatically.");
- const area=$("game-content");area.replaceChildren();area.appendChild(makeQuestionProgress(l4Index+1,formulaQuestions.length));
- const target=document.createElement("div");target.className="formula-target";target.textContent="🎯 "+text(q.nameSi,q.nameEn);
- const selected=document.createElement("div");selected.className="formula-selected";selected.id="formula-selected";
- selected.textContent=text("තෝරාගත් අයන: ","Selected ions: ")+(l4Cation?ionLabel(l4Cation):"—")+"   +   "+(l4Anion?ionLabel(l4Anion):"—");
- const pool=document.createElement("div");pool.className="pool";pool.id="ion-pool";
- l4Ions.forEach(ion=>{const b=document.createElement("button");b.type="button";b.className="chip ion-chip"+((ion.type==="cation"&&l4Cation?.sym===ion.sym)||(ion.type==="anion"&&l4Anion?.sym===ion.sym)?" selected":"");b.textContent=ionLabel(ion);b.onclick=()=>selectL4Ion(ion);pool.appendChild(b)});
- const actions=document.createElement("div");actions.className="actions";
- const reset=document.createElement("button");reset.type="button";reset.className="small-btn";reset.textContent=text("තේරීම මකන්න","Clear selection");reset.onclick=()=>{l4Cation=null;l4Anion=null;renderL4()};
- actions.append(reset);area.append(target,selected,pool,actions);
-}
-function ionLabel(ion){const charge=ion.charge>0?(ion.charge===1?"⁺":(ion.charge===2?"²⁺":"³⁺")):(ion.charge===-1?"⁻":(ion.charge===-2?"²⁻":"³⁻"));return ion.sym+charge}
-function selectL4Ion(ion){
- if(locked)return;
- if(ion.type==="cation")l4Cation=ion;else l4Anion=ion;
- renderL4();
- if(l4Cation&&l4Anion)checkL4();
-}
-function checkL4(){
- if(locked)return;if(!l4Cation||!l4Anion)return;
- const q=formulaQuestions[l4Index];
- const ok=l4Cation.sym===q.cation&&l4Anion.sym===q.anion;const detail=text(ok?"නිවැරදි අයන දෙක තෝරාගත්තා!":"මේ සංයෝගයට තෝරාගත් අයන දෙක ගැළපෙන්නේ නැහැ.",ok?"You selected the correct ions!":"Those ions do not form the named compound.");if(ok)right(8);showQuestionResult(ok,detail,text("නිවැරදි සූත්‍රය: "+q.formula+". අයනවල ආරෝපණ සමතුලිත වන අනුපාතය භාවිතා කරයි.","Correct formula: "+q.formula+". The ion ratio balances the positive and negative charges."),advanceL4,ok?8:0);
-}
-/* LEVEL 5 — 11 challenges: force calculations and cargo-removal trolley tasks */
-const l5Questions=[
-  {type:"calc",ask:"5 kg ස්කන්ධයක් ඇති වස්තුවකට 2 m/s² ත්වරණයක් ලබාදීමට අවශ්‍ය බලය කොපමණද?",formula:"F = m × a",given:"m = 5 kg  •  a = 2 m/s²",answer:10,unit:"N",opts:[5,10,7,15],explain:"F = m × a = 5 × 2 = 10 N. නිවැරදි බලය 10 N යි."},
-  {type:"cargo",ask:"ට්‍රොලියේ ත්වරණය 2 m/s² කරන්න. 30 N බලය සහ 10 kg හිස් ට්‍රොලිය භාවිතා කර අවශ්‍ය නොවන බඩු ඉවත් කරන්න.",force:30,baseMass:10,targetA:2,items:[{id:"a",label:"📦 5 kg",mass:5},{id:"b",label:"🧰 2 kg",mass:2},{id:"c",label:"🪵 3 kg",mass:3}],explain:"මුළු ස්කන්ධය 15 kg. a = 30 ÷ 15 = 2 m/s²."},
-  {type:"cargo",ask:"24 N බලයක් යොදන විට ත්වරණය 2 m/s² වීමට බඩු සකස් කරන්න. අවශ්‍ය බඩු පමණක් ට්‍රොලියේ තබන්න.",force:24,baseMass:8,targetA:2,items:[{id:"a",label:"📦 4 kg",mass:4},{id:"b",label:"🧰 2 kg",mass:2},{id:"c",label:"🪵 2 kg",mass:2}],explain:"මුළු ස්කන්ධය 12 kg. a = 24 ÷ 12 = 2 m/s²."},
-  {type:"calc",ask:"ට්‍රොලියක ස්කන්ධය 5 kg යි. ත්වරණය 2 m/s² නම් බලය කොපමණද?",formula:"F = m × a",given:"m = 5 kg  •  a = 2 m/s²",answer:10,unit:"N",opts:[5,10,7,15],explain:"F = 5 × 2 = 10 N"},
-  {type:"calc",ask:"10 kg ස්කන්ධයක් ඇති ට්‍රොලියකට 30 N බලයක් යෙදේ. ත්වරණය කොපමණද?",formula:"a = F ÷ m",given:"F = 30 N  •  m = 10 kg",answer:3,unit:"m/s²",opts:[2,3,4,30],explain:"a = 30 ÷ 10 = 3 m/s²"},
-  {type:"calc",ask:"ට්‍රොලියට 24 N බලයක් යෙදූ විට ත්වරණය 4 m/s² වේ. ස්කන්ධය කොපමණද?",formula:"m = F ÷ a",given:"F = 24 N  •  a = 4 m/s²",answer:6,unit:"kg",opts:[4,8,6,20],explain:"m = 24 ÷ 4 = 6 kg"},
-  {type:"calc",ask:"3 kg වස්තුවකට 15 N බලයක් යෙදුවොත් ත්වරණය කොපමණද?",formula:"a = F ÷ m",given:"F = 15 N  •  m = 3 kg",answer:5,unit:"m/s²",opts:[5,3,12,45],explain:"a = 15 ÷ 3 = 5 m/s²"},
-  {type:"calc",ask:"2 m/s² ත්වරණයක් ලබාදීමට 8 kg ට්‍රොලියකට කොපමණ බලයක් අවශ්‍යද?",formula:"F = m × a",given:"m = 8 kg  •  a = 2 m/s²",answer:16,unit:"N",opts:[4,10,16,20],explain:"F = 8 × 2 = 16 N"},
-  {type:"calc",ask:"18 N බලයකින් 6 m/s² ත්වරණයක් ලබන වස්තුවේ ස්කන්ධය කොපමණද?",formula:"m = F ÷ a",given:"F = 18 N  •  a = 6 m/s²",answer:3,unit:"kg",opts:[12,3,6,24],explain:"m = 18 ÷ 6 = 3 kg"},
-  {type:"calc",ask:"4 kg ට්‍රොලියකට 20 N බලයක් යෙදේ. එහි ත්වරණය කීයද?",formula:"a = F ÷ m",given:"F = 20 N  •  m = 4 kg",answer:5,unit:"m/s²",opts:[4,16,5,24],explain:"a = 20 ÷ 4 = 5 m/s²"},
-  {type:"cargo",ask:"40 N බලය යොදා 2 m/s² ත්වරණයක් ලබාගන්න. ට්‍රොලියේ බඩු ඉවත් කර නිවැරදි මුළු ස්කන්ධය සකස් කරන්න.",force:40,baseMass:10,targetA:2,items:[{id:"a",label:"📦 5 kg",mass:5},{id:"b",label:"🧰 5 kg",mass:5},{id:"c",label:"🪵 2 kg",mass:2}],explain:"මුළු ස්කන්ධය 20 kg. a = 40 ÷ 20 = 2 m/s²."}
-];
-let l5Answered=false,l5Removed=new Set();
-function initL5(){l5Index=0;l5Answered=false;l5Removed=new Set();renderL5();startTimer(LEVELS[5].duration)}
-function renderL5(){
- if(locked)return;
- const area=$("game-content");area.replaceChildren();
- $("game-title").textContent="Level 5: බලය, ස්කන්ධය හා ත්වරණය";
- const q=l5Questions[l5Index];
- const progress=document.createElement("div");progress.className="physics-label";progress.textContent="ප්‍රශ්නය "+(l5Index+1)+" / "+l5Questions.length;area.appendChild(makeQuestionProgress(l5Index+1,l5Questions.length));
- const equation=document.createElement("div");equation.className="physics-equation";equation.textContent=q.type==="cargo"?"F = m × a":""+q.formula+"    |    F = m × a";
- const prompt=document.createElement("h3");prompt.textContent=q.ask;prompt.style.lineHeight="1.6";
- area.append(progress,equation,prompt);
- if(q.type==="cargo"){
-  const given=document.createElement("div");given.className="instruction";given.textContent="බලය = "+q.force+" N  •  හිස් ට්‍රොලිය = "+q.baseMass+" kg  •  ඉලක්ක ත්වරණය = "+q.targetA+" m/s²";
-  const scene=document.createElement("div");scene.className="physics-scene";scene.style.height="145px";
-  const label=document.createElement("div");label.className="physics-label";label.textContent="🛒 බඩු තෝරා ඉවත් කරන්න";
-  const track=document.createElement("div");track.className="physics-track";
-  const obj=document.createElement("div");obj.className="physics-object";obj.id="physics-object";obj.style.fontSize="44px";obj.textContent="🛒";
-  scene.append(label,track,obj);
-  const items=document.createElement("div");items.className="pool";items.style.marginTop="12px";
-  q.items.forEach(item=>{const b=document.createElement("button");b.type="button";b.className="chip"+(l5Removed.has(item.id)?" selected":"");b.textContent=(l5Removed.has(item.id)?"❌ ඉවත් කර ඇත: ":"📦 ")+item.label;b.setAttribute("aria-pressed",String(l5Removed.has(item.id)));b.onclick=()=>{if(locked||l5Answered)return;if(l5Removed.has(item.id))l5Removed.delete(item.id);else l5Removed.add(item.id);renderL5()};items.appendChild(b)});
-  const total=q.baseMass+q.items.filter(it=>!l5Removed.has(it.id)).reduce((sum,it)=>sum+it.mass,0);
-  const accel=q.force/total;
-  const status=document.createElement("div");status.className="formula-selected";status.style.marginTop="12px";status.textContent="මුළු ස්කන්ධය: "+total+" kg   •   වත්මන් ත්වරණය: "+Number(accel.toFixed(2))+" m/s²";
-  const check=document.createElement("button");check.type="button";check.className="btn full";check.style.marginTop="12px";check.textContent="✓ පරීක්ෂා කරන්න";check.onclick=()=>answerL5Cargo();
-  const note=document.createElement("div");note.className="physics-note";note.textContent="ඉඟිය: F = m × a නිසා, ස්කන්ධය = බලය ÷ ත්වරණය.";
-  area.append(given,scene,items,status,check,note);
- }else{
-  const given=document.createElement("div");given.className="instruction";given.textContent=q.given;
-  const scene=document.createElement("div");scene.className="physics-scene";scene.style.height="140px";
-  const label=document.createElement("div");label.className="physics-label";label.textContent="🚦 ට්‍රොලියේ අභියෝගය";
-  const track=document.createElement("div");track.className="physics-track";
-  const obj=document.createElement("div");obj.className="physics-object";obj.id="physics-object";obj.style.fontSize="44px";obj.textContent="🛒";
-  scene.append(label,track,obj);
-  const options=document.createElement("div");options.className="pool";options.style.marginTop="12px";
-  shuffle([...q.opts]).forEach(v=>{const b=document.createElement("button");b.type="button";b.className="chip";b.textContent=v+" "+q.unit;b.onclick=()=>answerL5(v,b);options.appendChild(b)});
-  const explanation=document.createElement("div");explanation.className="physics-note";explanation.textContent="💡 ඉඟිය: "+q.formula+". ඒකක ගැනත් සැලකිලිමත් වෙන්න.";
-  area.append(given,scene,options,explanation);
- }
-}
-function answerL5(value,button){
- if(locked||l5Answered)return;
- const q=l5Questions[l5Index];
- if(value!==q.answer){showQuestionResult(false,"ඒ පිළිතුර නිවැරදි නැහැ.","නිවැරදි පිළිතුර: "+q.answer+" "+q.unit+". "+q.explain,advanceL5,0);return}
- completeL5(q.explain);
-}
-function answerL5Cargo(){
- if(locked||l5Answered)return;
- const q=l5Questions[l5Index];if(q.type!=="cargo")return;
- const total=q.baseMass+q.items.filter(it=>!l5Removed.has(it.id)).reduce((sum,it)=>sum+it.mass,0);
- const acceleration=q.force/total;
- if(Math.abs(acceleration-q.targetA)>0.001){showQuestionResult(false,"මුළු ස්කන්ධය අනුව ත්වරණය ඉලක්කයට ගැළපුණේ නැහැ.","නිවැරදි ඉලක්ක ස්කන්ධය: "+(q.force/q.targetA)+" kg. "+q.explain,advanceL5,0);return}
- completeL5(q.explain);
-}
-function completeL5(explain){l5Answered=true;right(10);const q=l5Questions[l5Index];const correctAnswer=q.type==="calc"?q.answer+" "+q.unit:(q.force/q.targetA)+" kg total mass";showQuestionResult(true,"නියමයි! නිවැරදි ගණනය.",explain+"  (නිවැරදි අගය: "+correctAnswer+")",advanceL5,10);const obj=document.createElement("div");obj.className="physics-object go";obj.textContent="🛒";obj.style.cssText="font-size:42px;position:relative;margin:12px auto;width:max-content;animation:trolleyRun 1.8s ease-in-out both";const card=$("game-content").querySelector(".result-card");if(card)card.insertBefore(obj,card.querySelector(".result-next"));}
-/* LEVEL 6 — plant and animal cell explorer; learner-facing text stays Sinhala. */
-const l6Parts={
- plant:[
-  {id:"wall",name:"සෛල බිත්තිය",hint:"ශාක සෛලයට පිටතින් ශක්තිමත් ආවරණයක් සපයයි."},
-  {id:"membrane",name:"සෛල පටලය",hint:"සෛලයට ඇතුළු වන හා පිටවන ද්‍රව්‍ය පාලනය කරයි."},
-  {id:"nucleus",name:"න්‍යෂ්ටිය",hint:"සෛලයේ ක්‍රියාකාරකම් පාලනය කරන කොටසයි."},
-  {id:"chloroplast",name:"හරිතලවය",hint:"ප්‍රභාසංශ්ලේෂණය සිදුවීමට උපකාරී වේ."},
-  {id:"vacuole",name:"විශාල රික්තකය",hint:"ජලය හා දියවූ ද්‍රව්‍ය ගබඩා කරයි."},
-  {id:"cytoplasm",name:"සෛල ප්ලාස්මය",hint:"සෛලයේ බොහෝ ප්‍රතික්‍රියා සිදුවන ජෙලි වැනි ද්‍රව්‍යයයි."},
-  {id:"mitochondrion",name:"මයිටොකොන්ඩ්‍රියම",hint:"සෛලයට අවශ්‍ය ශක්තිය නිපදවීමට උපකාරී වේ."},
-  {id:"ribosome",name:"රයිබෝසෝම",hint:"ප්‍රෝටීන නිපදවීමට උපකාරී වේ."}
- ],
- animal:[
-  {id:"membrane",name:"සෛල පටලය",hint:"සෛලයට ඇතුළු වන හා පිටවන ද්‍රව්‍ය පාලනය කරයි."},
-  {id:"nucleus",name:"න්‍යෂ්ටිය",hint:"සෛලයේ ක්‍රියාකාරකම් පාලනය කරන කොටසයි."},
-  {id:"cytoplasm",name:"සෛල ප්ලාස්මය",hint:"සෛලයේ බොහෝ ප්‍රතික්‍රියා සිදුවන ජෙලි වැනි ද්‍රව්‍යයයි."},
-  {id:"mitochondrion",name:"මයිටොකොන්ඩ්‍රියම",hint:"සෛලයට අවශ්‍ය ශක්තිය නිපදවීමට උපකාරී වේ."},
-  {id:"golgi",name:"ගොල්ජි දේහය",hint:"සෛලය තුළ ද්‍රව්‍ය සැකසීමට හා ඇසුරුම් කිරීමට උපකාරී වේ."},
-  {id:"ribosome",name:"රයිබෝසෝම",hint:"ප්‍රෝටීන නිපදවීමට උපකාරී වේ."}
- ]
-};
-let l6Type=null,l6Order=[],l6Round=0,l6Answered=new Set(),l6CompletedQuestions=0;
-function initL6(){l6Type=null;l6FirstType=null;l6Order=[];l6Round=0;l6Answered=new Set();l6CompletedQuestions=0;startTimer(LEVELS[6].duration);renderL6Choose()}
-function renderL6Choose(){
- const area=$("game-content");area.replaceChildren();
- $("game-title").textContent="Level 6: ශාක හා සත්ත්ව සෛල";
- $("instruction").textContent="මුලින් සෛල වර්ගයක් තෝරන්න. ඉන්පසු සෛලය ඇතුළේ අදාළ කොටස Touch කරන්න. සෛල වර්ග දෙකම අධ්‍යයනය කරන්න.";
- const grid=document.createElement("div");grid.className="cell-select-grid";
- [["plant","🌱","ශාක සෛලය"],["animal","🐾","සත්ත්ව සෛලය"]].forEach(([type,emoji,name])=>{const b=document.createElement("button");b.type="button";b.className="cell-select";b.innerHTML="<span>"+emoji+"</span>"+name;b.onclick=()=>beginL6Type(type);grid.appendChild(b)});
- area.appendChild(grid);
-}
-function beginL6Type(type){
- if(locked)return;
- l6Type=type;if(!l6FirstType)l6FirstType=type;
- l6Order=shuffle(l6Parts[type].map(x=>x.id));l6Round=0;l6Answered=new Set();renderL6Question();
-}
-function l6Svg(type){
- if(type==="plant")return `<svg class="cell-svg" viewBox="0 0 440 300" role="img" aria-label="ශාක සෛලයේ රූපය">
- <rect x="22" y="22" width="396" height="256" rx="42" fill="#4ade80" stroke="#bbf7d0" stroke-width="7" data-part="wall" class="cell-part"/>
- <rect x="34" y="34" width="372" height="232" rx="32" fill="#164e63" stroke="#67e8f9" stroke-width="5" data-part="membrane" class="cell-part"/>
- <path d="M50 54 Q120 40 145 75 T240 70 T390 65 L390 240 Q310 260 270 230 T130 245 L50 220Z" fill="#0e7490" opacity=".72" data-part="cytoplasm" class="cell-part"/>
- <rect x="178" y="74" width="150" height="150" rx="35" fill="#38bdf8" stroke="#bae6fd" stroke-width="3" data-part="vacuole" class="cell-part"/>
- <g data-part="nucleus" class="cell-part"><circle cx="105" cy="110" r="32" fill="#a78bfa" stroke="#ede9fe" stroke-width="5"/><circle cx="105" cy="110" r="25" fill="#c4b5fd" stroke="#7c3aed" stroke-width="2"/><circle cx="113" cy="105" r="10" fill="#6d28d9" pointer-events="none"/><circle cx="96" cy="120" r="4" fill="#ede9fe" pointer-events="none"/></g>
- <g data-part="chloroplast" class="cell-part"><ellipse cx="88" cy="198" rx="30" ry="19" fill="#166534" stroke="#d9f99d" stroke-width="3"/><ellipse cx="88" cy="198" rx="25" ry="14" fill="#84cc16" stroke="#365314" stroke-width="2"/><g fill="#365314" stroke="#d9f99d" stroke-width="1.5" pointer-events="none"><rect x="68" y="190" width="9" height="15" rx="3"/><rect x="79" y="188" width="9" height="18" rx="3"/><rect x="90" y="190" width="9" height="15" rx="3"/><rect x="101" y="192" width="7" height="12" rx="3"/></g><g stroke="#ecfccb" stroke-width="1.6" pointer-events="none"><path d="M69 193h7m-7 4h7m-7 4h7M80 191h7m-7 4h7m-7 4h7m-7 4h7M91 193h7m-7 4h7m-7 4h7M102 194h5m-5 4h5"/></g></g>
- <g data-part="chloroplast" class="cell-part"><ellipse cx="350" cy="104" rx="30" ry="19" fill="#166534" stroke="#d9f99d" stroke-width="3"/><ellipse cx="350" cy="104" rx="25" ry="14" fill="#84cc16" stroke="#365314" stroke-width="2"/><g fill="#365314" stroke="#d9f99d" stroke-width="1.5" pointer-events="none"><rect x="330" y="96" width="9" height="15" rx="3"/><rect x="341" y="94" width="9" height="18" rx="3"/><rect x="352" y="96" width="9" height="15" rx="3"/><rect x="363" y="98" width="7" height="12" rx="3"/></g><g stroke="#ecfccb" stroke-width="1.6" pointer-events="none"><path d="M331 99h7m-7 4h7m-7 4h7M342 97h7m-7 4h7m-7 4h7m-7 4h7M353 99h7m-7 4h7m-7 4h7M364 100h5m-5 4h5"/></g></g>
- <g data-part="mitochondrion" class="cell-part"><path d="M250 207 C249 193 264 185 281 190 C299 194 316 205 313 216 C310 230 293 235 275 228 C259 224 251 218 250 207Z" fill="#c2410c" stroke="#fed7aa" stroke-width="3"/><path d="M255 207 C257 196 268 192 281 195 C295 198 307 207 307 215 C306 223 293 228 280 223 C267 220 257 215 255 207Z" fill="#fdba74" stroke="#fff7ed" stroke-width="2"/><path d="M264 201 C271 194 273 212 280 204 S290 195 291 207 S300 211 300 217 M264 212 C271 205 273 222 280 214 S290 205 291 217" fill="none" stroke="#9a3412" stroke-width="3" stroke-linecap="round" pointer-events="none"/></g>
- <g fill="#fde68a" pointer-events="none"><circle cx="145" cy="95" r="4"/><circle cx="160" cy="130" r="4"/><circle cx="235" cy="55" r="4"/><circle cx="355" cy="165" r="4"/><circle cx="150" cy="235" r="4"/></g>
- <g class="cell-hit-layer"><circle cx="145" cy="95" r="19" data-part="ribosome" class="cell-part cell-hit"/><circle cx="160" cy="130" r="19" data-part="ribosome" class="cell-part cell-hit"/><circle cx="235" cy="55" r="19" data-part="ribosome" class="cell-part cell-hit"/><circle cx="355" cy="165" r="19" data-part="ribosome" class="cell-part cell-hit"/><circle cx="150" cy="235" r="19" data-part="ribosome" class="cell-part cell-hit"/></g>
- </svg>`;
- return `<svg class="cell-svg" viewBox="0 0 440 300" role="img" aria-label="සත්ත්ව සෛලයේ රූපය">
- <path d="M220 25 C305 18 393 70 401 145 C410 220 333 276 242 276 C151 282 49 239 39 164 C28 91 109 31 220 25Z" fill="#f472b6" fill-opacity=".25" stroke="#f9a8d4" stroke-width="7" data-part="membrane" class="cell-part"/>
- <path d="M220 37 C300 31 378 77 387 145 C394 210 326 263 242 264 C158 270 62 231 52 162 C44 98 116 43 220 37Z" fill="#831843" fill-opacity=".5" data-part="cytoplasm" class="cell-part"/>
- <g data-part="nucleus" class="cell-part"><circle cx="185" cy="125" r="43" fill="#a78bfa" stroke="#ede9fe" stroke-width="5"/><circle cx="185" cy="125" r="35" fill="#c4b5fd" stroke="#7c3aed" stroke-width="2"/><circle cx="195" cy="119" r="13" fill="#6d28d9" pointer-events="none"/><circle cx="173" cy="138" r="5" fill="#ede9fe" pointer-events="none"/></g>
- <g data-part="mitochondrion" class="cell-part"><path d="M218 82 C218 69 232 62 248 67 C266 71 281 82 278 93 C275 105 259 110 243 102 C229 97 219 91 218 82Z" fill="#c2410c" stroke="#fed7aa" stroke-width="3"/><path d="M224 82 C227 72 237 70 249 73 C263 77 272 84 272 92 C270 100 258 102 246 97 C234 93 226 88 224 82Z" fill="#fdba74" stroke="#fff7ed" stroke-width="2"/><path d="M232 77 C239 70 240 88 247 80 S258 72 258 84 S267 87 267 94 M232 87 C239 80 240 98 247 90 S258 82 258 94" fill="none" stroke="#9a3412" stroke-width="3" stroke-linecap="round" pointer-events="none"/></g>
- <g data-part="mitochondrion" class="cell-part"><path d="M208 194 C208 181 222 174 238 179 C256 183 271 194 268 205 C265 217 249 222 233 214 C219 209 209 203 208 194Z" fill="#c2410c" stroke="#fed7aa" stroke-width="3"/><path d="M214 194 C217 184 227 182 239 185 C253 189 262 196 262 204 C260 212 248 214 236 209 C224 205 216 200 214 194Z" fill="#fdba74" stroke="#fff7ed" stroke-width="2"/><path d="M222 189 C229 182 230 200 237 192 S248 184 248 196 S257 199 257 206 M222 199 C229 192 230 210 237 202 S248 194 248 206" fill="none" stroke="#9a3412" stroke-width="3" stroke-linecap="round" pointer-events="none"/></g>
- <path d="M92 180 q18 -16 34 0 t34 0 M92 191 q18 -16 34 0 t34 0 M92 202 q18 -16 34 0 t34 0" fill="none" stroke="#fbbf24" stroke-width="5" stroke-linecap="round" data-part="golgi" class="cell-part"/>
- <g fill="#fde68a" pointer-events="none"><circle cx="280" cy="135" r="5"/><circle cx="303" cy="152" r="5"/><circle cx="321" cy="126" r="5"/><circle cx="250" cy="225" r="5"/><circle cx="135" cy="80" r="5"/><circle cx="340" cy="210" r="5"/></g>
- <g class="cell-hit-layer"><circle cx="280" cy="135" r="20" data-part="ribosome" class="cell-part cell-hit"/><circle cx="303" cy="152" r="20" data-part="ribosome" class="cell-part cell-hit"/><circle cx="321" cy="126" r="20" data-part="ribosome" class="cell-part cell-hit"/><circle cx="250" cy="225" r="20" data-part="ribosome" class="cell-part cell-hit"/><circle cx="135" cy="80" r="20" data-part="ribosome" class="cell-part cell-hit"/><circle cx="340" cy="210" r="20" data-part="ribosome" class="cell-part cell-hit"/></g>
- </svg>`;
-}
-function renderL6Question(){
- const parts=l6Parts[l6Type],targetId=l6Order[l6Round],target=parts.find(x=>x.id===targetId);
- if(!target){if(l6Type==="plant")beginL6Type("animal");else finishLevel();return}
- const area=$("game-content");area.replaceChildren();area.appendChild(makeQuestionProgress(l6CompletedQuestions+1,l6Parts.plant.length+l6Parts.animal.length));
- $("game-title").textContent="Level 6: "+(l6Type==="plant"?"ශාක සෛලය":"සත්ත්ව සෛලය")+" ("+(l6Round+1)+"/"+l6Order.length+")";
- $("instruction").classList.remove("cell-question-correct");$("instruction").innerHTML="සෛල රූපය ඇතුළේ <span class=\"cell-target-name\">«"+target.name+"»</span> කොටස Touch කරන්න.";
- const progress=document.createElement("div");progress.className="cell-progress";progress.innerHTML="<span>සෛල වර්ගය: "+(l6Type==="plant"?"ශාක සෛලය":"සත්ත්ව සෛලය")+"</span><span>නිවැරදි පිළිතුරු: "+correct+"</span>";
- const stage=document.createElement("div");stage.className="cell-stage";stage.innerHTML=l6Svg(l6Type);
- stage.querySelectorAll("[data-part]").forEach(el=>{el.setAttribute("tabindex","0");el.setAttribute("role","button");el.setAttribute("aria-label",l6Parts[l6Type].find(x=>x.id===el.dataset.part)?.name||"සෛල කොටස");el.addEventListener("click",()=>chooseL6Part(el.dataset.part,target,el));el.addEventListener("keydown",e=>{if(e.key==="Enter"||e.key===" "){e.preventDefault();chooseL6Part(el.dataset.part,target,el)}})});
- const note=document.createElement("p");note.className="physics-note";note.textContent="සෛල කොටසේ හැඩය බලා එය Touch කරන්න. කුඩා කොටස් සඳහාත් ළමයින්ට පහසු වන ලෙස තේරීම් ප්‍රදේශ ටිකක් විශාල කර ඇත.";
- area.append(progress,stage,note);
-}
-function chooseL6Part(id,target,el){
- if(locked||l6Answered.has(l6Round))return;
- const ok=id===target.id;if(ok){l6Answered.add(l6Round);right(8);if(el){el.classList.add("correct-part");const svg=el.ownerSVGElement;if(svg){const b=el.getBBox();const ns="http://www.w3.org/2000/svg";const g=document.createElementNS(ns,"g");g.setAttribute("class","cell-answer-tick");g.setAttribute("transform",`translate(${Math.max(18,Math.min(422,b.x+b.width/2))} ${Math.max(18,Math.min(282,b.y+b.height/2))})`);const c=document.createElementNS(ns,"circle");c.setAttribute("r","15");g.appendChild(c);const path=document.createElementNS(ns,"path");path.setAttribute("d","M -7 0 L -2 5 L 8 -6");g.appendChild(path);svg.appendChild(g)}}}
- showQuestionResult(ok,ok?"නිවැරදියි! "+target.name:"ඒ කොටස නොවේ. නිවැරදි කොටස: "+target.name+".",target.name+" — "+target.hint,advanceL6,ok?8:0);
-}
-function showHint(){
- if(locked||!level)return;
- if(level===1){
-   if(l1Selected){const e=elements.find(x=>x.sym===l1Selected);setFeedback(text("ඉඟිය: "+e.sym+" සඳහා Z="+e.z+"; graph එකේ x-අක්ෂයේ "+Math.round(e.z/20*100)+"% තැන බලන්න. Y අගය පහළ/මැද/ඉහළ කොටසකද කියා සලකන්න.","Hint: "+e.sym+" has Z="+e.z+"; look around "+Math.round(e.z/20*100)+"% along the x-axis. Estimate whether its y-value belongs low, middle or high on the graph."));}
-   else setFeedback(text("ඉඟිය: මුලින් මූලද්‍රව්‍යයක් තෝරන්න. ඉන්පසු එහි පරමාණුක අංකය (Z) x-අක්ෂයෙන් සොයන්න.","Hint: Select an element first, then locate its atomic number (Z) on the x-axis."));
- }else if(level===2){
-   const q=l2Questions[l2Index];if(!q)return;let i=q.config.findIndex((v,i)=>l2State[i+1]<v);
-   if(i<0){setFeedback(text("දැන් Submit කරලා පිළිතුර පරීක්ෂා කරන්න.","Press Submit to check your configuration."));return}
-   setFeedback(text("ඉඟිය: ","Hint: ")+("KLMN"[i]||"")+" "+text("shell එකේ තව electron ","shell needs ")+(q.config[i]-l2State[i+1])+" "+text("ක් අවශ්‍යයි."," more electron(s)."));
-   const sh=$("atom")?.querySelector('[data-shell="'+(i+1)+'"]');if(sh){sh.style.borderColor="var(--gold)";sh.style.borderWidth="4px";setTimeout(()=>{if(sh.isConnected){sh.style.borderColor="";sh.style.borderWidth=""}},1800)}
- }else if(level===3){
-   if(!l3Selected){setFeedback(text("ඉඟිය: මුලින් මූලද්‍රව්‍යයක් තෝරන්න.","Hint: Select an element first."));return}
-   const item=l3Remaining.find(x=>x.sym===l3Selected);if(item)setFeedback(text("ඉඟිය: ","Hint: ")+item.sym+" — "+(item.type==="metals"?text("සාමාන්‍යයෙන් විදුලිය හොඳින් සන්නයනය කරයි.","Usually conducts electricity well."):item.type==="nonmetals"?text("බොහෝවිට විදුලිය දුර්වලව සන්නයනය කරයි.","Usually a poor electrical conductor."):text("ලෝහ සහ අලෝහ අතරමැදි ගුණ පෙන්වයි.","Has properties between metals and non-metals.")));
- }else if(level===4){
-   const q=formulaQuestions[l4Index];if(q)setFeedback(text("ඉඟිය: ","Hint: ")+text(q.hintSi,q.hintEn));
- }else if(level===5){
-   const q=l5Questions[l5Index];if(q)setFeedback("ඉඟිය: "+q.formula+". kg × m/s² = N.");
- }
-}
+        // Player Cannon
+        const player = {
+            x: canvas.width / 2,
+            y: canvas.height - 30,
+            radius: 20
+        };
 
-window.addEventListener("resize",()=>{if(level===2&&!$("game-screen").classList.contains("hidden")&&!locked)updateShells()});
-try{const active=localStorage.getItem("ssg_active_v2");if(active){$("username").value=active;}}catch(e){}
-applyLanguage();
-</script>
+        const mouse = { x: canvas.width / 2, y: canvas.height / 2 };
+
+        // Questions Array
+        const questions = [
+            { q: "ශාක සෛලයක ප්‍රකාශ සංස්ලේෂණය සිදුවන ඉන්ද්‍රියිකාව කුමක්ද?", correct: "හරිතලවය" },
+            { q: "සත්ත්ව සෛලයක ශක්තිය නිපදවන 'ශක්ති ජනකගාරය' කුමක්ද?", correct: "මයිට්‍රෝකොන්ඩ්‍රියාව" },
+            { q: "සෛලයේ පාලන මධ්‍යස්ථානය ලෙස ක්‍රියා කරන්නේ කුමක්ද?", correct: "න්‍යෂ්ටිය" },
+            { q: "ප්‍රෝටීන් සංස්ලේෂණය සිදුකරන ඉන්ද්‍රියිකාව කුමක්ද?", correct: "රයිබොසෝම" },
+            { q: "ශාක සෛලයකට පමණක් ආවේණික හැඩයක් ලබාදෙන බාහිර ආවරණය කුමක්ද?", correct: "සෛල බිත්තිය" },
+            { q: "ශාක සෛලයේ විශාලව පිහිටන ජලය සහ ද්‍රව්‍ය ගබඩා කරන ඉන්ද්‍රියිකාව කුමක්ද?", correct: "ධාතුකය" }
+        ];
+
+        const organelles = [
+            "හරිතලවය", "මයිට්‍රෝකොන්ඩ්‍රියාව", "න්‍යෂ්ටිය",
+            "රයිබොසෝම", "සෛල බිත්තිය", "ධාතුකය", "ගොල්ගි දේහය"
+        ];
+
+        let currentQuestion = {};
+        const bullets = [];
+        const targets = [];
+
+        // Track Mouse
+        canvas.addEventListener('mousemove', e => {
+            const rect = canvas.getBoundingClientRect();
+            mouse.x = e.clientX - rect.left;
+            mouse.y = e.clientY - rect.top;
+        });
+
+        // Click to Shoot
+        canvas.addEventListener('click', () => {
+            if (gameOver) return;
+            const angle = Math.atan2(mouse.y - player.y, mouse.x - player.x);
+            bullets.push({
+                x: player.x,
+                y: player.y,
+                vx: Math.cos(angle) * 12,
+                vy: Math.sin(angle) * 12,
+                radius: 6
+            });
+        });
+
+        function setNextQuestion() {
+            const randomIndex = Math.floor(Math.random() * questions.length);
+            currentQuestion = questions[randomIndex];
+            questionEl.innerText = currentQuestion.q;
+            spawnTargets();
+        }
+
+        function spawnTargets() {
+            targets.length = 0; // Clear existing targets
+
+            // Select 4 choices including the correct one
+            let choices = [currentQuestion.correct];
+            while (choices.length < 4) {
+                let randomOrganelle = organelles[Math.floor(Math.random() * organelles.length)];
+                if (!choices.includes(randomOrganelle)) {
+                    choices.push(randomOrganelle);
+                }
+            }
+
+            // Shuffle choices
+            choices.sort(() => Math.random() - 0.5);
+
+            // Create target circles
+            choices.forEach((name, index) => {
+                targets.push({
+                    x: 120 + index * 190,
+                    y: 100 + Math.random() * 80,
+                    radius: 45,
+                    name: name,
+                    vx: (Math.random() - 0.5) * 2,
+                    vy: (Math.random() - 0.5) * 1.5
+                });
+            });
+        }
+
+        // Timer Function
+        const timerInterval = setInterval(() => {
+            if (!gameOver) {
+                timeLeft--;
+                timerEl.innerText = timeLeft;
+                if (timeLeft <= 0) {
+                    gameOver = true;
+                    clearInterval(timerInterval);
+                    alert("Game Over! ඔයාගේ මුළු ලකුණු ප්‍රමාණය: " + score);
+                    location.reload();
+                }
+            }
+        }, 1000);
+
+        function update() {
+            if (gameOver) return;
+
+            // Move Bullets
+            bullets.forEach((b, bIdx) => {
+                b.x += b.vx;
+                b.y += b.vy;
+
+                // Remove out-of-screen bullets
+                if (b.x < 0 || b.x > canvas.width || b.y < 0 || b.y > canvas.height) {
+                    bullets.splice(bIdx, 1);
+                }
+            });
+
+            // Move Targets & Check Collision
+            targets.forEach(t => {
+                t.x += t.vx;
+                t.y += t.vy;
+
+                // Bounce off walls
+                if (t.x - t.radius < 0 || t.x + t.radius > canvas.width) t.vx *= -1;
+                if (t.y - t.radius < 0 || t.y + t.radius > 300) t.vy *= -1;
+
+                // Check Bullet hit
+                bullets.forEach((b, bIdx) => {
+                    const dist = Math.hypot(b.x - t.x, b.y - t.y);
+                    if (dist - t.radius - b.radius < 0) {
+                        bullets.splice(bIdx, 1);
+
+                        if (t.name === currentQuestion.correct) {
+                            score += 10;
+                            scoreEl.innerText = score;
+                            setNextQuestion(); // Move to next question
+                        } else {
+                            score = Math.max(0, score - 5); // Deduct score
+                            scoreEl.innerText = score;
+                        }
+                    }
+                });
+            });
+        }
+
+        function draw() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            // Draw Targets
+            targets.forEach(t => {
+                ctx.beginPath();
+                ctx.arc(t.x, t.y, t.radius, 0, Math.PI * 2);
+                ctx.fillStyle = '#00B0FF';
+                ctx.fill();
+                ctx.lineWidth = 3;
+                ctx.strokeStyle = '#353b48';
+                ctx.stroke();
+
+                // Target Text
+                ctx.fillStyle = 'white';
+                ctx.font = 'bold 13px Arial';
+                ctx.textAlign = 'center';
+                ctx.fillText(t.name, t.x, t.y + 4);
+            });
+
+            // Draw Shooter Cannon
+            ctx.beginPath();
+            ctx.arc(player.x, player.y, player.radius, 0, Math.PI * 2);
+            ctx.fillStyle = '#FF9F43';
+            ctx.fill();
+
+            // Gun Aim Line
+            const angle = Math.atan2(mouse.y - player.y, mouse.x - player.x);
+            ctx.beginPath();
+            ctx.moveTo(player.x, player.y);
+            ctx.lineTo(player.x + Math.cos(angle) * 35, player.y + Math.sin(angle) * 35);
+            ctx.strokeStyle = '#FF9F43';
+            ctx.lineWidth = 6;
+            ctx.stroke();
+
+            // Draw Bullets
+            bullets.forEach(b => {
+                ctx.beginPath();
+                ctx.arc(b.x, b.y, b.radius, 0, Math.PI * 2);
+                ctx.fillStyle = '#FF5252';
+                ctx.fill();
+            });
+        }
+
+        function loop() {
+            update();
+            draw();
+            requestAnimationFrame(loop);
+        }
+
+        // Start Game
+        setNextQuestion();
+        loop();
+    </script>
 </body>
 </html>
+
+ 
+
  
